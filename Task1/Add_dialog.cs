@@ -10,10 +10,16 @@ namespace Task1
 {
     class Add_dialog
     {
+        private readonly string[] Tables = new string[] { "Slider", "Smiley", "Stars" };
+        private readonly int[] Slider_default = new int[] { 0, 100, 20, 90 };
+        private readonly int Num_Faces = 3;
+        private readonly int Num_Stars = 5;
 
-        public Form form ;
+        private int question_order;
+        public Form form;
         public Form FORM
         {
+
             private set
             {
                 form = value;
@@ -28,23 +34,46 @@ namespace Task1
             question_box.Text = "";
             FORM = null;
         }
+        private GroupBox groupBox = new GroupBox
+        {
+            Text = "Question type",
+            Size = new System.Drawing.Size(116, 120),
+            AutoSize = false,
+            Location = new System.Drawing.Point(470, 50),
+            Dock = DockStyle.Right & DockStyle.Bottom,
+            
+        };
+
         private TextBox question_box = new TextBox
         {
             Width = 400,
             Location = new System.Drawing.Point(50, 150),
         };
 
-        private NumericUpDown question_order = new NumericUpDown
+       
+
+
+        private RadioButton SliderButton = new RadioButton
         {
-            ReadOnly = true,
-            UpDownAlign = LeftRightAlignment.Right,
-            Location = new System.Drawing.Point(450, 150),
-            Width = 100,
+            Text = "Slider",
+            Location = new System.Drawing.Point (10,30) 
+            
         };
+        private RadioButton SmileyButton = new RadioButton
+        {
+            Text = "Smiley",
+            Location = new System.Drawing.Point(10, 60)
+        };
+        private RadioButton StarsButton = new RadioButton
+        {
+            Text = "Stars",
+            Location = new System.Drawing.Point(10, 90)
+        };
+
 
         private DataGridView Dv = new DataGridView
         {
-            Width = 500,
+            Width = 400,
             Height = 50,
             Location = new System.Drawing.Point(50, 50),
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
@@ -53,27 +82,29 @@ namespace Task1
             AllowDrop = false,
             ReadOnly = true
         };
+
         public void ShowDialog(DataTable Dt)
         {
             FORM = new Form();
-            int max_order;
+            groupBox.Controls.Add(SmileyButton);
+            groupBox.Controls.Add(StarsButton);
+            groupBox.Controls.Add(SliderButton);
             if (Dt.Rows.Count > 0)
             {
-                max_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
+                question_order =   (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
             }
             else
-                max_order = 0;
-            FORM.Width = 500;
-            FORM.Height = 300;
-            FORM.MaximumSize = new System.Drawing.Size(663, 250);
+                question_order = 0;
+            FORM.Width = 600;
+            FORM.Height = 400;
+            FORM.MaximumSize = new System.Drawing.Size(663, 400);
             FORM.MinimumSize = FORM.MaximumSize;
             question_box.KeyDown += new KeyEventHandler(Dv_RowsAdded_handler);
             Dv.DataSource = Dt.Clone();
-            question_order.Minimum = max_order;
             form.Controls.Add(Dv);
             form.Controls.Add(question_box);
             FORM.ActiveControl = question_box;
-            FORM.Controls.Add(question_order);
+            FORM.Controls.Add(groupBox);
             FORM.Visible = true;
 
         }
@@ -84,33 +115,52 @@ namespace Task1
             {
                 if (question_box.Text != "" && !question_box.Text.Any(char.IsDigit))
                 {
-                    DataTable Dt2 = new DataTable();
-                    SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
-                    SqlCommand command = new SqlCommand(string.Format("insert into questions values ('{0}',", question_box.Text) + question_order.Value + ")", connection);
-                    try
+                    int Groupbox_index = -1;
+
+                    if (SliderButton.Checked)
+                        Groupbox_index = 0;
+                    else if (SmileyButton.Checked)
+                        Groupbox_index = 1;
+                    else if (StarsButton.Checked)
+                        Groupbox_index = 2;
+                    if (Groupbox_index != -1)
                     {
-                        Dv.Rows[0].Cells[0].Value = question_box.Text;
-                        Dv.Rows[0].Cells[1].Value = question_order.Value;
-                        question_box.Text = command.CommandText;
-                        connection.Open();
-                        SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
-                        dataAdapter.Fill(Dt2);
-                        DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        while (result != DialogResult.OK) ;
-                        FORM.Visible = false;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally
-                    {
-                        if (connection != null)
+                        DataTable Dt2 = new DataTable();
+                        SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
+                        SqlCommand command = new SqlCommand(string.Format("insert into questions values ('{0}',", question_box.Text) + question_order + ",'"+Tables[Groupbox_index]+"')", connection);
+                        try
                         {
-                            ((IDisposable)connection).Dispose();
-                            ((IDisposable)command).Dispose();
+                            Dv.Rows[0].Cells[0].Value = question_box.Text;
+                            Dv.Rows[0].Cells[1].Value = question_order;
+                            Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index];
+                            connection.Open();
+
+                            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                            dataAdapter.Fill(Dt2);
+
+                            insert(Groupbox_index, connection, command);
+
+                            DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            while (result != DialogResult.OK) ;
+                            FORM.Visible = false;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            FORM.Visible = false;
+                        }
+                        finally
+                        {
+                            if (connection != null)
+                            {
+                                ((IDisposable)connection).Dispose();
+                                ((IDisposable)command).Dispose();
+                            }
                         }
                     }
+                    else
+                        MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 
                 }
                 else if (question_box.Text == "")
@@ -126,7 +176,24 @@ namespace Task1
             }
 
         }
-
+        private void insert (int groud_index,SqlConnection connection,SqlCommand command)
+        {
+            switch (groud_index)
+            {
+                case 0:
+                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[0], question_order, Slider_default[0], Slider_default[1], Slider_default[2], Slider_default[3]);
+                    command.ExecuteNonQuery();
+                    break;
+                case 1:
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[1], question_order, Num_Faces);
+                    command.ExecuteNonQuery();
+                    break;
+                case 2://hello
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], question_order, Num_Stars);
+                    command.ExecuteNonQuery();
+                    break;
+            }
+        }
     }
 
 }

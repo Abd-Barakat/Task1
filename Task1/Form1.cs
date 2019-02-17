@@ -53,13 +53,19 @@ namespace Task1
 
         private void Edit_Button_Click(object sender, EventArgs e)
         {
-            edit_Dialog = new Edit_dialog();
-            int index = dataGridView1.CurrentRow.Index;
-            edit_Dialog.ShowDialog(index, dataTable);
-            edit_Dialog.FORM.VisibleChanged += Edit_FORM_VisibleChanged;
+            if (!isEmpty())
+            {
+                edit_Dialog = new Edit_dialog();
+                int index = dataGridView1.CurrentRow.Index;
+                edit_Dialog.ShowDialog(index, dataTable);
+                edit_Dialog.FORM.VisibleChanged += Edit_FORM_VisibleChanged;
+            }
+            else
+                MessageBox.Show("No questions to edit", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
-       
+
         private void Edit_FORM_VisibleChanged(object sender, EventArgs e)
         {
             if (edit_Dialog.FORM.Visible == false)
@@ -71,52 +77,51 @@ namespace Task1
 
         private void Delete_Button_Click(object sender, EventArgs e)
         {
-            int? x = null;
-            DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            if (!isEmpty())
             {
-                Connection = new SqlConnection(@"Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
-                try
+                int? x = null;
+                DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-
-                    command = new SqlCommand(string.Format("select question_order from questions where question_text='{0}'", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[0]), Connection);
-                    open_connection();
-                    dataReader = command.ExecuteReader();
-                    while (dataReader.Read())
+                    Connection = new SqlConnection(@"Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
+                    try
                     {
-                        x = dataReader.GetInt32(0);
+
+                        command = new SqlCommand(string.Format("select question_order from questions where question_text='{0}'", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[0]), Connection);
+                        open_connection();
+                        dataReader = command.ExecuteReader();
+                        while (dataReader.Read())
+                        {
+                            x = dataReader.GetInt32(0);
+                        }
+                        dataReader.Close();
+                        if (x != null)
+                        {
+
+                            command.CommandText = string.Format("delete from {0} where question_O={1}", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[2], x);
+                            command.ExecuteNonQuery();
+
+                            command.CommandText = string.Format("delete from questions where question_order= {0}", x);
+                            command.ExecuteNonQuery();
+                        }
+                        print();
+
                     }
-                    dataReader.Close();
-                    if (x != null)
+                    catch (Exception ex)
                     {
-
-                        command.CommandText = string.Format("delete from Slider where question_order={0}", x);
-                        command.ExecuteNonQuery();
-
-                        command.CommandText = string.Format("delete from Smiley where question_order={0}", x);
-                        command.ExecuteNonQuery();
-
-                        command.CommandText = string.Format("delete from Stars where question_order= {0}", x);
-                        command.ExecuteNonQuery();
-
-                        command.CommandText =string.Format("delete from questions where question_order= {0}", x);
-                        command.ExecuteNonQuery();
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
                     }
-                    print();
-                   
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    if (dataReader != null)
+                    finally
                     {
-                        ((IDisposable)dataReader).Dispose();
+                        if (dataReader != null)
+                        {
+                            ((IDisposable)dataReader).Dispose();
+                        }
                     }
                 }
             }
+            else
+                MessageBox.Show("No questions to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void open_connection()
         {
@@ -124,6 +129,13 @@ namespace Task1
             {
                 Connection.Open();
             }
+        }
+        private bool isEmpty ()
+        {
+            if (dataGridView1.Rows.Count <= 0)
+                return true;
+            else
+                return false;
         }
         private void print()
         {

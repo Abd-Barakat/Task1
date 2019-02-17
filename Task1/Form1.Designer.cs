@@ -46,7 +46,7 @@
             this.panel1.Location = new System.Drawing.Point(525, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(122, 450);
-            this.panel1.TabIndex = 3;
+            this.panel1.TabIndex = 0;
             // 
             // Add_Button
             // 
@@ -94,7 +94,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(504, 316);
-            this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.TabIndex = 1;
             // 
             // Form1
             // 
