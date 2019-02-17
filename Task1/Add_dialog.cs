@@ -11,7 +11,11 @@ namespace Task1
     class Add_dialog
     {
 
+<<<<<<< HEAD
+        public Form form;
+=======
         public Form form ;
+>>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
         public Form FORM
         {
             private set
@@ -55,6 +59,30 @@ namespace Task1
         };
         public void ShowDialog(DataTable Dt)
         {
+<<<<<<< HEAD
+            int max_order;
+            FORM = new Form();
+            FORM.Width = 500;
+            FORM.Height = 300;
+            FORM.MaximumSize = new System.Drawing.Size(663, 250);
+            FORM.MinimumSize = FORM.MaximumSize;
+            if (Dt.Rows.Count > 0)
+                max_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
+            else
+                max_order = 0;
+
+
+            question_box.KeyDown += new KeyEventHandler(Dv_RowsAdded_handler);
+            question_order.Minimum = max_order;
+
+            Dv.DataSource = Dt.Clone();
+
+            FORM.Controls.Add(Dv);
+            FORM.Controls.Add(question_box);
+            FORM.ActiveControl = question_box;
+            FORM.Controls.Add(question_order);
+            FORM.Visible = true;
+=======
             FORM = new Form();
             int max_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
             form.Width = 500;
@@ -69,6 +97,7 @@ namespace Task1
             form.ActiveControl = question_box;
             form.Controls.Add(question_order);
             form.Visible = true;
+>>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
 
         }
 
@@ -76,7 +105,11 @@ namespace Task1
         {
             if (e.KeyCode == Keys.Enter)
             {
+<<<<<<< HEAD
+                if (question_box.Text != "" && !question_box.Text.Any(char.IsDigit))
+=======
                 if (question_box.Text != "")
+>>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
                 {
                     DataTable Dt2 = new DataTable();
                     SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
@@ -91,7 +124,11 @@ namespace Task1
                         dataAdapter.Fill(Dt2);
                         DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         while (result != DialogResult.OK) ;
+<<<<<<< HEAD
+                        FORM.Visible = false;
+=======
                         form.Visible = false;
+>>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
                     }
                     catch (Exception ex)
                     {
@@ -107,8 +144,21 @@ namespace Task1
                     }
 
                 }
+<<<<<<< HEAD
+                else if (question_box.Text == "")
+                {
+                    MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    question_box.Text = "";
+                }
+                else if (question_box.Text.Any(char.IsDigit))
+                {
+                    MessageBox.Show("Please Write a question without any number ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    question_box.Text = "";
+                }
+=======
                 else
                     MessageBox.Show("Please Write a question before saving ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+>>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
             }
 
         }
