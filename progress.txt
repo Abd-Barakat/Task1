@@ -1,0 +1,35 @@
+date :Tuesday   (12/2/2019)
+Starting building GUI :
+made 3 buttons and data table to view data retrieved from database 
+
+
+built a database named "Survey questions “ that  contains 3 tables called smiley , stars and slider . added some records to these data bases .
+
+tried to connect database to visual studio but I have no permission problem arisen . 
+------------------------------------------------------------------------------------------------------------------------------------------
+date: Wednesday (13/2/2019)
+modified GUI , popup a dialogs when Add and Edit button pressed , 
+
+rebuilt the database , now it’s contain 4 tables called questions ,Smiley ,stars and slider . 
+Smiley , Stars , Slider  all of them contain a foreign key to a primary key in question table .
+Next step is to modify the database according to any button will be pressed .
+------------------------------------------------------------------------------------------------------------------------------------------
+Date : Thursday (14/2/2019)
+
+Modified GUI , popup  Add dialog now is complete and can add data to database and close after notify that everything is done and back to parent form with a new database (contain a new question)
+
+Add dialog contain 3 controls (Datagridview ,textbox and numericupdown ) datagridview shows database attributes without any record and it’s just read only , textbox to write questions , numericupdown it is also readonly and the minimum value is the maximum value of question order to avoid duplication of primary key ,you can change question order but with higher orders than in database.
+
+Delete dialog is also ready but didn’t change in database , this will be next step ,
+
+Edit and Add dialogs are made programally  . 
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Date : Sunday (17/2/2019)
+
+Rebuilt the database , column added to questions table called question type to delete questions from specified tables . 
+GUI had been modified , Add dialog contain Group box that contains types of questions in form of Radio Buttons for mutual exclusive , I set a default values for smiley ,Slider ,stars questions ,
+
+Remove Numeric up down control from add dialog to avoid Primary key conflict . 
+
+Next step will be to show/hide controls that allow user to set a slider ,stars , smiley properties for question or the values will set by default . 
