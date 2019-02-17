@@ -42,23 +42,14 @@ namespace Task1
             ReadOnly = false
 
         };
-<<<<<<< HEAD
-       
 
-        public void ShowDialog(int index, DataTable Dt)
-        {
-            this.index =(int) Dt.Rows[index].ItemArray[1];
-=======
-        private TextBox question_box = new TextBox
-        {
-            Width = 400,
-            Location = new System.Drawing.Point(50, 150),
-        };
+
+ 
+      
 
         public void ShowDialog(int index, DataTable Dt)
         {
             this.index = index;
->>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
             FORM = new Form();
             FORM.Width = 500;
             FORM.Height = 300;
@@ -70,10 +61,6 @@ namespace Task1
             Dt2.Rows.Add(Dt.Rows[index].ItemArray[0]);
             Dv.DataSource = Dt2.DefaultView.ToTable(false,"question_text");
             FORM.Controls.Add(Dv);
-<<<<<<< HEAD
-=======
-            FORM.Controls.Add(question_box);
->>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
             FORM.Visible = true;
         }
 
@@ -83,20 +70,13 @@ namespace Task1
             {
                 string Q_text;
                 Q_text =(string) Dv.CurrentCell.Value;
-<<<<<<< HEAD
                 if (Q_text != "" && !Q_text.Any(char.IsDigit) )
-=======
-                if (Q_text != "")
->>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
                 {
                     SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
                     SqlCommand command = new SqlCommand(  string.Format("update questions set question_text = '{0}' where question_order = {1}", Q_text,index)   , connection);
                     try
                     { 
-<<<<<<< HEAD
-=======
-                        question_box.Text = command.CommandText;
->>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
+
                         connection.Open();
                         command.ExecuteNonQuery();
                         DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -117,7 +97,6 @@ namespace Task1
                     }
 
                 }
-<<<<<<< HEAD
                 else if (Q_text == "")
                 {
                     MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -128,10 +107,6 @@ namespace Task1
                     MessageBox.Show("Please Write a question without any number ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Q_text = "";
                 }
-=======
-                else
-                    MessageBox.Show("Please Write a question before saving ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
->>>>>>> e0b5e41de138403cae3fb217d3bff8a4483f8f78
             }
         }
     }
