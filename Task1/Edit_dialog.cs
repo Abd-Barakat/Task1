@@ -31,8 +31,6 @@ namespace Task1
         }
         private DataGridView Dv = new DataGridView
         {
-
-
             Width = 500,
             Height = 50,
             Location = new System.Drawing.Point(50, 50),
