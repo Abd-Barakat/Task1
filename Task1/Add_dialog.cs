@@ -57,6 +57,14 @@ namespace Task1
             ForeColor = System.Drawing.Color.Gray,
 
         };
+        private void Reset()
+        {
+            Slider[0] = Slider_default[0];
+            Slider[1] = Slider_default[1];
+            Slider[2] = Slider_default[2];
+            Slider[3] = Slider_default[3];
+
+        }
         private TextBox control1 = new TextBox
         {
             Location = new System.Drawing.Point(5, 20),
@@ -203,17 +211,28 @@ namespace Task1
                 {
                     control1.ForeColor = System.Drawing.Color.Gray;
                     control1.Text = string.Format("Start ={0}", Slider_default[0]);
-                    Slider[0] = Slider_default[0];
+                    Reset();
                 }
                 else
                 {
                     try
                     {
                         Slider[0] = Int32.Parse(control1.Text);
+                        if (Slider[0] <0 || Slider[0] >100)
+                        {
+                            control1.Text = "";
+
+                            Reset();
+                            throw new ArgumentOutOfRangeException();
+                        }
                     }
                     catch (FormatException )
                     {
-                        MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Start value should be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (ArgumentOutOfRangeException )
+                    {
+                        MessageBox.Show("Start value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -223,7 +242,7 @@ namespace Task1
                 {
                     control2.ForeColor = System.Drawing.Color.Gray;
                     control2.Text = string.Format("End ={0}", Slider_default[1]);
-                    Slider[1] = Slider_default[1];
+                    Reset();
 
                 }
                 else
@@ -231,10 +250,28 @@ namespace Task1
                     try
                     {
                         Slider[1] = Int32.Parse(control2.Text);
+                        if (Slider[1] < 0 || Slider[1] > 100)
+                        {
+                            Reset();
+                            control2.Text = "";
+
+                            throw new ArgumentOutOfRangeException();
+                        }
+                        if (Slider[1] < Slider[0])
+                        {
+                            Reset();
+                            control2.Text = "";
+                            MessageBox.Show("End value should be higher than Start value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        }
                     }
                     catch (FormatException )
                     {
                         MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (ArgumentOutOfRangeException )
+                    {
+                        MessageBox.Show("End value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -245,18 +282,37 @@ namespace Task1
                 {
                     control3.ForeColor = System.Drawing.Color.Gray;
                     control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
-                    Slider[2] = Slider_default[2];
-
+                    Reset();
                 }
                 else
                 {
                     try
                     {
                         Slider[2] = Int32.Parse(control3.Text);
+                        if (Slider[2] < 0 || Slider[2] > 100)
+                        {
+                            Reset();
+                            control3.Text = "";
+
+                            throw new ArgumentOutOfRangeException();
+                        }
+                        if (Slider[2] < Slider[0])
+                        {
+                            Reset();
+                            control3.Text = "";
+
+                            MessageBox.Show("Start Caption should be higher than Start value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    catch (FormatException )
+                    catch (FormatException)
                     {
                         MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+
+                        MessageBox.Show("Start caption should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     }
                 }
 
@@ -267,19 +323,36 @@ namespace Task1
                 {
                     control4.ForeColor = System.Drawing.Color.Gray;
                     control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
-                    Slider[3] = Slider_default[3];
-
+                    Reset();
                 }
                 else
                 {
                     try
                     {
                         Slider[3] = Int32.Parse(control4.Text);
+                        if (Slider[3] < 0 || Slider[3] > 100)
+                        {
+                            control4.Text = "";
+                            Reset();
+                            throw new ArgumentOutOfRangeException();
+                        }
+                        if (Slider[3] > Slider[1])
+                        {
+                            Reset();
+                            control4.Text = "";
+                            MessageBox.Show("End Caption should be Lower than End value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     catch (FormatException)
                     {
                         MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        MessageBox.Show("End Caption should between 0-100 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+
                 }
 
             }
@@ -593,7 +666,7 @@ namespace Task1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (question_box.Text != "" && !question_box.Text.Any(char.IsDigit))
+                if (question_box.Text != "" && !question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))
                 {
                     int Groupbox_index = Group_Index();//return index of selected control in GroupBox
 
