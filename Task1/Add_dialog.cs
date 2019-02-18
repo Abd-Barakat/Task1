@@ -14,7 +14,9 @@ namespace Task1
         private readonly int[] Slider_default = new int[] { 0, 100, 20, 90 };
         private readonly int Num_Faces = 3;
         private readonly int Num_Stars = 5;
-
+        private List<int> Slider= new List<int>();
+        private int Faces;
+        private int Stars;
         private int question_order;
         public Form FORM
         {
@@ -53,7 +55,6 @@ namespace Task1
             TabIndex = 0,
 
             ForeColor = System.Drawing.Color.Gray,
-            Text = "Write a question here ...",
 
         };
         private TextBox control1 = new TextBox
@@ -93,6 +94,18 @@ namespace Task1
 
 
         };
+        private TextBox control5 = new TextBox
+        {
+            Location = new System.Drawing.Point(5, 20),
+            Size = new System.Drawing.Size(100, 20),
+            ForeColor = System.Drawing.Color.Gray,
+        };
+        private TextBox control6 = new TextBox
+        {
+            Location = new System.Drawing.Point(5, 20),
+            Size = new System.Drawing.Size(100, 20),
+            ForeColor = System.Drawing.Color.Gray,
+        };
 
         private GroupBox Default_GrouoBox = new GroupBox
         {
@@ -101,7 +114,28 @@ namespace Task1
             Text = "Default values",
             TabIndex = 2,
             TabStop = true,
-            Visible = true,
+            Visible = false,
+
+        };
+        private GroupBox Default_GrouoBox2 = new GroupBox
+        {
+            Location = new System.Drawing.Point(50, 268),
+            Size = new System.Drawing.Size(400, 50),
+            Text = "Default values",
+            TabIndex = 2,
+            TabStop = true,
+            Visible = false,
+
+        };
+        private GroupBox Default_GrouoBox3 = new GroupBox
+        {
+            Location = new System.Drawing.Point(50, 268),
+            Size = new System.Drawing.Size(400, 50),
+            Text = "Default values",
+            TabIndex = 2,
+            TabStop = true,
+            Visible = false,
+
         };
 
 
@@ -160,6 +194,7 @@ namespace Task1
                     question_box.ForeColor = System.Drawing.Color.Gray;
                     question_box.Text = "Write a question here ...";
                 }
+               
 
             }
             else if (ReferenceEquals(sender, control1))
@@ -168,6 +203,18 @@ namespace Task1
                 {
                     control1.ForeColor = System.Drawing.Color.Gray;
                     control1.Text = string.Format("Start ={0}", Slider_default[0]);
+                    Slider[0] = Slider_default[0];
+                }
+                else
+                {
+                    try
+                    {
+                        Slider[0] = Int32.Parse(control1.Text);
+                    }
+                    catch (FormatException )
+                    {
+                        MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else if (ReferenceEquals(sender, control2))
@@ -176,6 +223,19 @@ namespace Task1
                 {
                     control2.ForeColor = System.Drawing.Color.Gray;
                     control2.Text = string.Format("End ={0}", Slider_default[1]);
+                    Slider[1] = Slider_default[1];
+
+                }
+                else
+                {
+                    try
+                    {
+                        Slider[1] = Int32.Parse(control2.Text);
+                    }
+                    catch (FormatException )
+                    {
+                        MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
             }
@@ -185,8 +245,20 @@ namespace Task1
                 {
                     control3.ForeColor = System.Drawing.Color.Gray;
                     control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
-                }
+                    Slider[2] = Slider_default[2];
 
+                }
+                else
+                {
+                    try
+                    {
+                        Slider[2] = Int32.Parse(control3.Text);
+                    }
+                    catch (FormatException )
+                    {
+                        MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
 
             }
             else if (ReferenceEquals(sender, control4))
@@ -195,6 +267,62 @@ namespace Task1
                 {
                     control4.ForeColor = System.Drawing.Color.Gray;
                     control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
+                    Slider[3] = Slider_default[3];
+
+                }
+                else
+                {
+                    try
+                    {
+                        Slider[3] = Int32.Parse(control4.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+            else if (ReferenceEquals(sender, control5))
+            {
+                if (control5.Text == "")
+                {
+                    control5.ForeColor = System.Drawing.Color.Gray;
+                    control5.Text = string.Format("Smiles = {0}", Num_Faces);
+                    Faces = Num_Faces;
+                }
+
+                else
+                {
+                    try
+                    {
+                        Faces = Int32.Parse(control5.Text);
+                    }
+                    catch (FormatException )
+                    {
+                        MessageBox.Show("Number of Smiles should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+            else if (ReferenceEquals(sender, control6))
+            {
+                if (control6.Text == "")
+                {
+                    control6.ForeColor = System.Drawing.Color.Gray;
+                    control6.Text = string.Format("Stars = {0}", Num_Stars);
+                    Stars = Num_Stars;
+                }
+                else
+                {
+                    try
+                    {
+                        Stars = Int32.Parse(control6.Text);
+                    }
+                    catch (FormatException )
+                    {
+                        MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
 
@@ -203,23 +331,52 @@ namespace Task1
         private void GotFocus(object sender, EventArgs e)
         {
             if (ReferenceEquals(sender, SliderButton))
+            {
                 SliderButton.Checked = true;
+                Default_GrouoBox.Visible = true;
+            }
             else if (ReferenceEquals(sender, SmileyButton))
+            {
                 SmileyButton.Checked = true;
+                Default_GrouoBox2.Visible = true;
+            }
             else if (ReferenceEquals(sender, StarsButton))
+            {
                 StarsButton.Checked = true;
+                Default_GrouoBox3.Visible = true;
+
+            }
         }
 
         private void initialize()
         {
+            Slider.Add(Slider_default[0]);
+            Slider.Add(Slider_default[1]);
+            Slider.Add(Slider_default[2]);
+            Slider.Add(Slider_default[3]);
+            Stars = Num_Stars;
+            Faces = Num_Faces;
+            /////////////////////////////////////////
+            question_box.Text = "Write a question here ...";
             control1.Text = string.Format("Start ={0}", Slider_default[0]);
             control2.Text = string.Format("End ={0}", Slider_default[1]);
             control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
             control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
+            control5.Text = string.Format("Smiles = {0}", Num_Faces);
+            control6.Text = string.Format("Stars = {0}", Num_Stars);
             /////////////////////////////////////////
             SliderButton.GotFocus += GotFocus;
             SmileyButton.GotFocus += GotFocus;
             StarsButton.GotFocus += GotFocus;
+            //////////////////////////////////////////
+            question_box.KeyDown += new KeyEventHandler(Dv_RowsAdded_handler);
+            SmileyButton.KeyDown += Dv_RowsAdded_handler;
+            SliderButton.KeyDown += Dv_RowsAdded_handler;
+            StarsButton.KeyDown += Dv_RowsAdded_handler;
+            /////////////////////////////////////////
+            SmileyButton.CheckedChanged += CheckedChanged;
+            SliderButton.CheckedChanged += CheckedChanged;
+            StarsButton.CheckedChanged += CheckedChanged;
             //////////////////////////////////////////
             groupBox.Controls.Add(SliderButton);
             groupBox.Controls.Add(SmileyButton);
@@ -229,18 +386,24 @@ namespace Task1
             control2.GotFocus += TextChanged;
             control3.GotFocus += TextChanged;
             control4.GotFocus += TextChanged;
+            control5.GotFocus += TextChanged;
+            control6.GotFocus += TextChanged;
             question_box.GotFocus += TextChanged;
             /////////////////////////////////////////
-            control1.MouseClick += MouseClick;
-            control2.MouseClick += MouseClick;
-            control3.MouseClick += MouseClick;
-            control4.MouseClick += MouseClick;
-            question_box.MouseClick += MouseClick;
+            control1.MouseClick += TextChanged;
+            control2.MouseClick += TextChanged;
+            control3.MouseClick += TextChanged;
+            control4.MouseClick += TextChanged;
+            control5.MouseClick += TextChanged;
+            control6.MouseClick += TextChanged;
+            question_box.MouseClick += TextChanged;
             /////////////////////////////////////////
             control1.LostFocus += LostFocus;
             control2.LostFocus += LostFocus;
             control3.LostFocus += LostFocus;
             control4.LostFocus += LostFocus;
+            control5.LostFocus += LostFocus;
+            control6.LostFocus += LostFocus;
             question_box.LostFocus += LostFocus;
             /////////////////////////////////////////
             Default_GrouoBox.Controls.Add(control1);
@@ -248,17 +411,40 @@ namespace Task1
             Default_GrouoBox.Controls.Add(control3);
             Default_GrouoBox.Controls.Add(control4);
             /////////////////////////////////////////
-            question_box.KeyDown += new KeyEventHandler(Dv_RowsAdded_handler);
-            SmileyButton.KeyDown += Dv_RowsAdded_handler;
-            SliderButton.KeyDown += Dv_RowsAdded_handler;
-            StarsButton.KeyDown += Dv_RowsAdded_handler;
+            Default_GrouoBox2.Controls.Add(control5);
+            /////////////////////////////////////////
+            Default_GrouoBox3.Controls.Add(control6);
             /////////////////////////////////////////
             FORM.Controls.Add(Dv);
             FORM.Controls.Add(question_box);
             FORM.Controls.Add(groupBox);
             FORM.Controls.Add(Default_GrouoBox);
-
+            FORM.Controls.Add(Default_GrouoBox2);
+            FORM.Controls.Add(Default_GrouoBox3);
         }
+
+        
+
+        private void CheckedChanged(object sender, EventArgs e)
+        {
+            if (ReferenceEquals(sender, SliderButton))
+            {
+                if (!SliderButton.Checked)
+                    Default_GrouoBox.Visible = false;
+            }
+            else if (ReferenceEquals(sender, SmileyButton))
+            {
+                if (!SmileyButton.Checked)
+                    Default_GrouoBox2.Visible = false;
+            }
+            else if (ReferenceEquals(sender, StarsButton))
+            {
+                if (!StarsButton.Checked)
+                    Default_GrouoBox3.Visible = false;
+            }
+        }
+
+       
 
         public void ShowDialog(DataTable Dt)
         {
@@ -276,66 +462,129 @@ namespace Task1
 
 
 
-        private void MouseClick(object sender, MouseEventArgs e)
+        private bool isEmpty (TextBox box)
         {
-            if (ReferenceEquals(sender, question_box))
+            if (ReferenceEquals(box, question_box))
             {
-                question_box.Text = "";
+                if (question_box.Text == "Write a question here ...")
+                    return true;
+                else
+                    return false;
             }
-            else if (ReferenceEquals(sender, control1))
+            else if (ReferenceEquals(box, control1))
             {
-                control1.Text = "";
+                if (control1.Text == string.Format("Start ={0}", Slider_default[0]))
+                    return true;
+                else
+                    return false;
 
             }
-            else if (ReferenceEquals(sender, control2))
+            else if (ReferenceEquals(box, control2))
             {
-                control2.Text = "";
-
+                if (control2.Text == string.Format("End ={0}", Slider_default[1]))
+                    return true;
+                else
+                    return false;
             }
-            else if (ReferenceEquals(sender, control3))
+            else if (ReferenceEquals(box, control3))
             {
-                control3.Text = "";
-
+                if (control3.Text == string.Format("Start Caption ={0}", Slider_default[2]))
+                    return true;
+                else
+                    return false;
             }
-            else if (ReferenceEquals(sender, control4))
+            else if (ReferenceEquals(box, control4))
             {
-                control4.Text = "";
-
+                if (control4.Text == string.Format("End Caption ={0}", Slider_default[3]))
+                    return true;
+                else
+                    return false;
             }
+
+            else if (ReferenceEquals(box, control5))
+            {
+                if (control5.Text == string.Format("Smiles = {0}", Num_Faces))
+                    return true;
+                else
+                    return false;
+            }
+
+            else if (ReferenceEquals(box, control6))
+            {
+                if (control6.Text == string.Format("Stars = {0}", Num_Stars))
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+
         }
-
         private void TextChanged(object sender, EventArgs e)
         {
             if (ReferenceEquals(sender, question_box))
             {
-                question_box.Text = "";
-                question_box.ForeColor = System.Drawing.Color.Black;
+                if (isEmpty(question_box))
+                {
+                    question_box.Text = "";
+                    question_box.ForeColor = System.Drawing.Color.Black;
+                }
             }
             else if (ReferenceEquals(sender, control1))
             {
-                control1.Text = "";
-                control1.ForeColor = System.Drawing.Color.Black;
+                if (isEmpty(control1))
+                {
+                    control1.Text = "";
+                    control1.ForeColor = System.Drawing.Color.Black;
+                }
 
             }
             else if (ReferenceEquals(sender, control2))
             {
-                control2.Text = "";
+                if (isEmpty(control2))
+                {
+                    control2.Text = "";
 
-                control2.ForeColor = System.Drawing.Color.Black;
+                    control2.ForeColor = System.Drawing.Color.Black;
+                }
 
             }
             else if (ReferenceEquals(sender, control3))
             {
-                control3.Text = "";
-
-                control3.ForeColor = System.Drawing.Color.Black;
+                if (isEmpty(control3))
+                {
+                    control3.Text = "";
+                    control3.ForeColor = System.Drawing.Color.Black;
+                }
 
             }
             else if (ReferenceEquals(sender, control4))
             {
-                control4.Text = "";
+                if (isEmpty(control4))
+                {
+                    control4.Text = "";
+                    control4.ForeColor = System.Drawing.Color.Black;
+                }
 
-                control4.ForeColor = System.Drawing.Color.Black;
+            }
+
+            else if (ReferenceEquals(sender, control5))
+            {
+                if (isEmpty(control5))
+                {
+                    control5.Text = "";
+                    control5.ForeColor = System.Drawing.Color.Black;
+                }
+
+            }
+
+            else if (ReferenceEquals(sender, control6))
+            {
+                if (isEmpty(control6))
+                {
+                    control6.Text = "";
+                    control6.ForeColor = System.Drawing.Color.Black;
+                }
 
             }
         }
@@ -357,10 +606,10 @@ namespace Task1
                         {
                             Dv.Rows[0].Cells[0].Value = question_box.Text;
                             Dv.Rows[0].Cells[1].Value = question_order;
-                            Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index];
+                            Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index+1];
 
-                            insert(0, connection, command);//insert data to question table first 
-                            insert(Groupbox_index, connection, command);//insert data to a specific table 
+                          
+                            insert( connection, command);//insert data to a specific table 
                             DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             while (result != DialogResult.OK) ;//wait unitl MessageBox closes 
@@ -398,30 +647,32 @@ namespace Task1
             }
 
         }
-        private void insert(int Groupbox_index, SqlConnection connection, SqlCommand command)
+        private void insert( SqlConnection connection, SqlCommand command)
         {
+            int Groupbox_index = Group_Index();
             Open_connection(connection);
             switch (Groupbox_index)
-            {
-
+            { 
                 case 0:
                     command.Connection = connection;
                     command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
+                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], question_order, Slider[0], Slider[1], Slider[2], Slider[3]);
+                    command.ExecuteNonQuery();
                     break;
                 case 1:
                     command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], question_order, Slider_default[0], Slider_default[1], Slider_default[2], Slider_default[3]);
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, question_order, Tables[Groupbox_index + 1]);
+                    command.ExecuteNonQuery();
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], question_order, Faces);
                     command.ExecuteNonQuery();
                     break;
                 case 2:
                     command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], question_order, Num_Faces);
+
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
-                    break;
-                case 3:
-                    command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], question_order, Num_Stars);
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], question_order, Stars);
                     command.ExecuteNonQuery();
                     break;
             }
@@ -436,11 +687,11 @@ namespace Task1
         {
 
             if (SliderButton.Checked)
-                return 1;
+                return 0;
             else if (SmileyButton.Checked)
-                return 2;
+                return 1;
             else if (StarsButton.Checked)
-                return 3;
+                return 2;
             else
                 return -1;
         }
