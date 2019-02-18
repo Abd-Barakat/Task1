@@ -42,11 +42,10 @@ namespace Task1
             ReadOnly = false
 
         };
-        private TextBox question_box = new TextBox
-        {
-            Width = 400,
-            Location = new System.Drawing.Point(50, 150),
-        };
+
+
+ 
+      
 
         public void ShowDialog(int index, DataTable Dt)
         {
@@ -62,7 +61,6 @@ namespace Task1
             Dt2.Rows.Add(Dt.Rows[index].ItemArray[0]);
             Dv.DataSource = Dt2.DefaultView.ToTable(false,"question_text");
             FORM.Controls.Add(Dv);
-            FORM.Controls.Add(question_box);
             FORM.Visible = true;
         }
 
@@ -72,13 +70,13 @@ namespace Task1
             {
                 string Q_text;
                 Q_text =(string) Dv.CurrentCell.Value;
-                if (Q_text != "")
+                if (Q_text != "" && !Q_text.Any(char.IsDigit) )
                 {
                     SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
                     SqlCommand command = new SqlCommand(  string.Format("update questions set question_text = '{0}' where question_order = {1}", Q_text,index)   , connection);
                     try
                     { 
-                        question_box.Text = command.CommandText;
+
                         connection.Open();
                         command.ExecuteNonQuery();
                         DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -99,8 +97,16 @@ namespace Task1
                     }
 
                 }
-                else
-                    MessageBox.Show("Please Write a question before saving ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (Q_text == "")
+                {
+                    MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Q_text = "";
+                }
+                else if (Q_text.Any(char.IsDigit))
+                {
+                    MessageBox.Show("Please Write a question without any number ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Q_text = "";
+                }
             }
         }
     }

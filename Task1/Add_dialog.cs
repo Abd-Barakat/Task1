@@ -56,19 +56,25 @@ namespace Task1
         public void ShowDialog(DataTable Dt)
         {
             FORM = new Form();
-            int max_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
-            form.Width = 500;
-            form.Height = 300;
-            form.MaximumSize = new System.Drawing.Size(663, 250);
-            form.MinimumSize = form.MaximumSize;
+            int max_order;
+            if (Dt.Rows.Count > 0)
+            {
+                max_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
+            }
+            else
+                max_order = 0;
+            FORM.Width = 500;
+            FORM.Height = 300;
+            FORM.MaximumSize = new System.Drawing.Size(663, 250);
+            FORM.MinimumSize = FORM.MaximumSize;
             question_box.KeyDown += new KeyEventHandler(Dv_RowsAdded_handler);
             Dv.DataSource = Dt.Clone();
             question_order.Minimum = max_order;
             form.Controls.Add(Dv);
             form.Controls.Add(question_box);
-            form.ActiveControl = question_box;
-            form.Controls.Add(question_order);
-            form.Visible = true;
+            FORM.ActiveControl = question_box;
+            FORM.Controls.Add(question_order);
+            FORM.Visible = true;
 
         }
 
@@ -76,7 +82,7 @@ namespace Task1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (question_box.Text != "")
+                if (question_box.Text != "" && !question_box.Text.Any(char.IsDigit))
                 {
                     DataTable Dt2 = new DataTable();
                     SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
@@ -91,7 +97,7 @@ namespace Task1
                         dataAdapter.Fill(Dt2);
                         DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         while (result != DialogResult.OK) ;
-                        form.Visible = false;
+                        FORM.Visible = false;
                     }
                     catch (Exception ex)
                     {
@@ -107,8 +113,16 @@ namespace Task1
                     }
 
                 }
-                else
-                    MessageBox.Show("Please Write a question before saving ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (question_box.Text == "")
+                {
+                    question_box.Text = "";
+                    MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (question_box.Text.Any(char.IsDigit))
+                {
+                    question_box.Text = "";
+                    MessageBox.Show("Please Write a question without numbers   ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
         }

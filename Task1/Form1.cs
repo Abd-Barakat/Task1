@@ -36,15 +36,18 @@ namespace Task1
         {
             Add_dialog = new Add_dialog();
             Add_dialog.ShowDialog(dataTable);
-            Add_dialog.FORM.VisibleChanged += Form_VisibleChanged;
+            Add_dialog.FORM.VisibleChanged += Add_Form_VisibleChanged;
         }
 
-        private void Form_VisibleChanged(object sender, EventArgs e)
+    
+
+        private void Add_Form_VisibleChanged(object sender, EventArgs e)
         {
            if(Add_dialog.FORM.Visible == false)
             {
-                print();
                 Add_dialog.Clear();
+                print();
+
             }
         }
 
@@ -53,10 +56,11 @@ namespace Task1
             edit_Dialog = new Edit_dialog();
             int index = dataGridView1.CurrentRow.Index;
             edit_Dialog.ShowDialog(index, dataTable);
-            edit_Dialog.FORM.VisibleChanged += FORM_VisibleChanged;
+            edit_Dialog.FORM.VisibleChanged += Edit_FORM_VisibleChanged;
         }
 
-        private void FORM_VisibleChanged(object sender, EventArgs e)
+       
+        private void Edit_FORM_VisibleChanged(object sender, EventArgs e)
         {
             if (edit_Dialog.FORM.Visible == false)
             {
