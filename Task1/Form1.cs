@@ -39,11 +39,11 @@ namespace Task1
             Add_dialog.FORM.VisibleChanged += Add_Form_VisibleChanged;
         }
 
-    
+
 
         private void Add_Form_VisibleChanged(object sender, EventArgs e)
         {
-           if(Add_dialog.FORM.Visible == false)
+            if (Add_dialog.FORM.Visible == false)
             {
                 Add_dialog.Clear();
                 print();
@@ -53,13 +53,19 @@ namespace Task1
 
         private void Edit_Button_Click(object sender, EventArgs e)
         {
-            edit_Dialog = new Edit_dialog();
-            int index = dataGridView1.CurrentRow.Index;
-            edit_Dialog.ShowDialog(index, dataTable);
-            edit_Dialog.FORM.VisibleChanged += Edit_FORM_VisibleChanged;
+            if (!isEmpty())
+            {
+                edit_Dialog = new Edit_dialog();
+                int index = Question_order();
+                edit_Dialog.ShowDialog(index, dataTable, dataGridView1.CurrentCell.RowIndex);
+                edit_Dialog.FORM.VisibleChanged += Edit_FORM_VisibleChanged;
+            }
+            else
+                MessageBox.Show("No questions to edit", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
-       
+
         private void Edit_FORM_VisibleChanged(object sender, EventArgs e)
         {
             if (edit_Dialog.FORM.Visible == false)
@@ -71,53 +77,60 @@ namespace Task1
 
         private void Delete_Button_Click(object sender, EventArgs e)
         {
-            int? x = null;
-            DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            if (!isEmpty())//check if data grid view contain any row or not 
             {
-                Connection = new SqlConnection(@"Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
-                try
-                {
 
-                    command = new SqlCommand(string.Format("select question_order from questions where question_text='{0}'", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[0]), Connection);
-                    open_connection();
-                    dataReader = command.ExecuteReader();
-                    while (dataReader.Read())
+                DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);//to make sure
+                if (result == DialogResult.Yes)//if user is sure to delete the selected  row 
+                {
+                    try
                     {
-                        x = dataReader.GetInt32(0);
+                        int order;
+                        order = Question_order();//return question order from database 
+
+                        open_connection();//open connection to server
+
+                        command.CommandText = string.Format("delete from {0} where question_O={1}", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[2], order);
+                        command.ExecuteNonQuery();//execute command 
+
+                        command.CommandText = string.Format("delete from questions where question_order= {0}", order);
+                        command.ExecuteNonQuery();//execute command 
+
+                        print();//update data gird view 
+
                     }
-                    dataReader.Close();
-                    if (x != null)
+                    catch (Exception ex)
                     {
-
-                        command.CommandText = string.Format("delete from Slider where question_order={0}", x);
-                        command.ExecuteNonQuery();
-
-                        command.CommandText = string.Format("delete from Smiley where question_order={0}", x);
-                        command.ExecuteNonQuery();
-
-                        command.CommandText = string.Format("delete from Stars where question_order= {0}", x);
-                        command.ExecuteNonQuery();
-
-                        command.CommandText =string.Format("delete from questions where question_order= {0}", x);
-                        command.ExecuteNonQuery();
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    print();
-                   
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    if (dataReader != null)
+                    finally
                     {
-                        ((IDisposable)dataReader).Dispose();
+                        if (dataReader != null)//to prevent Null exception 
+                        {
+                            ((IDisposable)dataReader).Dispose();//relese dataRader object 
+                        }
                     }
                 }
             }
+            else
+                MessageBox.Show("No questions to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private int Question_order()
+        {
+            int order = -1;
+            open_connection();//open connection to server
+            command.CommandText = string.Format("select question_order from questions where question_text='{0}'", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[0]);
+            dataReader = command.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                order = dataReader.GetInt32(0);//read all data retrived from database one per time 
+            }
+            dataReader.Close();
+            return order;
+        }
+
         private void open_connection()
         {
             if (Connection.State == ConnectionState.Closed)
@@ -125,6 +138,15 @@ namespace Task1
                 Connection.Open();
             }
         }
+
+        private bool isEmpty()
+        {
+            if (dataGridView1.Rows.Count <= 0)
+                return true;
+            else
+                return false;
+        }
+
         private void print()
         {
             Connection = new SqlConnection(@"Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");

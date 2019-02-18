@@ -12,7 +12,8 @@ namespace Task1
     {
         private Form form;
         private DataTable Dt2 ;
-        private int index;
+        private int Question_order;
+        
         public Form FORM
         {
             private set
@@ -39,7 +40,9 @@ namespace Task1
             AllowUserToDeleteRows = false,
             AllowUserToAddRows = false,
             AllowDrop = false,
-            ReadOnly = false
+            ReadOnly = false,
+            AllowUserToResizeRows= false,
+            AllowUserToResizeColumns =false,
 
         };
 
@@ -47,9 +50,9 @@ namespace Task1
  
       
 
-        public void ShowDialog(int index, DataTable Dt)
+        public void ShowDialog(int order, DataTable Dt,int Row_index)
         {
-            this.index = index;
+            Question_order = order;
             FORM = new Form();
             FORM.Width = 500;
             FORM.Height = 300;
@@ -58,7 +61,7 @@ namespace Task1
             Dt2 = new DataTable();
             Dt2 = Dt.Clone();
             Dv.KeyDown += Dv_KeyPress;
-            Dt2.Rows.Add(Dt.Rows[index].ItemArray[0]);
+            Dt2.Rows.Add(Dt.Rows[Row_index].ItemArray[0]);
             Dv.DataSource = Dt2.DefaultView.ToTable(false,"question_text");
             FORM.Controls.Add(Dv);
             FORM.Visible = true;
@@ -69,11 +72,14 @@ namespace Task1
             if(e.KeyCode ==Keys.Enter )
             {
                 string Q_text;
-                Q_text =(string) Dv.CurrentCell.Value;
+                if (Dv.CurrentCell.Value != DBNull.Value)
+                Q_text = (string)Dv.CurrentCell.Value;
+                else
+                    Q_text = "";
                 if (Q_text != "" && !Q_text.Any(char.IsDigit) )
                 {
                     SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
-                    SqlCommand command = new SqlCommand(  string.Format("update questions set question_text = '{0}' where question_order = {1}", Q_text,index)   , connection);
+                    SqlCommand command = new SqlCommand(  string.Format("update questions set question_text = '{0}' where question_order = {1}", Q_text, Question_order)   , connection);
                     try
                     { 
 
@@ -85,7 +91,7 @@ namespace Task1
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     }
                     finally
                     {
