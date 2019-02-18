@@ -23,8 +23,6 @@ Add dialog contain 3 controls (Datagridview ,textbox and numericupdown ) datagri
 Delete dialog is also ready but didn’t change in database , this will be next step ,
 
 Edit and Add dialogs are made programally  . 
-------------------------------------------------------------------------------------------------------------------------------------------
-
 Date : Sunday (17/2/2019)
 
 Rebuilt the database , column added to questions table called question type to delete questions from specified tables . 
@@ -32,4 +30,11 @@ GUI had been modified , Add dialog contain Group box that contains types of ques
 
 Remove Numeric up down control from add dialog to avoid Primary key conflict . 
 
-Next step will be to show/hide controls that allow user to set a slider ,stars , smiley properties for question or the values will set by default . 
+Next step will be to show/hide controls that allow user to set a slider ,stars , smiley properties for question or the values will be set by default . 
+------------------------------------------------------------------------------------------------------------------------------------------
+Date :Monday (18/2/2019)
+
+Add controls to Add dialog for editing Smiley ,Slider and Stars question’s properties with validation. 
+Add GroupBoxes that hide/show depends on  selection of type of questions ,
+rearrangement code , methods are built to do specific function that required many time in many other methods .
+Next step is to add comments and help tips .
