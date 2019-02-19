@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
+
 namespace Task1
 {
     class Add_dialog :Base
@@ -114,6 +116,7 @@ namespace Task1
 
             }
         }
+
         public override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
         {
             Slider[0] = Slider_default[0];
@@ -206,7 +209,8 @@ namespace Task1
                     if (Groupbox_index != -1)//if no control selected in GroupBox
                     {
 
-                        SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
+                        SqlConnection connection = new SqlConnection();
+                        connection.ConnectionString = ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString;
                         SqlCommand command = new SqlCommand();
                         try
                         {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
+
 namespace Task1
 {
     public class Edit_dialog:Base
@@ -115,7 +117,8 @@ namespace Task1
         private void Retrive_Data()
         {
             string type = Question_Type();
-            SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString;
             SqlCommand command = new SqlCommand(string.Format("select * from {0} where question_O = {1}",type,Dt2.Rows[0].ItemArray[1]),connection);
             Open_connection(connection);
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -310,8 +313,6 @@ namespace Task1
                 return false;
 
         }
-
-
 
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Configuration;
 namespace Task1
 {
     public partial class Form1 : Form
@@ -19,7 +20,7 @@ namespace Task1
         private Add_dialog Add_dialog = null;
         private SqlDataReader dataReader;
         private Edit_dialog edit_Dialog;
-
+        ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["DataBase-Connection"];
         
         public Form1()
         {
@@ -146,7 +147,9 @@ namespace Task1
        
         private void print()//this method for update data grid  view with data from database 
         {
-            Connection = new SqlConnection(@"Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");//make connection object 
+            
+            Connection = new SqlConnection();//make connection object 
+            Connection.ConnectionString = ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString;
             try
             {
                 DataTable temp_datatable = new DataTable();
