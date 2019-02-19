@@ -19,6 +19,8 @@ namespace Task1
         private Add_dialog Add_dialog = null;
         private SqlDataReader dataReader;
         private Edit_dialog edit_Dialog;
+
+        
         public Form1()
         {
             InitializeComponent();
@@ -42,7 +44,6 @@ namespace Task1
         {
             if (Add_dialog.FORM.Visible == false)
             {
-                Add_dialog.Clear();//call method from class Add_dialog
                 print();//update data grid view with new data when add dialog close
 
             }

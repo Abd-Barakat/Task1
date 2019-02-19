@@ -12,13 +12,15 @@ namespace Task1
     {
         private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };
         private readonly int[] Slider_default = new int[] { 0, 100, 20, 90 };
-        private readonly int Num_Faces = 3;
-        private readonly int Num_Stars = 5;
+        private const int Num_Faces = 3;
+        private const int Num_Stars = 5;
         private List<int> Slider= new List<int>();
+
         private int Faces;
         private int Stars;
         private int question_order;
-        public Form FORM
+
+        public Form FORM//property used to modify private data 
         {
 
             private set
@@ -30,12 +32,8 @@ namespace Task1
                 return form;
             }
         }
-        public void Clear()
-        {
-            question_box.Text = "";
-            FORM = null;
-        }
-        private GroupBox groupBox = new GroupBox
+
+        private GroupBox groupBox = new GroupBox//define groupbox that contain 3 Radio buttons 
         {
             Text = "Question type",
             Size = new System.Drawing.Size(116, 120),
@@ -47,7 +45,7 @@ namespace Task1
 
         };
 
-        private TextBox question_box = new TextBox
+        private TextBox question_box = new TextBox//text box to write a new question within 
         {
             Width = 400,
             Location = new System.Drawing.Point(50, 150),
@@ -57,65 +55,64 @@ namespace Task1
             ForeColor = System.Drawing.Color.Gray,
 
         };
-        private void Reset()
+
+        private void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
         {
             Slider[0] = Slider_default[0];
             Slider[1] = Slider_default[1];
             Slider[2] = Slider_default[2];
             Slider[3] = Slider_default[3];
-
+            Stars = Num_Stars;
+            Faces = Num_Faces;
+            Make_Empty();
         }
-        private TextBox control1 = new TextBox
+
+        private TextBox control1 = new TextBox //textbox for start value in Slider questions
         {
             Location = new System.Drawing.Point(5, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
         };
 
-        TextBox control2 = new TextBox
+        TextBox control2 = new TextBox//textbox for end value in Slider questions
         {
             Location = new System.Drawing.Point(140, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
-
-
+            Enabled =false,
         };
 
 
-        TextBox control3 = new TextBox
+        TextBox control3 = new TextBox//textbox for start value caption in Slider questions
         {
             Location = new System.Drawing.Point(275, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
-
-
-
+            Enabled = false,
         };
 
 
-        TextBox control4 = new TextBox
+        TextBox control4 = new TextBox//textbox for End value caption in Slider questions
         {
             Location = new System.Drawing.Point(410, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
-
-
-
+            Enabled = false,
         };
-        private TextBox control5 = new TextBox
+        private TextBox control5 = new TextBox//textbox for smile Faces in smiley questions
         {
             Location = new System.Drawing.Point(5, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
         };
-        private TextBox control6 = new TextBox
+        private TextBox control6 = new TextBox//textbox for stars number  in smiley questions
         {
             Location = new System.Drawing.Point(5, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
         };
 
-        private GroupBox Default_GrouoBox = new GroupBox
+        private GroupBox Default_GrouoBox = new GroupBox //to hold a slider question controls
         {
             Location = new System.Drawing.Point(50, 268),
             Size = new System.Drawing.Size(536, 50),
@@ -125,7 +122,7 @@ namespace Task1
             Visible = false,
 
         };
-        private GroupBox Default_GrouoBox2 = new GroupBox
+        private GroupBox Default_GrouoBox2 = new GroupBox//to hold a smiley question controls
         {
             Location = new System.Drawing.Point(50, 268),
             Size = new System.Drawing.Size(400, 50),
@@ -135,7 +132,7 @@ namespace Task1
             Visible = false,
 
         };
-        private GroupBox Default_GrouoBox3 = new GroupBox
+        private GroupBox Default_GrouoBox3 = new GroupBox//to hold a star question controls
         {
             Location = new System.Drawing.Point(50, 268),
             Size = new System.Drawing.Size(400, 50),
@@ -170,7 +167,7 @@ namespace Task1
             TabStop = true
         };
 
-        private Form form = new Form
+        private Form form = new Form//create form to show controls in Add dialog
         {
             Width = 600,
             Height = 400,
@@ -179,7 +176,7 @@ namespace Task1
 
         };
 
-        private DataGridView Dv = new DataGridView
+        private DataGridView Dv = new DataGridView//create data grid view to show data ENTERED in database (show new record only)
         {
             Size = new System.Drawing.Size(400, 50),
             Location = new System.Drawing.Point(50, 50),
@@ -193,81 +190,131 @@ namespace Task1
             AllowUserToResizeColumns = false,
         };
 
-        private void LostFocus(object sender, EventArgs e)
+        private void Make_Empty (TextBox box)
         {
-            if (ReferenceEquals(sender, question_box))
+            if (ReferenceEquals(box, question_box))
+            {
+                question_box.ForeColor = System.Drawing.Color.Gray;
+                question_box.Text = "Write a question here ...";
+            }
+            else if (ReferenceEquals(box, control1))
+            {
+                control1.ForeColor = System.Drawing.Color.Gray;
+                control1.Text = string.Format("Start ={0}", Slider_default[0]);
+
+            }
+            else if (ReferenceEquals(box, control2))
+            {
+                control2.ForeColor = System.Drawing.Color.Gray;
+                control2.Text = string.Format("End ={0}", Slider_default[1]);
+            }
+            else if (ReferenceEquals(box, control3))
+            {
+                control3.ForeColor = System.Drawing.Color.Gray;
+                control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
+            }
+            else if (ReferenceEquals(box, control4))
+            {
+                control4.ForeColor = System.Drawing.Color.Gray;
+                control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
+            }
+
+            else if (ReferenceEquals(box, control5))
+            {
+                control5.ForeColor = System.Drawing.Color.Gray;
+                control5.Text = string.Format("Smiles = {0}", Num_Faces);
+            }
+
+            else if (ReferenceEquals(box, control6))
+            {
+                control6.ForeColor = System.Drawing.Color.Gray;
+                control6.Text = string.Format("Stars = {0}", Num_Stars);
+            }
+        }
+
+       private void  Make_Empty()
+        {
+            Make_Empty(control1);
+            Make_Empty(control2);
+            Make_Empty(control3);
+            Make_Empty(control4);
+            Make_Empty(control5);
+            Make_Empty(control6);
+
+        }
+
+        private void LostFocus(object sender, EventArgs e)//event handler
+        {
+            if (ReferenceEquals(sender, question_box))//to check if the controls is same of question box 
             {
                 if (question_box.Text == "")
                 {
-                    question_box.ForeColor = System.Drawing.Color.Gray;
-                    question_box.Text = "Write a question here ...";
+                    Make_Empty(question_box);
                 }
                
 
             }
-            else if (ReferenceEquals(sender, control1))
+            else if (ReferenceEquals(sender, control1))//to check if the controls is same of control1 
             {
                 if (control1.Text == "")
                 {
-                    control1.ForeColor = System.Drawing.Color.Gray;
-                    control1.Text = string.Format("Start ={0}", Slider_default[0]);
+                    Make_Empty(control1);
                     Reset();
                 }
                 else
                 {
                     try
                     {
-                        Slider[0] = Int32.Parse(control1.Text);
-                        if (Slider[0] <0 || Slider[0] >100)
+                        Slider[0] = Int32.Parse(control1.Text);//validate user input 
+                        if (Slider[0] <0 || Slider[0] >100)//validate user input (Start value should be between 0-100)
                         {
-                            control1.Text = "";
-
-                            Reset();
-                            throw new ArgumentOutOfRangeException();
+                            Make_Empty(control1);
+                            Reset();//call reset method 
+                            throw new  ArgumentOutOfRangeException();
                         }
+                        control2.Enabled = true;
+                        control2.Focus();
                     }
-                    catch (FormatException )
+                    catch ( ArgumentOutOfRangeException)
                     {
-                        MessageBox.Show("Start value should be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Start value should be a number1111111111", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    catch (ArgumentOutOfRangeException )
+                    catch (FormatException)
                     {
                         MessageBox.Show("Start value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
-            else if (ReferenceEquals(sender, control2))
+            else if (ReferenceEquals(sender, control2))//to check if the controls is same of control2
             {
                 if (control2.Text == "")
                 {
-                    control2.ForeColor = System.Drawing.Color.Gray;
-                    control2.Text = string.Format("End ={0}", Slider_default[1]);
+                    Make_Empty(control2);
                     Reset();
-
                 }
                 else
                 {
                     try
                     {
                         Slider[1] = Int32.Parse(control2.Text);
-                        if (Slider[1] < 0 || Slider[1] > 100)
+                        if (Slider[1] < 0 || Slider[1] > 100)//End value should be between 0-100
                         {
                             Reset();
-                            control2.Text = "";
-
+                            Make_Empty(control2);
                             throw new ArgumentOutOfRangeException();
                         }
-                        if (Slider[1] < Slider[0])
+                        else if (Slider[1] < Slider[0])//End value should be higher than Start value 
                         {
                             Reset();
-                            control2.Text = "";
+                            Make_Empty(control2);
                             MessageBox.Show("End value should be higher than Start value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                         }
+                        control3.Enabled = true;
+                        control3.Focus();
                     }
                     catch (FormatException )
                     {
-                        MessageBox.Show("Start value should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Start value should be integer222222222", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (ArgumentOutOfRangeException )
                     {
@@ -276,12 +323,11 @@ namespace Task1
                 }
 
             }
-            else if (ReferenceEquals(sender, control3))
+            else if (ReferenceEquals(sender, control3))//to check if the controls is same of control3
             {
                 if (control3.Text == "")
                 {
-                    control3.ForeColor = System.Drawing.Color.Gray;
-                    control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
+                    Make_Empty(control3);
                     Reset();
                 }
                 else
@@ -289,20 +335,21 @@ namespace Task1
                     try
                     {
                         Slider[2] = Int32.Parse(control3.Text);
-                        if (Slider[2] < 0 || Slider[2] > 100)
+                        if (Slider[2] < 0 || Slider[2] > 100)//Start Caption should be between 0-100 
                         {
                             Reset();
-                            control3.Text = "";
-
+                            Make_Empty(control3);
                             throw new ArgumentOutOfRangeException();
                         }
-                        if (Slider[2] < Slider[0])
+                       else if (Slider[2] < Slider[0])//Start Caption should be higher than Start value 
                         {
                             Reset();
-                            control3.Text = "";
-
+                            Make_Empty(control3);
                             MessageBox.Show("Start Caption should be higher than Start value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        control4.Enabled = true;
+                        control4.Focus();
+
                     }
                     catch (FormatException)
                     {
@@ -317,12 +364,11 @@ namespace Task1
                 }
 
             }
-            else if (ReferenceEquals(sender, control4))
+            else if (ReferenceEquals(sender, control4))//to check if the controls is same of control4
             {
                 if (control4.Text == "")
                 {
-                    control4.ForeColor = System.Drawing.Color.Gray;
-                    control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
+                    Make_Empty(control4);
                     Reset();
                 }
                 else
@@ -330,17 +376,24 @@ namespace Task1
                     try
                     {
                         Slider[3] = Int32.Parse(control4.Text);
-                        if (Slider[3] < 0 || Slider[3] > 100)
+                        if (Slider[3] < 0 || Slider[3] > 100)//End caption should be between 0-100
                         {
-                            control4.Text = "";
                             Reset();
+                            Make_Empty(control4);
                             throw new ArgumentOutOfRangeException();
                         }
-                        if (Slider[3] > Slider[1])
+                       else if (Slider[3] > Slider[1])//End caption should be lower than End value 
                         {
                             Reset();
-                            control4.Text = "";
+                            Make_Empty(control4);
                             MessageBox.Show("End Caption should be Lower than End value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else if (Slider[3] <Slider[2])//End caption should be higer than Start caption
+                        {
+
+                            Reset();
+                            Make_Empty(control4);
+                            MessageBox.Show("End caption should be higer than Start caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     catch (FormatException)
@@ -360,9 +413,8 @@ namespace Task1
             {
                 if (control5.Text == "")
                 {
-                    control5.ForeColor = System.Drawing.Color.Gray;
-                    control5.Text = string.Format("Smiles = {0}", Num_Faces);
-                    Faces = Num_Faces;
+                    Make_Empty(control5);
+                    Reset();
                 }
 
                 else
@@ -370,10 +422,20 @@ namespace Task1
                     try
                     {
                         Faces = Int32.Parse(control5.Text);
+                        if (Faces >5 || Faces<0)
+                        {
+                            Reset();
+                            Make_Empty(control5);
+                            throw new ArgumentOutOfRangeException();
+                        }
                     }
                     catch (FormatException )
                     {
                         MessageBox.Show("Number of Smiles should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        MessageBox.Show("Number of Sniles should between 0-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -382,19 +444,28 @@ namespace Task1
             {
                 if (control6.Text == "")
                 {
-                    control6.ForeColor = System.Drawing.Color.Gray;
-                    control6.Text = string.Format("Stars = {0}", Num_Stars);
-                    Stars = Num_Stars;
+                    Make_Empty(control6);
+                    Reset();
                 }
                 else
                 {
                     try
                     {
                         Stars = Int32.Parse(control6.Text);
+                        if (Stars > 10 || Faces < 0)
+                        {
+                            Reset();
+                            Make_Empty(control6);
+                            throw new ArgumentOutOfRangeException();
+                        }
                     }
                     catch (FormatException )
                     {
                         MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -530,7 +601,6 @@ namespace Task1
                 question_order = 0;
 
             FORM.Visible = true;
-
         }
 
 
