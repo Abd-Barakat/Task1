@@ -8,149 +8,23 @@ using System.Data;
 using System.Data.SqlClient;
 namespace Task1
 {
-    class Add_dialog
+    class Add_dialog :Base
     {
         private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };
-        private readonly int[] Slider_default = new int[] { 0, 100, 20, 90 };
-        private const int Num_Faces = 3;
-        private const int Num_Stars = 5;
-        private List<int> Slider = new List<int>();
-
-        private int Faces;
-        private int Stars;
-        private int question_order;
-
-        public Form FORM//property used to modify private data 
-        {
-
-            private set
-            {
-                form = value;
-            }
-            get
-            {
-                return form;
-            }
-        }
-        private Button Save = new Button
-        {
-            Text = "Save",
-            Location = new System.Drawing.Point(513, 300),
-        };
+        public  readonly int[] Slider_default = new int[] { 0,100,20,80};
+        public readonly int Num_Faces = 3;
+        public readonly int Num_Stars = 5;
         private GroupBox groupBox = new GroupBox//define groupbox that contain 3 Radio buttons 
         {
             Text = "Question type",
             Size = new System.Drawing.Size(116, 120),
             AutoSize = false,
-            Location = new System.Drawing.Point(470, 50),
+            Location = new System.Drawing.Point(470, 90),
             Dock = DockStyle.Right & DockStyle.Bottom,
             TabIndex = 1,
             TabStop = true,
 
         };
-
-        private TextBox question_box = new TextBox//text box to write a new question within 
-        {
-            Width = 400,
-            Location = new System.Drawing.Point(50, 150),
-            TabStop = true,
-            TabIndex = 0,
-
-            ForeColor = System.Drawing.Color.Gray,
-
-        };
-
-        private void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
-        {
-            Slider[0] = Slider_default[0];
-            Slider[1] = Slider_default[1];
-            Slider[2] = Slider_default[2];
-            Slider[3] = Slider_default[3];
-            Stars = Num_Stars;
-            Faces = Num_Faces;
-            Make_Empty();
-        }
-
-        private TextBox control1 = new TextBox //textbox for start value in Slider questions
-        {
-            Location = new System.Drawing.Point(5, 20),
-            Size = new System.Drawing.Size(100, 20),
-            ForeColor = System.Drawing.Color.Gray,
-            TabIndex = 0,
-        };
-
-        TextBox control2 = new TextBox//textbox for end value in Slider questions
-        {
-            Location = new System.Drawing.Point(140, 20),
-            Size = new System.Drawing.Size(100, 20),
-            ForeColor = System.Drawing.Color.Gray,
-            TabIndex = 1,
-
-        };
-
-
-        TextBox control3 = new TextBox//textbox for start value caption in Slider questions
-        {
-            Location = new System.Drawing.Point(275, 20),
-            Size = new System.Drawing.Size(100, 20),
-            ForeColor = System.Drawing.Color.Gray,
-            TabIndex = 2,
-
-        };
-
-
-        TextBox control4 = new TextBox//textbox for End value caption in Slider questions
-        {
-            Location = new System.Drawing.Point(410, 20),
-            Size = new System.Drawing.Size(100, 20),
-            ForeColor = System.Drawing.Color.Gray,
-            TabIndex = 3,
-
-        };
-        private TextBox control5 = new TextBox//textbox for smile Faces in smiley questions
-        {
-            Location = new System.Drawing.Point(5, 20),
-            Size = new System.Drawing.Size(100, 20),
-            ForeColor = System.Drawing.Color.Gray,
-        };
-        private TextBox control6 = new TextBox//textbox for stars number  in smiley questions
-        {
-            Location = new System.Drawing.Point(5, 20),
-            Size = new System.Drawing.Size(100, 20),
-            ForeColor = System.Drawing.Color.Gray,
-        };
-
-        private GroupBox Default_GrouoBox = new GroupBox //to hold a slider question controls
-        {
-            Location = new System.Drawing.Point(50, 220),
-            Size = new System.Drawing.Size(536, 50),
-            Text = "Default values",
-            TabIndex = 2,
-            TabStop = true,
-            Visible = false,
-
-        };
-        private GroupBox Default_GrouoBox2 = new GroupBox//to hold a smiley question controls
-        {
-            Location = new System.Drawing.Point(50, 220),
-            Size = new System.Drawing.Size(400, 50),
-            Text = "Default values",
-            TabIndex = 2,
-            TabStop = true,
-            Visible = false,
-
-        };
-        private GroupBox Default_GrouoBox3 = new GroupBox//to hold a star question controls
-        {
-            Location = new System.Drawing.Point(50, 220),
-            Size = new System.Drawing.Size(400, 50),
-            Text = "Default values",
-            TabIndex = 2,
-            TabStop = true,
-            Visible = false,
-
-        };
-
 
         private RadioButton SliderButton = new RadioButton
         {
@@ -160,6 +34,7 @@ namespace Task1
             TabStop = true
 
         };
+
         private RadioButton SmileyButton = new RadioButton
         {
             Text = "Smiley",
@@ -167,6 +42,7 @@ namespace Task1
             TabIndex = 1,
             TabStop = true
         };
+
         private RadioButton StarsButton = new RadioButton
         {
             Text = "Stars",
@@ -174,31 +50,8 @@ namespace Task1
             TabIndex = 2,
             TabStop = true
         };
-
-        private Form form = new Form//create form to show controls in Add dialog
-        {
-            Width = 600,
-            Height = 400,
-            MaximumSize = new System.Drawing.Size(663, 400),
-            MinimumSize = new System.Drawing.Size(663, 400),
-
-        };
-
-        private DataGridView Dv = new DataGridView//create data grid view to show data ENTERED in database (show new record only)
-        {
-            Size = new System.Drawing.Size(400, 50),
-            Location = new System.Drawing.Point(50, 50),
-            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-            AllowUserToDeleteRows = false,
-            AllowUserToAddRows = true,
-            AllowDrop = false,
-            ReadOnly = true,
-            TabStop = false,
-            AllowUserToResizeRows = false,
-            AllowUserToResizeColumns = false,
-        };
-
-        private void Make_Empty(TextBox box)
+       
+        public override void Make_Empty(TextBox box)
         {
             if (ReferenceEquals(box, question_box))
             {
@@ -240,20 +93,7 @@ namespace Task1
                 control6.ForeColor = System.Drawing.Color.Gray;
                 control6.Text = string.Format("Stars = {0}", Num_Stars);
             }
-        }
-
-        private void Make_Empty()
-        {
-            Make_Empty(control1);
-            Make_Empty(control2);
-            Make_Empty(control3);
-            Make_Empty(control4);
-            Make_Empty(control5);
-            Make_Empty(control6);
-
-        }
-
-      
+        } 
 
         private void GotFocus(object sender, EventArgs e)
         {
@@ -274,13 +114,23 @@ namespace Task1
 
             }
         }
+        public override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
+        {
+            Slider[0] = Slider_default[0];
+            Slider[1] = Slider_default[1];
+            Slider[2] = Slider_default[2];
+            Slider[3] = Slider_default[3];
+            Stars = Num_Stars;
+            Faces = Num_Faces;
+            Make_Empty();
+        }
 
         private void initialize()
         {
-            Slider.Add(Slider_default[0]);
-            Slider.Add(Slider_default[1]);
-            Slider.Add(Slider_default[2]);
-            Slider.Add(Slider_default[3]);
+            Slider.Add(this.Slider_default[0]);
+            Slider.Add(this.Slider_default[1]);
+            Slider.Add(this.Slider_default[2]);
+            Slider.Add(this.Slider_default[3]);
             Stars = Num_Stars;
             Faces = Num_Faces;
             /////////////////////////////////////////
@@ -345,7 +195,7 @@ namespace Task1
             FORM.Controls.Add(Default_GrouoBox3);
         }
 
-        private void Save_Click(object sender, EventArgs e)
+        public override void Save_Click(object sender, EventArgs e)
         {
             if (check())
             {
@@ -360,8 +210,9 @@ namespace Task1
                         SqlCommand command = new SqlCommand();
                         try
                         {
+
                             Dv.Rows[0].Cells[0].Value = question_box.Text;
-                            Dv.Rows[0].Cells[1].Value = question_order;
+                            Dv.Rows[0].Cells[1].Value = Question_order;
                             Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index + 1];
 
 
@@ -405,14 +256,6 @@ namespace Task1
 
         }
 
-        private void KeyDown(object sender, KeyEventArgs e)//to move to next control 
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Default_GrouoBox.SelectNextControl((TextBox)sender, true, false, false, true);
-            }
-        }
-
         private void CheckedChanged(object sender, EventArgs e)
         {
             if (ReferenceEquals(sender, SliderButton))
@@ -432,24 +275,20 @@ namespace Task1
             }
         }
 
-
-
         public void ShowDialog(DataTable Dt)
         {
             initialize();
             Dv.DataSource = Dt.Clone();
 
             if (Dt.Rows.Count > 0)
-                question_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
+                Question_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
             else
-                question_order = 0;
+                Question_order = 0;
 
             FORM.Visible = true;
         }
 
-
-
-        private bool isEmpty(TextBox box)
+        public override bool isEmpty(TextBox box)
         {
             if (ReferenceEquals(box, question_box))
             {
@@ -507,76 +346,7 @@ namespace Task1
                 return false;
 
         }
-        private void TextChanged(object sender, EventArgs e)
-        {
-            if (ReferenceEquals(sender, question_box))
-            {
-                if (isEmpty(question_box))
-                {
-                    question_box.Text = "";
-                    question_box.ForeColor = System.Drawing.Color.Black;
-                }
-            }
-            else if (ReferenceEquals(sender, control1))
-            {
-                if (isEmpty(control1))
-                {
-                    control1.Text = "";
-                    control1.ForeColor = System.Drawing.Color.Black;
-                }
-
-            }
-            else if (ReferenceEquals(sender, control2))
-            {
-                if (isEmpty(control2))
-                {
-                    control2.Text = "";
-
-                    control2.ForeColor = System.Drawing.Color.Black;
-                }
-
-            }
-            else if (ReferenceEquals(sender, control3))
-            {
-                if (isEmpty(control3))
-                {
-                    control3.Text = "";
-                    control3.ForeColor = System.Drawing.Color.Black;
-                }
-
-            }
-            else if (ReferenceEquals(sender, control4))
-            {
-                if (isEmpty(control4))
-                {
-                    control4.Text = "";
-                    control4.ForeColor = System.Drawing.Color.Black;
-                }
-
-            }
-
-            else if (ReferenceEquals(sender, control5))
-            {
-                if (isEmpty(control5))
-                {
-                    control5.Text = "";
-                    control5.ForeColor = System.Drawing.Color.Black;
-                }
-
-            }
-
-            else if (ReferenceEquals(sender, control6))
-            {
-                if (isEmpty(control6))
-                {
-                    control6.Text = "";
-                    control6.ForeColor = System.Drawing.Color.Black;
-                }
-
-            }
-        }
-
-
+    
         private void insert(SqlConnection connection, SqlCommand command)
         {
             int Groupbox_index = Group_Index();
@@ -585,253 +355,33 @@ namespace Task1
             {
                 case 0:
                     command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, question_order, Tables[Groupbox_index + 1]);
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, Question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], question_order, Slider[0], Slider[1], Slider[2], Slider[3]);
+                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], Question_order, Slider[0], Slider[1], Slider[2], Slider[3]);
                     command.ExecuteNonQuery();
                     break;
                 case 1:
                     command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, question_order, Tables[Groupbox_index + 1]);
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, Question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], question_order, Faces);
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], Question_order, Faces);
                     command.ExecuteNonQuery();
                     break;
                 case 2:
                     command.Connection = connection;
 
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, question_order, Tables[Groupbox_index + 1]);
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, Question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], question_order, Stars);
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], Question_order, Stars);
                     command.ExecuteNonQuery();
                     break;
             }
         }
-        private void Open_connection(SqlConnection sql)
+
+        public override string Question_Type()
         {
-            if (sql.State == ConnectionState.Closed)
-                sql.Open();
-
+            return Tables[Group_Index() + 1];
         }
-
-        private bool Update()
-        {
-
-            if (question_box.Text == "")
-            {
-                Make_Empty(question_box);
-            }
-            if (control1.Text == "")
-            {
-                Make_Empty(control1);
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control1))
-                    Slider[0] = Int32.Parse(control1.Text);//validate user input 
-                  
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            if (control2.Text == "")
-            {
-                Make_Empty(control2);
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control2))
-                        Slider[1] = Int32.Parse(control2.Text);
-                   
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            if (control3.Text == "")
-            {
-                Make_Empty(control3);
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control3))
-                        Slider[2] = Int32.Parse(control3.Text);
-                  
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Start caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            if (control4.Text == "")
-            {
-
-                Make_Empty(control4);
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control4))
-                        Slider[3] = Int32.Parse(control4.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("End caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-
-
-            if (control5.Text == "")
-            {
-                Make_Empty(control5);
-            }
-
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control5))
-                        Faces = Int32.Parse(control5.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            if (control6.Text == "")
-            {
-                Make_Empty(control6);
-                Reset();
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control6))
-                        Stars = Int32.Parse(control6.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-
-
-            return true;
-        }
-        private bool check()
-        {
-           if (!Update())
-            {
-                return false;
-            }
-            if (Slider[0] < 0 || Slider[0] > 100)//validate user input (Start value should be between 0-100)
-            {
-                Make_Empty(control1);
-                Reset();//call reset method 
-                MessageBox.Show("Start value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[0] >= Slider[1])
-            {
-                Make_Empty(control1);
-                Reset();
-                MessageBox.Show("Start value should be lower than end value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[0] >= Slider[2])
-            {
-                Make_Empty(control1);
-                Reset();
-                MessageBox.Show("Start value should be lower than Start caption ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[1] < 0 || Slider[1] > 100)//End value should be between 0-100
-            {
-                Reset();
-                Make_Empty(control2);
-                MessageBox.Show("End value should be betweem 0-100 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[2] < 0 || Slider[2] > 100)//Start Caption should be between 0-100 
-            {
-                Reset();
-                Make_Empty(control3);
-                MessageBox.Show("Start caption should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[2] >= Slider[1])//Start Caption should be lower than End value 
-            {
-                Reset();
-                Make_Empty(control3);
-                MessageBox.Show("Start Caption should be lower than End value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[2] >= Slider[3])
-            {
-                Reset();
-                Make_Empty(control3);
-                MessageBox.Show("Start Caption should be lower than End caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[3] < 0 || Slider[3] > 100)//End caption should be between 0-100
-            {
-                Reset();
-                Make_Empty(control4);
-                MessageBox.Show("End Caption should between 0-100 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[3] >= Slider[1])//End caption should be lower than End value 
-            {
-                Reset();
-                Make_Empty(control4);
-                MessageBox.Show("End Caption should be Lower than End value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Slider[3] <= Slider[2])//End caption should be higer than Start caption
-            {
-                Reset();
-                Make_Empty(control4);
-                MessageBox.Show("End caption should be higer than Start caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Faces > 5 || Faces < 0)
-            {
-                Reset();
-                Make_Empty(control5);
-                MessageBox.Show("Number of Smiles should between 0-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Stars > 10 || Faces < 0)
-            {
-                Reset();
-                Make_Empty(control6);
-                MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else
-                return true;
-
-        }
-
-
-
 
         private int Group_Index()
         {

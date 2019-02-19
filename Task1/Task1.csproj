@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Add_dialog.cs" />
+    <Compile Include="Base.cs" />
     <Compile Include="Edit_dialog.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

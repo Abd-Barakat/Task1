@@ -69,7 +69,6 @@ namespace Task1
             if (edit_Dialog.FORM.Visible == false)
             {
                 print();//update data grid view after Edit dialog disappear
-                edit_Dialog.Clear();//call Clear method from class EditDialog
             }
         }
 
