@@ -562,37 +562,37 @@ namespace Task1
             else if (ReferenceEquals(box, control1))
             {
                 control1.ForeColor = System.Drawing.Color.Gray;
-                control1.Text = string.Format("Start ={0}", Slider_default[0]);
+                control1.Text = Slider_default[0].ToString();
 
             }
             else if (ReferenceEquals(box, control2))
             {
                 control2.ForeColor = System.Drawing.Color.Gray;
-                control2.Text = string.Format("End ={0}", Slider_default[1]);
+                control2.Text = Slider_default[1].ToString();
             }
             else if (ReferenceEquals(box, control3))
             {
                 control3.ForeColor = System.Drawing.Color.Gray;
-                control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
+                control3.Text =Slider_default[2].ToString();
 
             }
             else if (ReferenceEquals(box, control4))
             {
                 control4.ForeColor = System.Drawing.Color.Gray;
-                control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
+                control4.Text = Slider_default[3].ToString();
 
             }
 
             else if (ReferenceEquals(box, control5))
             {
                 control5.ForeColor = System.Drawing.Color.Gray;
-                control5.Text = string.Format("Smiles = {0}", Num_Faces);
+                control5.Text = Num_Faces.ToString();
             }
 
             else if (ReferenceEquals(box, control6))
             {
                 control6.ForeColor = System.Drawing.Color.Gray;
-                control6.Text = string.Format("Stars = {0}", Num_Stars);
+                control6.Text = Num_Stars.ToString();
             }
         }
 
