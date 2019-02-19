@@ -331,6 +331,7 @@ namespace Task1
             Default_GrouoBox.Controls.Add(control4);
             /////////////////////////////////////////
             Save.Click += Save_Click;
+            /////////////////////////////////////////
             Default_GrouoBox2.Controls.Add(control5);
             /////////////////////////////////////////
             Default_GrouoBox3.Controls.Add(control6);
