@@ -26,7 +26,7 @@ Edit and Add dialogs are made programally  .
 Date : Sunday (17/2/2019)
 
 Rebuilt the database , column added to questions table called question type to delete questions from specified tables . 
-GUI had been modified , Add dialog contain Group box that contains types of questions in form of Radio Buttons for mutual exclusive , I set a default values for smiley ,Slider ,stars questions ,
+GUI had been modified , Add dialog contain Group box that contains types of questions in form of Radio Buttons for mutual exclusive , I set a default values for smiley ,Slider ,stars questions ,s
 
 Remove Numeric up down control from add dialog to avoid Primary key conflict . 
 
@@ -38,3 +38,7 @@ Add controls to Add dialog for editing Smiley ,Slider and Stars question’s prope
 Add GroupBoxes that hide/show depends on  selection of type of questions ,
 rearrangement code , methods are built to do specific function that required many time in many other methods .
 Next step is to add comments and help tips .
+------------------------------------------------------------------------------------------------------------------------------------------
+Date :Tuesday (19/2/2019)
+
+Add class called “Base” , Base is an abstract class and both Add_dialog , Edit_dialog inherit from it , that reduce code size and make maintainability much easier , Edit_dialog now contain controls for edit all properties of different kind of questions , also , configuration file is add to create connection string object that will be called every time is needed in classes , 
