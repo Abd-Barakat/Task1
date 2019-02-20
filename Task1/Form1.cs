@@ -21,7 +21,9 @@ namespace Task1
         private SqlDataReader dataReader;
         private Edit_dialog edit_Dialog;
         ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["DataBase-Connection"];
+        List<Question> questions = new List<Question>();
         
+
         public Form1()
         {
             InitializeComponent();
@@ -115,16 +117,29 @@ namespace Task1
         private int Question_order()//this method return question order of selected question in data grid view 
         {
             int order = -1;
-            open_connection();//open connection to server
-            command.CommandText = string.Format("select question_order from questions where question_text='{0}'", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[0]);//return question from data gird view 
-            dataReader = command.ExecuteReader();
 
-            while (dataReader.Read())
-            {
-                order = dataReader.GetInt32(0);//read all data retrived from database one per time 
-            }
-            dataReader.Close();//should close or it will be open always 
+            order = questions[dataGridView1.CurrentRow.Index].Question_order;
             return order;
+
+
+
+
+
+
+
+
+
+
+            //open_connection();//open connection to server
+            //command.CommandText = string.Format("select question_order from questions where question_text='{0}'", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[0]);//return question from data gird view 
+            //dataReader = command.ExecuteReader();
+
+            //while (dataReader.Read())
+            //{
+            //    order = dataReader.GetInt32(0);//read all data retrived from database one per time 
+            //}
+            //dataReader.Close();//should close or it will be open always 
+            //return order;
         }
 
         private void open_connection()//this method for open connection
@@ -151,12 +166,21 @@ namespace Task1
             try
             {
                 DataTable temp_datatable = new DataTable();
+
                 command = new SqlCommand("select * from questions", Connection);//new command to database 
+
                 open_connection();//call method open_connection()
+
                 dataTable = new DataTable();//define new data table to hold data 
+
                 dataAdapter = new SqlDataAdapter(command);//execute command and save it in adapter
+
                 dataAdapter.Fill(dataTable);//fill data table with data retrived from database 
+                
+                    questions = convert_data(dataTable);
+                
                 temp_datatable = dataTable.DefaultView.ToTable(false, "question_text");//extract one column from data table 
+
                 dataGridView1.DataSource = temp_datatable;//show one column from data table 
             }
             catch (Exception ex)
@@ -170,7 +194,16 @@ namespace Task1
             }
         }
 
-        
+        private List<Question> convert_data(DataTable dataTable)
+        {
+            List<Question> temp = new List<Question>();
+            for (int index = 0; index < dataTable.Rows.Count; index++)
+            {
+                temp.Add(new Question(dataTable.Rows[index].ItemArray[0].ToString(),(int)dataTable.Rows[index].ItemArray[1]));
+            }
+            return temp;
+        }
+
     }
 }
 

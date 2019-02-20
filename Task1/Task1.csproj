@@ -58,6 +58,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="question.cs" />
+    <Compile Include="Slider.cs" />
+    <Compile Include="Smiley.cs" />
+    <Compile Include="Stars.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
