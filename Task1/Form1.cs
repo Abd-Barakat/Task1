@@ -28,18 +28,17 @@ namespace Task1
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)//event handler when form is loaded 
         {
             print();
         }
+
         private void Add_Button_Click(object sender, EventArgs e)
         {
             Add_dialog = new Add_dialog();//define object from class Add_dialog
             Add_dialog.ShowDialog(dataTable);//call ShowDialog method from class Add_dialog
             Add_dialog.FORM.VisibleChanged += Add_Form_VisibleChanged;//define event handler for event visiable change 
-        }
-
-
+        }//event handler for add button 
 
         private void Add_Form_VisibleChanged(object sender, EventArgs e)
         {
@@ -48,7 +47,7 @@ namespace Task1
                 print();//update data grid view with new data when add dialog close
 
             }
-        }
+        }//event handler for visible change event of add form
 
         private void Edit_Button_Click(object sender, EventArgs e)
         {
@@ -62,10 +61,9 @@ namespace Task1
             else
                 MessageBox.Show("No questions to edit", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if data grid view or database contian no records
 
-        }
+        }//event handler for edit button 
 
-
-        private void Edit_FORM_VisibleChanged(object sender, EventArgs e)//event handler 
+        private void Edit_FORM_VisibleChanged(object sender, EventArgs e)//event handler for visible change event of edit form
         {
             if (edit_Dialog.FORM.Visible == false)
             {
@@ -112,7 +110,7 @@ namespace Task1
             }
             else
                 MessageBox.Show("No questions to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
-        }
+        }//event handler for delete button
 
         private int Question_order()//this method return question order of selected question in data grid view 
         {

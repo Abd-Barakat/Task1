@@ -18,7 +18,7 @@ namespace Task1
         public int Num_Stars;
         public int Faces;
         public int Stars;
-        public Form FORM
+        public Form FORM //property to edit form 
         {
             protected set
             {
@@ -36,8 +36,7 @@ namespace Task1
             ForeColor = System.Drawing.Color.Gray,
             TabIndex = 0,
         };
-
-         public TextBox control2 = new TextBox//textbox for end value in Slider questions
+        public TextBox control2 = new TextBox//textbox for end value in Slider questions
         {
             Location = new System.Drawing.Point(140, 20),
             Size = new System.Drawing.Size(100, 20),
@@ -45,8 +44,6 @@ namespace Task1
             TabIndex = 1,
 
         };
-
-
         public TextBox control3 = new TextBox//textbox for start value caption in Slider questions
         {
             Location = new System.Drawing.Point(275, 20),
@@ -55,8 +52,6 @@ namespace Task1
             TabIndex = 2,
 
         };
-
-
         public TextBox control4 = new TextBox//textbox for End value caption in Slider questions
         {
             Location = new System.Drawing.Point(410, 20),
@@ -71,7 +66,6 @@ namespace Task1
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
         };
-
         public TextBox control6 = new TextBox//textbox for stars number  in smiley questions
         {
             Location = new System.Drawing.Point(5, 20),
@@ -88,7 +82,7 @@ namespace Task1
             Multiline=true,
 
         };
-        public Form form = new Form
+        public Form form = new Form//make form to show controls 
         {
             Width = 600,
             Height = 400,
@@ -96,12 +90,12 @@ namespace Task1
             MinimumSize = new System.Drawing.Size(663, 400),
 
         };
-        public Button Save = new Button
+        public Button Save = new Button//button to save changes to database 
         {
             Text = "Save",
             Location = new System.Drawing.Point(50, 300),
         };
-        public DataGridView Dv = new DataGridView
+        public DataGridView Dv = new DataGridView//grid view to show new data 
         {
             Size = new System.Drawing.Size(536, 50),
             Location = new System.Drawing.Point(50, 20),
@@ -155,18 +149,18 @@ namespace Task1
 
 
 
-        public abstract void Make_Empty(TextBox box);
-        public abstract bool isEmpty(TextBox box);
-        public abstract void Save_Click(object sender, EventArgs e);
-        public abstract string Question_Type();
-        public abstract void Reset();
+        public abstract void Make_Empty(TextBox box);//this function to fill each  textboxes in the dialog with default values 
+        public abstract bool isEmpty(TextBox box);//this function check the passed textbox if contain default value or it's empty 
+        public abstract void Save_Click(object sender, EventArgs e);//event handler for click event on save button 
+        public abstract string Question_Type();//return question type as string 
+        public abstract void Reset();//reset values and then call Make_Empty method to print them in textboxes
 
 
 
 
-        public bool check()
+        public bool check()//this function check if entered values are correct and within thier ranges 
         {
-            if (!Check_Update())
+            if (!Check_Update())//if no values entered then no need to check 
             {
                 return false;
             }
@@ -268,8 +262,7 @@ namespace Task1
 
         }
 
-
-        public void Make_Empty()
+        public void Make_Empty()//call Make_Empty method to all textboxes
         {
             Make_Empty(control1);
             Make_Empty(control2);
@@ -279,7 +272,7 @@ namespace Task1
             Make_Empty(control6);
         }
 
-        public bool Check_Update()
+        public bool Check_Update()//check if values are changed or not 
         {
 
             if (question_box.Text == "")
@@ -400,7 +393,7 @@ namespace Task1
             return true;
         }
 
-        public void TextChanged(object sender, EventArgs e)
+        public void TextChanged(object sender, EventArgs e)//event handler to change color or each text in textboxes in dialog and make them Empty 
         {
             if (ReferenceEquals(sender, question_box))
             {
@@ -469,11 +462,12 @@ namespace Task1
             }
         }
 
-        public void Open_connection(SqlConnection connection)
+        public void Open_connection(SqlConnection connection)//to open SQL connection if it closed otherwise leave it open 
         {
             if (connection.State == ConnectionState.Closed)
                 connection.Open();
         }
+
         public void KeyDown(object sender, KeyEventArgs e)//to move to next control 
         {
             if (e.KeyCode == Keys.Enter)

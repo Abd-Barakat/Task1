@@ -78,7 +78,7 @@ namespace Task1
             Make_Empty();
         }
 
-        private void ShowGroupBox(string type,DataTable data)
+        private void ShowGroupBox(string type,DataTable data)//this method show a specific Groupbox depends on type of question then save old data (before editing ) in variables 
         {
             switch (type)
             {
@@ -114,7 +114,7 @@ namespace Task1
 
         }
 
-        private void Retrive_Data()
+        private void Retrive_Data()//load saved data of selected question from database 
         {
             string type = Question_Type();
             SqlConnection connection = new SqlConnection();
@@ -127,7 +127,7 @@ namespace Task1
             ShowGroupBox(type,temp);
         }
        
-        public void ShowDialog(int order, DataTable Dt, int Row_index)
+        public void ShowDialog(int order, DataTable Dt, int Row_index)//method used to be called in Form1 class (like constructor)
         {
             Question_order = order;          
             Dt2 = Dt.Clone();
@@ -135,32 +135,33 @@ namespace Task1
             initialize();
         }
 
-        public override void Save_Click(object sender, EventArgs e)
+        public override void Save_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
         {
-            if (check())
+            if (check())//call check method to check inserted values before update database 
             {
                 if (!question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))
                 {
                    
-                        SqlConnection connection = new SqlConnection("Data Source=A-BARAKAT;Initial Catalog=Questions;Integrated Security=True");
+                        SqlConnection connection = new SqlConnection();
+                        connection.ConnectionString = ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString;
                         SqlCommand command = new SqlCommand();
                         try
                         {
                            
-                            Update(connection, command);//insert data to a specific table 
+                            Update(connection, command);//Update data to a database
                             DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             while (result != DialogResult.OK) ;//wait unitl MessageBox closes 
-                            FORM.Visible = false;//hide Add dialog
+                            FORM.Visible = false;//hide Add dialog that will call event handler in Form1 class to print new data from database to datagridview
                         }
-                        catch (Exception ex)
+                        catch (Exception ex)//to catch eny problem that may occure
                         {
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             FORM.Visible = false;
                         }
                         finally
                         {
-                            if (connection != null)
+                            if (connection != null)//check to avoid null reference exception
                             {
                                 ((IDisposable)connection).Dispose();
                                 ((IDisposable)command).Dispose();
@@ -228,33 +229,6 @@ namespace Task1
             }
         }
 
-        private void Update(SqlConnection connection, SqlCommand command)
-        {
-            command.Connection = connection;
-            command.CommandText = string.Format("update questions set question_text ='{0}' where question_order ={1}", question_box.Text, Question_order);
-            Open_connection(connection);
-            command.ExecuteNonQuery();
-            switch (Question_Type())
-            {
-                case "Slider":
-                    command.CommandText = string.Format("update Slider set Start_Value ={0},End_Value ={1},Start_Value_Caption ={2},End_Value_Caption ={3} where question_O={4}", control1.Text, control2.Text, control3.Text, control4.Text, Question_order);
-                    Open_connection(connection);
-                    command.ExecuteNonQuery();
-                    break;
-                case "Smiley":
-
-                    command.CommandText = string.Format("update Smiley set Num_Faces ={0} where question_O={1}", control5.Text, Question_order);
-                    Open_connection(connection);
-                    command.ExecuteNonQuery();
-                    break;
-                case "Stars":
-                    command.CommandText = string.Format("update Stars set Num_Stars ={0} where question_O={1}", control6.Text, Question_order);
-                    Open_connection(connection);
-                    command.ExecuteNonQuery();
-                    break;
-            }
-        }
-
         public override bool isEmpty(TextBox box)
         {
             if (ReferenceEquals(box, question_box))
@@ -266,7 +240,7 @@ namespace Task1
             }
             else if (ReferenceEquals(box, control1))
             {
-                if (control1.Text ==  Slider_def[0].ToString())
+                if (control1.Text == Slider_def[0].ToString())
                     return true;
                 else
                     return false;
@@ -313,6 +287,34 @@ namespace Task1
                 return false;
 
         }
+
+        private void Update(SqlConnection connection, SqlCommand command) //update database with the new values 
+        {
+            command.Connection = connection;
+            command.CommandText = string.Format("update questions set question_text ='{0}' where question_order ={1}", question_box.Text, Question_order);
+            Open_connection(connection);
+            command.ExecuteNonQuery();
+            switch (Question_Type())
+            {
+                case "Slider":
+                    command.CommandText = string.Format("update Slider set Start_Value ={0},End_Value ={1},Start_Value_Caption ={2},End_Value_Caption ={3} where question_O={4}", control1.Text, control2.Text, control3.Text, control4.Text, Question_order);
+                    Open_connection(connection);
+                    command.ExecuteNonQuery();
+                    break;
+                case "Smiley":
+
+                    command.CommandText = string.Format("update Smiley set Num_Faces ={0} where question_O={1}", control5.Text, Question_order);
+                    Open_connection(connection);
+                    command.ExecuteNonQuery();
+                    break;
+                case "Stars":
+                    command.CommandText = string.Format("update Stars set Num_Stars ={0} where question_O={1}", control6.Text, Question_order);
+                    Open_connection(connection);
+                    command.ExecuteNonQuery();
+                    break;
+            }
+        }
+
 
     }
 }
