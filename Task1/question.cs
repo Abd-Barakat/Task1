@@ -9,7 +9,7 @@ namespace Task1
     public abstract class Question
     {
         private string question_text;
-
+        private string question_type;
         private int question_order;
 
         public string Question_text
@@ -35,11 +35,22 @@ namespace Task1
                 return question_order;
             }
         }
-
-        public Question(string text, int order)
+        public string Question_type
+        {
+             set
+            {
+                question_type = value;
+            }
+            get
+            {
+                return question_type;
+            }
+        }
+        public Question(string text, int order,string type)
         {
             Question_text = text;
             Question_order = order;
+            Question_type = type;
         }
 
         public abstract List<int> Default_values();

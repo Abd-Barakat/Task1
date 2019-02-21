@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 namespace Task1
 {
     class Smiley:Question
     {
         
-        private int faces =3;
+        private int faces;
         public int Faces
         {
             get
@@ -25,18 +25,18 @@ namespace Task1
             }
         }
 
-        public Smiley(string text, int order, int faces=3):base(text,order)
+        public Smiley(string text, int order, int faces=3):base(text,order, "Smiley")
         {
             Faces = faces;
         }
-        public Smiley() : base("", -1)
+        public Smiley() : base("", -1, "Smiley")
         {
-
+            Faces = 3;
         }
         public override  List<int> Default_values()
         {
             List<int> temp = new List<int>();
-            temp.Add(Faces);
+            temp.Add(3);
             return temp;
         }
         public override void Reset_values()

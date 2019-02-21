@@ -11,8 +11,9 @@ namespace Task1
 {
     abstract public class Base
     {
-        public int Question_order;
+        public int Next_order;
         public Question q;
+        public DBclass DB = new DBclass();
         public Form FORM //property to edit form 
         {
             protected set
@@ -133,14 +134,13 @@ namespace Task1
             Visible = false,
 
         };
-     
+
 
 
 
         public abstract void Make_Empty(TextBox box);//this function to fill each  textboxes in the dialog with default values 
         public abstract bool isEmpty(TextBox box);//this function check the passed textbox if contain default value or it's empty 
         public abstract void Save_Click(object sender, EventArgs e);//event handler for click event on save button 
-        public abstract string Question_Type();//return question type as string 
         public abstract void Reset();//reset values and then call Make_Empty method to print them in textboxes
 
 
@@ -152,7 +152,7 @@ namespace Task1
             {
                 return false;
             }
-            if (Question_Type() == "Slider")
+            if (q.Question_type == "Slider")
             {
 
                 if (Values[0] < 0 || Values[0] > 100)//validate user input (Start value should be between 0-100)
@@ -226,17 +226,17 @@ namespace Task1
                     return false;
                 }
             }
-            if (Question_Type() == "Smiley")
+            if (q.Question_type == "Smiley")
             {
-                if (Values[0] > 5 || Values[0] < 0)
+                if (Values[0] > 5 || Values[0] < 2)
                 {
                     Reset();
                     Make_Empty(control5);
-                    MessageBox.Show("Number of Smiles should between 0-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Number of Smiles should between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
-            if (Question_Type() == "Stars")
+            if (q.Question_type == "Stars")
             {
                 if (Values[0] > 10 || Values[0] < 0)
                 {
@@ -253,18 +253,18 @@ namespace Task1
 
         public void Make_boxes_Empty()//call Make_Empty method to all textboxes
         {
-            if (Question_Type() == "Slider")
+            if (q.Question_type == "Slider")
             {
                 Make_Empty(control1);
                 Make_Empty(control2);
                 Make_Empty(control3);
                 Make_Empty(control4);
             }
-            if (Question_Type() == "Smiley")
+            if (q.Question_type == "Smiley")
             {
                 Make_Empty(control5);
             }
-            if (Question_Type() == "Stars")
+            if (q.Question_type == "Stars")
             {
                 Make_Empty(control6);
             }
@@ -276,8 +276,24 @@ namespace Task1
             if (question_box.Text == "")
             {
                 Make_Empty(question_box);
+
             }
-            if (Question_Type() == "Slider")
+            else
+            {
+                try
+                {
+                    if (!isEmpty(question_box))
+                        q.Question_text = question_box.Text;//validate user input 
+
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Questions  shouldn't  contain number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+
+            if (q.Question_type == "Slider")
             {
                 {
                     if (control1.Text == "")
@@ -355,7 +371,7 @@ namespace Task1
                 }
                 q.Set_values(Values);
             }
-            else if (Question_Type() == "Smiley")
+            else if (q.Question_type == "Smiley")
             {
 
                 if (control5.Text == "")
@@ -376,9 +392,12 @@ namespace Task1
                         return false;
                     }
                 }
+                q.Set_values(Values);
+
             }
-            else if (Question_Type() == "Stars")
+            else if (q.Question_type == "Stars")
             {
+           
                 if (control6.Text == "")
                 {
                     Make_Empty(control6);
@@ -389,6 +408,7 @@ namespace Task1
                     {
                         if (!isEmpty(control6))
                             Values[0] = Int32.Parse(control6.Text);
+
                     }
                     catch (FormatException)
                     {
@@ -396,6 +416,7 @@ namespace Task1
                         return false;
                     }
                 }
+                q.Set_values(Values);
 
             }
 
@@ -469,12 +490,6 @@ namespace Task1
                 }
 
             }
-        }
-
-        public void Open_connection(SqlConnection connection)//to open SQL connection if it closed otherwise leave it open 
-        {
-            if (connection.State == ConnectionState.Closed)
-                connection.Open();
         }
 
         public void KeyDown(object sender, KeyEventArgs e)//to move to next control 

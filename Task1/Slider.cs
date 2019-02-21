@@ -61,16 +61,19 @@ namespace Task1
             }
         }
 
-        public Slider(string text ,int order, int start=0 ,int start_caption=20,int end=100,int end_caption=80):base(text,order)
+        public Slider(string text ,int order, int start=0 ,int start_caption=20,int end=100,int end_caption=80):base(text,order, "Slider")
         {
             Start = start;
             Start_Caption = start_caption;
             End = end;
             End_Caption = end_caption;
         }
-        public Slider() : base("", -1)
+        public Slider() : base("", -1, "Slider")
         {
-
+            Start = Slider_default[0];
+            Start_Caption = Slider_default[1];
+            End = Slider_default[2];
+            End_Caption = Slider_default[3];
         }
         public override List <int > Current_values()
         {

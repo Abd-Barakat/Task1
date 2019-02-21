@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Task1
 {
@@ -23,11 +24,11 @@ namespace Task1
                 }
             }
         }
-        public Stars ():base ("",-1)
+        public Stars ():base ("",-1, "Stars")
         {
-
+            Star = 5;
         }
-        public Stars(string text, int order, int star=5):base(text,order)
+        public Stars(string text, int order, int star=5):base(text,order, "Stars")
         {
             Star = star;
         }
@@ -49,6 +50,7 @@ namespace Task1
         }
         public override void Set_values(List<int> Values)
         {
+
             Star = Values[0];
         }
     }
