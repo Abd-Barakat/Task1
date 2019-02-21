@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Data;
 namespace Task1
 {
-    class Question
+    public abstract class Question
     {
         private string question_text;
+
         private int question_order;
 
         public string Question_text
@@ -22,6 +23,7 @@ namespace Task1
                 return question_text;
             }
         }
+
         public int Question_order
         {
             set
@@ -40,6 +42,9 @@ namespace Task1
             Question_order = order;
         }
 
-       
+        public abstract List<int> Default_values();
+        public abstract void Reset_values();
+        public abstract List<int> Current_values();
+        public abstract void Set_values(List<int> Values);
     }
 }

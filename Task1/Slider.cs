@@ -13,7 +13,7 @@ namespace Task1
         private int start_caption;
         private int end;
         private int end_caption;
-        public readonly int[] Slider_default = new int[] { 0, 100, 20, 80 };
+        public readonly List<int> Slider_default = new List<int> { 0, 100, 20, 80 };
         
        
         public int Start
@@ -68,7 +68,36 @@ namespace Task1
             End = end;
             End_Caption = end_caption;
         }
+        public Slider() : base("", -1)
+        {
 
-
+        }
+        public override List <int > Current_values()
+        {
+            List<int> temp = new List<int>();
+            temp.Add(Start);
+            temp.Add(Start_Caption);
+            temp.Add(End);
+            temp.Add(End_Caption);
+            return temp;
+        }
+        public override List<int> Default_values()
+        {
+            return Slider_default;
+        }
+        public override void Reset_values()
+        {
+            Start = Slider_default[0];
+            Start_Caption = Slider_default[1];
+            End = Slider_default[2];
+            End_Caption =Slider_default[3];
+        }
+        public override void Set_values(List<int> Values)
+        {
+            Start = Values[0];
+            Start_Caption = Values[1];
+            End = Values[2];
+            End_Caption = Values[3];
+        }
     }
 }

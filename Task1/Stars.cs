@@ -8,7 +8,7 @@ namespace Task1
 {
     class Stars:Question
     {
-        private int star;
+        private int star =5;
         public int Star
         {
             get
@@ -23,11 +23,33 @@ namespace Task1
                 }
             }
         }
+        public Stars ():base ("",-1)
+        {
 
+        }
         public Stars(string text, int order, int star=5):base(text,order)
         {
             Star = star;
         }
-
+        public override List<int> Default_values()
+        {
+            List<int> temp = new List<int>();
+            temp.Add(Star);
+            return temp;
+        }
+        public override void Reset_values()
+        {
+            Star = 5;
+        }
+        public override List<int> Current_values()
+        {
+            List<int> temp = new List<int>();
+            temp.Add(Star);
+            return temp;
+        }
+        public override void Set_values(List<int> Values)
+        {
+            Star = Values[0];
+        }
     }
 }

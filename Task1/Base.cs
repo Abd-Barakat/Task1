@@ -9,15 +9,10 @@ using System.Data.SqlClient;
 using System.Configuration;
 namespace Task1
 {
-    abstract  public class Base
+    abstract public class Base
     {
         public int Question_order;
-        public List<int> Slider = new List<int>();
-        public readonly int[] Slider_default =new int[] { 0,100,20,80};
-        public int Num_Faces;
-        public int Num_Stars;
-        public int Faces;
-        public int Stars;
+        public Question q;
         public Form FORM //property to edit form 
         {
             protected set
@@ -79,7 +74,7 @@ namespace Task1
             TabIndex = 0,
             Size = new System.Drawing.Size(400, 50),
             ForeColor = System.Drawing.Color.Gray,
-            Multiline=true,
+            Multiline = true,
 
         };
         public Form form = new Form//make form to show controls 
@@ -106,7 +101,7 @@ namespace Task1
             ReadOnly = true,
             AllowUserToResizeRows = false,
             AllowUserToResizeColumns = false,
-
+            TabStop = false,
         };
         public GroupBox Default_GrouoBox = new GroupBox //to hold a slider question controls
         {
@@ -138,14 +133,7 @@ namespace Task1
             Visible = false,
 
         };
-
-
-
-        
-
-
-
-
+     
 
 
 
@@ -158,78 +146,79 @@ namespace Task1
 
 
 
-        public bool check()//this function check if entered values are correct and within thier ranges 
+        public bool check(List<int> Values)//this function check if entered values are correct and within thier ranges 
         {
-            if (!Check_Update())//if no values entered then no need to check 
+            if (!Check_Changes(Values))//if no values entered then no need to check 
             {
                 return false;
             }
             if (Question_Type() == "Slider")
             {
-                if (Slider[0] < 0 || Slider[0] > 100)//validate user input (Start value should be between 0-100)
+
+                if (Values[0] < 0 || Values[0] > 100)//validate user input (Start value should be between 0-100)
                 {
                     Make_Empty(control1);
                     Reset();//call reset method 
                     MessageBox.Show("Start value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[0] >= Slider[1])
+                if (Values[0] >= Values[1])
                 {
                     Make_Empty(control1);
                     Reset();
                     MessageBox.Show("Start value should be lower than end value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[0] >= Slider[2])
+                if (Values[0] >= Values[2])
                 {
                     Make_Empty(control1);
                     Reset();
                     MessageBox.Show("Start value should be lower than Start caption ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[1] < 0 || Slider[1] > 100)//End value should be between 0-100
+                if (Values[1] < 0 || Values[1] > 100)//End value should be between 0-100
                 {
                     Reset();
                     Make_Empty(control2);
                     MessageBox.Show("End value should be betweem 0-100 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[2] < 0 || Slider[2] > 100)//Start Caption should be between 0-100 
+                if (Values[2] < 0 || Values[2] > 100)//Start Caption should be between 0-100 
                 {
                     Reset();
                     Make_Empty(control3);
                     MessageBox.Show("Start caption should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[2] >= Slider[1])//Start Caption should be lower than End value 
+                if (Values[2] >= Values[1])//Start Caption should be lower than End value 
                 {
                     Reset();
                     Make_Empty(control3);
                     MessageBox.Show("Start Caption should be lower than End value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[2] >= Slider[3])
+                if (Values[2] >= Values[3])
                 {
                     Reset();
                     Make_Empty(control3);
                     MessageBox.Show("Start Caption should be lower than End caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[3] < 0 || Slider[3] > 100)//End caption should be between 0-100
+                if (Values[3] < 0 || Values[3] > 100)//End caption should be between 0-100
                 {
                     Reset();
                     Make_Empty(control4);
                     MessageBox.Show("End Caption should between 0-100 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[3] >= Slider[1])//End caption should be lower than End value 
+                if (Values[3] >= Values[1])//End caption should be lower than End value 
                 {
                     Reset();
                     Make_Empty(control4);
                     MessageBox.Show("End Caption should be Lower than End value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                if (Slider[3] <= Slider[2])//End caption should be higer than Start caption
+                if (Values[3] <= Values[2])//End caption should be higer than Start caption
                 {
                     Reset();
                     Make_Empty(control4);
@@ -239,7 +228,7 @@ namespace Task1
             }
             if (Question_Type() == "Smiley")
             {
-                if (Faces > 5 || Faces < 0)
+                if (Values[0] > 5 || Values[0] < 0)
                 {
                     Reset();
                     Make_Empty(control5);
@@ -249,7 +238,7 @@ namespace Task1
             }
             if (Question_Type() == "Stars")
             {
-                if (Stars > 10 || Faces < 0)
+                if (Values[0] > 10 || Values[0] < 0)
                 {
                     Reset();
                     Make_Empty(control6);
@@ -262,133 +251,153 @@ namespace Task1
 
         }
 
-        public void Make_Empty()//call Make_Empty method to all textboxes
+        public void Make_boxes_Empty()//call Make_Empty method to all textboxes
         {
-            Make_Empty(control1);
-            Make_Empty(control2);
-            Make_Empty(control3);
-            Make_Empty(control4);
-            Make_Empty(control5);
-            Make_Empty(control6);
+            if (Question_Type() == "Slider")
+            {
+                Make_Empty(control1);
+                Make_Empty(control2);
+                Make_Empty(control3);
+                Make_Empty(control4);
+            }
+            if (Question_Type() == "Smiley")
+            {
+                Make_Empty(control5);
+            }
+            if (Question_Type() == "Stars")
+            {
+                Make_Empty(control6);
+            }
         }
 
-        public bool Check_Update()//check if values are changed or not 
+        public bool Check_Changes(List<int> Values)//check if values are changed or not 
         {
 
             if (question_box.Text == "")
             {
                 Make_Empty(question_box);
             }
-            if (control1.Text == "")
+            if (Question_Type() == "Slider")
             {
-                Make_Empty(control1);
-            }
-            else
-            {
-                try
                 {
-                    if (!isEmpty(control1))
-                        Slider[0] = Int32.Parse(control1.Text);//validate user input 
+                    if (control1.Text == "")
+                    {
+                        Make_Empty(control1);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (!isEmpty(control1))
+                                Values[0] = Int32.Parse(control1.Text);//validate user input 
 
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            if (control2.Text == "")
-            {
-                Make_Empty(control2);
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control2))
-                        Slider[1] = Int32.Parse(control2.Text);
+                        }
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
+                    if (control2.Text == "")
+                    {
+                        Make_Empty(control2);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (!isEmpty(control2))
+                                Values[1] = Int32.Parse(control2.Text);
 
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            if (control3.Text == "")
-            {
-                Make_Empty(control3);
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control3))
-                        Slider[2] = Int32.Parse(control3.Text);
+                        }
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
+                    if (control3.Text == "")
+                    {
+                        Make_Empty(control3);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (!isEmpty(control3))
+                                Values[2] = Int32.Parse(control3.Text);
 
+                        }
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("Start caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
+                    if (control4.Text == "")
+                    {
+
+                        Make_Empty(control4);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (!isEmpty(control4))
+                                Values[3] = Int32.Parse(control4.Text);
+                        }
+                        catch (FormatException)
+                        {
+                            MessageBox.Show("End caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
                 }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Start caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
+                q.Set_values(Values);
             }
-            if (control4.Text == "")
+            else if (Question_Type() == "Smiley")
             {
 
-                Make_Empty(control4);
-            }
-            else
-            {
-                try
+                if (control5.Text == "")
                 {
-                    if (!isEmpty(control4))
-                        Slider[3] = Int32.Parse(control4.Text);
+                    Make_Empty(control5);
                 }
-                catch (FormatException)
-                {
-                    MessageBox.Show("End caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
 
+                else
+                {
+                    try
+                    {
+                        if (!isEmpty(control5))
+                            Values[0] = Int32.Parse(control5.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
+            else if (Question_Type() == "Stars")
+            {
+                if (control6.Text == "")
+                {
+                    Make_Empty(control6);
+                }
+                else
+                {
+                    try
+                    {
+                        if (!isEmpty(control6))
+                            Values[0] = Int32.Parse(control6.Text);
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
 
-            if (control5.Text == "")
-            {
-                Make_Empty(control5);
             }
-
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control5))
-                        Faces = Int32.Parse(control5.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            if (control6.Text == "")
-            {
-                Make_Empty(control6);
-            }
-            else
-            {
-                try
-                {
-                    if (!isEmpty(control6))
-                        Stars = Int32.Parse(control6.Text);
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-
 
             return true;
         }

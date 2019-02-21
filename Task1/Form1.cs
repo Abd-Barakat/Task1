@@ -15,10 +15,9 @@ namespace Task1
     {
         private SqlConnection Connection;
         private SqlCommand command;
-        private DataTable dataTable;
+        private DataTable[] dataTables = new  DataTable[4];
         private SqlDataAdapter dataAdapter;
         private Add_dialog Add_dialog = null;
-        private SqlDataReader dataReader;
         private Edit_dialog edit_Dialog;
         ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["DataBase-Connection"];
         List<Question> questions = new List<Question>();
@@ -38,7 +37,9 @@ namespace Task1
         private void Add_Button_Click(object sender, EventArgs e)
         {
             Add_dialog = new Add_dialog();//define object from class Add_dialog
-            Add_dialog.ShowDialog(dataTable);//call ShowDialog method from class Add_dialog
+            int next_order = Next_question_order() ;
+            Add_dialog.ShowDialog( dataTables[0].Clone(), next_order);//call ShowDialog method from class Add_dialog
+
             Add_dialog.FORM.VisibleChanged += Add_Form_VisibleChanged;//define event handler for event visiable change 
         }//event handler for add button 
 
@@ -56,15 +57,38 @@ namespace Task1
             if (!isEmpty())//check if data grid view is empty to return index of selected row 
             {
                 edit_Dialog = new Edit_dialog();//define object from class Edit_dialog
-                int order = Question_order();//return question order in database  
-                edit_Dialog.ShowDialog(order, dataTable, dataGridView1.CurrentCell.RowIndex);//call method ShowDialog that take question order and datatable and index of selected row 
+                int order = Selected_question_order();//return question order in database 
+                edit_Dialog.ShowDialog(order,extract_row(dataTables[0],order),extract_row(dataTables[dataTable_index()],order));//call method ShowDialog that take question order and datatable and index of selected row 
                 edit_Dialog.FORM.VisibleChanged += Edit_FORM_VisibleChanged;//define event handler for Visible change event 
             }
             else
                 MessageBox.Show("No questions to edit", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if data grid view or database contian no records
 
-        }//event handler for edit button 
+        }
+        
+        private DataRow extract_row(DataTable data , int order )
+        {
+            return data.Select(string.Format("Convert(question_order,'System.String') LIKE '%{0}%'", order)).First();//Like method compare two elements with same type so question order is int type and order converted to string implcitly , we must convert question_order to string first 
+        }
 
+        private  string Qustion_type()
+        {
+            return dataTables[0].Rows[dataGridView1.CurrentRow.Index].ItemArray[2].ToString();
+        }
+
+        private int dataTable_index ()
+        {
+            switch (Qustion_type())
+            {
+                case "Slider":
+                    return 1;
+                case "Smiley":
+                    return 2;
+                case "Stars":
+                    return 3;
+            }
+            return -1;
+        }
         private void Edit_FORM_VisibleChanged(object sender, EventArgs e)//event handler for visible change event of edit form
         {
             if (edit_Dialog.FORM.Visible == false)
@@ -84,11 +108,11 @@ namespace Task1
                     try
                     {
                         int order;
-                        order = Question_order();//return question order from database 
+                        order = Selected_question_order();//return question order from database 
 
                         open_connection();//open connection to server
 
-                        command.CommandText = string.Format("delete from {0} where question_O={1}", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[2], order);//sql command
+                        command.CommandText = string.Format("delete from {0} where question_order={1}", dataTables[0].Rows[dataGridView1.CurrentRow.Index].ItemArray[2], order);//sql command
                         command.ExecuteNonQuery();//execute command 
 
                         command.CommandText = string.Format("delete from questions where question_order= {0}", order);//change sql command text 
@@ -101,45 +125,28 @@ namespace Task1
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occur
                     }
-                    finally
-                    {
-                        if (dataReader != null)//to prevent Null exception 
-                        {
-                            ((IDisposable)dataReader).Dispose();//relese dataRader object 
-                        }
-                    }
+                   
                 }
             }
             else
                 MessageBox.Show("No questions to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
         }//event handler for delete button
 
-        private int Question_order()//this method return question order of selected question in data grid view 
+        private int Selected_question_order()//this method return question order of selected question in data grid view 
         {
-            int order = -1;
+            
+            return  (int)dataTables[0].Rows[dataGridView1.CurrentRow.Index].ItemArray[1];
+             
+        }
 
-            order = questions[dataGridView1.CurrentRow.Index].Question_order;
-            return order;
-
-
-
-
-
-
-
-
-
-
-            //open_connection();//open connection to server
-            //command.CommandText = string.Format("select question_order from questions where question_text='{0}'", dataTable.Rows[dataGridView1.CurrentRow.Index].ItemArray[0]);//return question from data gird view 
-            //dataReader = command.ExecuteReader();
-
-            //while (dataReader.Read())
-            //{
-            //    order = dataReader.GetInt32(0);//read all data retrived from database one per time 
-            //}
-            //dataReader.Close();//should close or it will be open always 
-            //return order;
+        private int Next_question_order()
+        {
+            if (dataGridView1.Rows.Count > 0)
+            {
+                return (int)dataTables[0].Rows[dataGridView1.Rows.Count - 1].ItemArray[1]+1;
+            }
+            else
+                return 0;
         }
 
         private void open_connection()//this method for open connection
@@ -167,19 +174,36 @@ namespace Task1
             {
                 DataTable temp_datatable = new DataTable();
 
-                command = new SqlCommand("select * from questions", Connection);//new command to database 
 
                 open_connection();//call method open_connection()
 
-                dataTable = new DataTable();//define new data table to hold data 
 
+
+                dataTables[0] = new DataTable();//define new data table to hold data 
+                dataTables[1] = new DataTable();
+                dataTables[2] = new DataTable();
+                dataTables[3] = new DataTable();
+
+
+                command = new SqlCommand("select * from questions", Connection);//new command to database 
                 dataAdapter = new SqlDataAdapter(command);//execute command and save it in adapter
+                dataAdapter.Fill(dataTables[0]);//fill data table with data retrived from database 
 
-                dataAdapter.Fill(dataTable);//fill data table with data retrived from database 
+                command.CommandText = "select * from Slider";
+                dataAdapter = new SqlDataAdapter(command);
+                dataAdapter.Fill(dataTables[1]);
+
+                command.CommandText = "select * from Smiley";
+                dataAdapter = new SqlDataAdapter(command);
+                dataAdapter.Fill(dataTables[2]);
+
+                command.CommandText = "select * from Stars";
+                dataAdapter = new SqlDataAdapter(command);
+                dataAdapter.Fill(dataTables[3]);
+
+
                 
-                    questions = convert_data(dataTable);
-                
-                temp_datatable = dataTable.DefaultView.ToTable(false, "question_text");//extract one column from data table 
+                temp_datatable = dataTables[0].DefaultView.ToTable(false, "question_text");//extract one column from data table 
 
                 dataGridView1.DataSource = temp_datatable;//show one column from data table 
             }
@@ -194,15 +218,6 @@ namespace Task1
             }
         }
 
-        private List<Question> convert_data(DataTable dataTable)
-        {
-            List<Question> temp = new List<Question>();
-            for (int index = 0; index < dataTable.Rows.Count; index++)
-            {
-                temp.Add(new Question(dataTable.Rows[index].ItemArray[0].ToString(),(int)dataTable.Rows[index].ItemArray[1]));
-            }
-            return temp;
-        }
 
     }
 }

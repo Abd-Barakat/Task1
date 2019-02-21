@@ -13,9 +13,10 @@ namespace Task1
     class Add_dialog :Base
     {
         private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };
-        public  readonly int[] Slider_default = new int[] { 0,100,20,80};
-        public readonly int Num_Faces = 3;
-        public readonly int Num_Stars = 5;
+
+
+
+
         private GroupBox groupBox = new GroupBox//define groupbox that contain 3 Radio buttons 
         {
             Text = "Question type",
@@ -63,87 +64,100 @@ namespace Task1
             else if (ReferenceEquals(box, control1))
             {
                 control1.ForeColor = System.Drawing.Color.Gray;
-                control1.Text = string.Format("Start ={0}", Slider_default[0]);
+                control1.Text = string.Format("Start ={0}", q.Default_values().ElementAt(0));
 
             }
             else if (ReferenceEquals(box, control2))
             {
                 control2.ForeColor = System.Drawing.Color.Gray;
-                control2.Text = string.Format("End ={0}", Slider_default[1]);
+                control2.Text = string.Format("End ={0}", q.Default_values().ElementAt(1));
             }
             else if (ReferenceEquals(box, control3))
             {
                 control3.ForeColor = System.Drawing.Color.Gray;
-                control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
+                control3.Text = string.Format("Start Caption ={0}", q.Default_values().ElementAt(2));
 
             }
             else if (ReferenceEquals(box, control4))
             {
                 control4.ForeColor = System.Drawing.Color.Gray;
-                control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
+                control4.Text = string.Format("End Caption ={0}", q.Default_values().ElementAt(3));
 
             }
 
             else if (ReferenceEquals(box, control5))
             {
                 control5.ForeColor = System.Drawing.Color.Gray;
-                control5.Text = string.Format("Smiles = {0}", Num_Faces);
+                control5.Text = string.Format("Smiles = {0}", q.Default_values().ElementAt(0));
             }
 
             else if (ReferenceEquals(box, control6))
             {
                 control6.ForeColor = System.Drawing.Color.Gray;
-                control6.Text = string.Format("Stars = {0}", Num_Stars);
+                control6.Text = string.Format("Stars = {0}", q.Default_values().ElementAt(0));
             }
         } 
+
+
+
 
         private void GotFocus(object sender, EventArgs e)
         {
             if (ReferenceEquals(sender, SliderButton))
             {
+                relese(q);
+                q = new Slider();
+                q.Reset_values();
+                q.Question_order = Question_order;
                 SliderButton.Checked = true;
+                control1.Text = string.Format("Start ={0}", q.Default_values().ElementAt(0));
+                control2.Text = string.Format("End ={0}", q.Default_values().ElementAt(1));
+                control3.Text = string.Format("Start Caption ={0}", q.Default_values().ElementAt(2));
+                control4.Text = string.Format("End Caption ={0}", q.Default_values().ElementAt(3));
                 Default_GrouoBox.Visible = true;
             }
             else if (ReferenceEquals(sender, SmileyButton))
             {
+                relese(q);
+                q = new Smiley();
+                q.Reset_values();
+                q.Question_order = Question_order;
                 SmileyButton.Checked = true;
+                control5.Text = string.Format("Smiles = {0}", q.Default_values().ElementAt(0));
                 Default_GrouoBox2.Visible = true;
+
             }
             else if (ReferenceEquals(sender, StarsButton))
             {
+                relese(q);
+                q = new Stars();
+                q.Reset_values();
+                q.Question_order = Question_order;
                 StarsButton.Checked = true;
+                control6.Text = string.Format("Stars = {0}", q.Default_values().ElementAt(0));
                 Default_GrouoBox3.Visible = true;
 
             }
         }
 
+        private void relese (Question q)
+        {
+            if (q !=null)
+            {
+                q = null;
+            }
+        }
         public override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
         {
-            Slider[0] = Slider_default[0];
-            Slider[1] = Slider_default[1];
-            Slider[2] = Slider_default[2];
-            Slider[3] = Slider_default[3];
-            Stars = Num_Stars;
-            Faces = Num_Faces;
-            Make_Empty();
+            q.Reset_values();
+            Make_boxes_Empty();
         }
 
         private void initialize()
         {
-            Slider.Add(this.Slider_default[0]);
-            Slider.Add(this.Slider_default[1]);
-            Slider.Add(this.Slider_default[2]);
-            Slider.Add(this.Slider_default[3]);
-            Stars = Num_Stars;
-            Faces = Num_Faces;
+
             /////////////////////////////////////////
             question_box.Text = "Write a question here ...";
-            control1.Text = string.Format("Start ={0}", Slider_default[0]);
-            control2.Text = string.Format("End ={0}", Slider_default[1]);
-            control3.Text = string.Format("Start Caption ={0}", Slider_default[2]);
-            control4.Text = string.Format("End Caption ={0}", Slider_default[3]);
-            control5.Text = string.Format("Smiles = {0}", Num_Faces);
-            control6.Text = string.Format("Stars = {0}", Num_Stars);
             /////////////////////////////////////////
             SliderButton.GotFocus += GotFocus;
             SmileyButton.GotFocus += GotFocus;
@@ -200,7 +214,7 @@ namespace Task1
 
         public override void Save_Click(object sender, EventArgs e)
         {
-            if (check())
+            if (check(q.Current_values()))
             {
                 if (!question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))
                 {
@@ -216,7 +230,7 @@ namespace Task1
                         {
 
                             Dv.Rows[0].Cells[0].Value = question_box.Text;
-                            Dv.Rows[0].Cells[1].Value = Question_order;
+                            Dv.Rows[0].Cells[1].Value = q.Question_order;
                             Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index + 1];
 
 
@@ -279,16 +293,11 @@ namespace Task1
             }
         }
 
-        public void ShowDialog(DataTable Dt)
+        public void ShowDialog(DataTable Dt ,int next_order)
         {
             initialize();
             Dv.DataSource = Dt.Clone();
-
-            if (Dt.Rows.Count > 0)
-                Question_order = (int)Dt.Rows[Dt.Rows.Count - 1].ItemArray[1] + 1;
-            else
-                Question_order = 0;
-
+            Question_order = next_order;
             FORM.Visible = true;
         }
 
@@ -303,7 +312,7 @@ namespace Task1
             }
             else if (ReferenceEquals(box, control1))
             {
-                if (control1.Text == string.Format("Start ={0}", Slider_default[0]))
+                if (control1.Text == string.Format("Start ={0}", q.Default_values().ElementAt(0)))
                     return true;
                 else
                     return false;
@@ -311,21 +320,21 @@ namespace Task1
             }
             else if (ReferenceEquals(box, control2))
             {
-                if (control2.Text == string.Format("End ={0}", Slider_default[1]))
+                if (control2.Text == string.Format("End ={0}", q.Default_values().ElementAt(1)))
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, control3))
             {
-                if (control3.Text == string.Format("Start Caption ={0}", Slider_default[2]))
+                if (control3.Text == string.Format("Start Caption ={0}", q.Default_values().ElementAt(2)))
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, control4))
             {
-                if (control4.Text == string.Format("End Caption ={0}", Slider_default[3]))
+                if (control4.Text == string.Format("End Caption ={0}", q.Default_values().ElementAt(3) ))
                     return true;
                 else
                     return false;
@@ -333,7 +342,7 @@ namespace Task1
 
             else if (ReferenceEquals(box, control5))
             {
-                if (control5.Text == string.Format("Smiles = {0}", Num_Faces))
+                if (control5.Text == string.Format("Smiles = {0}", q.Default_values().ElementAt(0)))
                     return true;
                 else
                     return false;
@@ -341,7 +350,7 @@ namespace Task1
 
             else if (ReferenceEquals(box, control6))
             {
-                if (control6.Text == string.Format("Stars = {0}", Num_Stars))
+                if (control6.Text == string.Format("Stars = {0}", q.Default_values().ElementAt(0)))
                     return true;
                 else
                     return false;
@@ -359,24 +368,24 @@ namespace Task1
             {
                 case 0:
                     command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, Question_order, Tables[Groupbox_index + 1]);
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, q.Question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], Question_order, Slider[0], Slider[1], Slider[2], Slider[3]);
+                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], q.Question_order, q.Current_values().ElementAt(0), q.Current_values().ElementAt(1), q.Current_values().ElementAt(2), q.Current_values().ElementAt(3));
                     command.ExecuteNonQuery();
                     break;
                 case 1:
                     command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, Question_order, Tables[Groupbox_index + 1]);
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, q.Question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], Question_order, Faces);
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], q.Question_order, q.Current_values().ElementAt(0));
                     command.ExecuteNonQuery();
                     break;
                 case 2:
                     command.Connection = connection;
 
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, Question_order, Tables[Groupbox_index + 1]);
+                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, q.Question_order, Tables[Groupbox_index + 1]);
                     command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], Question_order, Stars);
+                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], q.Question_order, q.Current_values().ElementAt(0));
                     command.ExecuteNonQuery();
                     break;
             }
