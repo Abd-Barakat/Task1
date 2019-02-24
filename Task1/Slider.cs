@@ -76,7 +76,11 @@ namespace Task1
             }
         }
 
+<<<<<<< HEAD
         public Slider(string text, int order, int start = 0, int start_caption = 20, int end = 100, int end_caption = 80) : base(text, order, "Slider")
+=======
+        public Slider(string text ,int order, int start=0 ,int start_caption=20,int end=100,int end_caption=80):base(text,order, "Slider")
+>>>>>>> 2bf46c17a169e84dd553e5d7fd4c454bb9892dbc
         {
             Start = start;
             Start_Caption = start_caption;
@@ -87,10 +91,16 @@ namespace Task1
         public Slider() : base("", -1, "Slider")
         {
             Start = Slider_default[0];
+<<<<<<< HEAD
             End = Slider_default[1];
             Start_Caption = Slider_default[2];
             End_Caption = Slider_default[3];
             
+=======
+            Start_Caption = Slider_default[1];
+            End = Slider_default[2];
+            End_Caption = Slider_default[3];
+>>>>>>> 2bf46c17a169e84dd553e5d7fd4c454bb9892dbc
         }
         public override List<int> Current_values()
         {
