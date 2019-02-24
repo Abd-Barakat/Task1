@@ -152,7 +152,107 @@ namespace Task1
             {
                 return false;
             }
+<<<<<<< HEAD
             return q.Validate();
+=======
+            if (q.Question_type == "Slider")
+            {
+
+                if (Values[0] < 0 || Values[0] > 100)//validate user input (Start value should be between 0-100)
+                {
+                    Make_Empty(control1);
+                    Reset();//call reset method 
+                    MessageBox.Show("Start value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[0] >= Values[1])
+                {
+                    Make_Empty(control1);
+                    Reset();
+                    MessageBox.Show("Start value should be lower than end value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[0] >= Values[2])
+                {
+                    Make_Empty(control1);
+                    Reset();
+                    MessageBox.Show("Start value should be lower than Start caption ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[1] < 0 || Values[1] > 100)//End value should be between 0-100
+                {
+                    Reset();
+                    Make_Empty(control2);
+                    MessageBox.Show("End value should be betweem 0-100 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[2] < 0 || Values[2] > 100)//Start Caption should be between 0-100 
+                {
+                    Reset();
+                    Make_Empty(control3);
+                    MessageBox.Show("Start caption should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[2] >= Values[1])//Start Caption should be lower than End value 
+                {
+                    Reset();
+                    Make_Empty(control3);
+                    MessageBox.Show("Start Caption should be lower than End value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[2] >= Values[3])
+                {
+                    Reset();
+                    Make_Empty(control3);
+                    MessageBox.Show("Start Caption should be lower than End caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[3] < 0 || Values[3] > 100)//End caption should be between 0-100
+                {
+                    Reset();
+                    Make_Empty(control4);
+                    MessageBox.Show("End Caption should between 0-100 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[3] >= Values[1])//End caption should be lower than End value 
+                {
+                    Reset();
+                    Make_Empty(control4);
+                    MessageBox.Show("End Caption should be Lower than End value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (Values[3] <= Values[2])//End caption should be higer than Start caption
+                {
+                    Reset();
+                    Make_Empty(control4);
+                    MessageBox.Show("End caption should be higer than Start caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            if (q.Question_type == "Smiley")
+            {
+                if (Values[0] > 5 || Values[0] < 2)
+                {
+                    Reset();
+                    Make_Empty(control5);
+                    MessageBox.Show("Number of Smiles should between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            if (q.Question_type == "Stars")
+            {
+                if (Values[0] > 10 || Values[0] < 0)
+                {
+                    Reset();
+                    Make_Empty(control6);
+                    MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+
+            return true;
+
+>>>>>>> 2bf46c17a169e84dd553e5d7fd4c454bb9892dbc
         }
 
         public void Make_boxes_Empty()//call Make_Empty method to all textboxes
@@ -194,6 +294,7 @@ namespace Task1
                 try
                 {
                     if (!isEmpty(question_box))
+<<<<<<< HEAD
                     {
                             q.Question_text = question_box.Text;//validate user input 
                         if (q.Question_text =="")
@@ -202,6 +303,10 @@ namespace Task1
                             return false;
                         }
                     }
+=======
+                        q.Question_text = question_box.Text;//validate user input 
+
+>>>>>>> 2bf46c17a169e84dd553e5d7fd4c454bb9892dbc
                 }
                 catch (FormatException)
                 {

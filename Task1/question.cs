@@ -38,7 +38,11 @@ namespace Task1
         }
         public string Question_type
         {
+<<<<<<< HEAD
             private set
+=======
+             set
+>>>>>>> 2bf46c17a169e84dd553e5d7fd4c454bb9892dbc
             {
                 question_type = value;
             }
@@ -47,10 +51,13 @@ namespace Task1
                 return question_type;
             }
         }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 2bf46c17a169e84dd553e5d7fd4c454bb9892dbc
         public Question(string text, int order,string type)
         {
             Question_text = text;

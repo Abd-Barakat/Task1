@@ -10,7 +10,10 @@ namespace Task1
     {
         
         private int faces;
+<<<<<<< HEAD
         private int Entered_faces;
+=======
+>>>>>>> 2bf46c17a169e84dd553e5d7fd4c454bb9892dbc
         public int Faces
         {
             get
