@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using System.IO;
 namespace Task1
 {
     class Add_dialog :Base
@@ -95,45 +95,43 @@ namespace Task1
             }
         } 
 
-        private void GotFocus(object sender, EventArgs e)
+        private void GotFocus(object sender, EventArgs e)//focus event handler for radio buttons in groupBox 
         {
-            if (ReferenceEquals(sender, SliderButton))
+            relese(q);//call method release that release  q object if refere to another object 
+            if (ReferenceEquals(sender, SliderButton))//if slider radio button 
             {
-                relese(q);
-                q = new Slider();
-                q.Question_order = Next_order;
-                SliderButton.Checked = true;
-                control1.Text = string.Format("Start ={0}", q.Default_values().ElementAt(0));
-                control2.Text = string.Format("End ={0}", q.Default_values().ElementAt(1));
-                control3.Text = string.Format("Start Caption ={0}", q.Default_values().ElementAt(2));
-                control4.Text = string.Format("End Caption ={0}", q.Default_values().ElementAt(3));
-                Default_GrouoBox.Visible = true;
+                q = new Slider();//create slider object
+                q.Question_order = Next_order;//sign qustion_order property to next_order field
+                SliderButton.Checked = true;//set check property of Slider radio button to true
+                control1.Text = string.Format("Start ={0}", q.Default_values().ElementAt(0));//fill textbox with default value of start 
+                control2.Text = string.Format("End ={0}", q.Default_values().ElementAt(1));//fill textbox with default value of end 
+                control3.Text = string.Format("Start Caption ={0}", q.Default_values().ElementAt(2));//fill textbox with default value of start caption 
+                control4.Text = string.Format("End Caption ={0}", q.Default_values().ElementAt(3));//fill textbox with default value of end caption 
+                Default_GrouoBox.Visible = true;//make groupbox that contain above controls visible
             }
-            else if (ReferenceEquals(sender, SmileyButton))
+            else if (ReferenceEquals(sender, SmileyButton))//if Smiley radio button 
             {
-                relese(q);
-                q = new Smiley();
-                q.Question_order = Next_order;
-                SmileyButton.Checked = true;
-                control5.Text = string.Format("Smiles = {0}", q.Default_values().ElementAt(0));
-                Default_GrouoBox2.Visible = true;
+                q = new Smiley();//create smiley object
+                q.Question_order = Next_order;//sign qustion_order property to next_order field
+                SmileyButton.Checked = true;//set check property of Smiley radio button to true
+                control5.Text = string.Format("Smiles = {0}", q.Default_values().ElementAt(0));//fill textbox with default value of faces 
+                Default_GrouoBox2.Visible = true;//make groupbox that contain above controls visible
 
             }
-            else if (ReferenceEquals(sender, StarsButton))
+            else if (ReferenceEquals(sender, StarsButton))//if Stars radio button 
             {
-                relese(q);
-                q = new Stars();
-                q.Question_order = Next_order;
-                StarsButton.Checked = true;
-                control6.Text = string.Format("Stars = {0}", q.Default_values().ElementAt(0));
-                Default_GrouoBox3.Visible = true;
+                q = new Stars();//create star object
+                q.Question_order = Next_order;//sign qustion_order property to next_order field
+                StarsButton.Checked = true;//set check property of Stars radio button to true
+                control6.Text = string.Format("Stars = {0}", q.Default_values().ElementAt(0));//fill textbox with default value of stars 
+                Default_GrouoBox3.Visible = true;//make groupbox that contain above controls visible
 
             }
         }
 
         private void relese (Question q)
         {
-            if (q !=null)
+            if (q !=null)//to avoid null refrence exception
             {
                 q = null;
             }
@@ -141,11 +139,11 @@ namespace Task1
 
         public override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
         {
-            q.Reset_values();
-            Make_boxes_Empty();
+            q.Reset_values();//call reset values method in Questions class
+            Make_boxes_Empty();//call method that clear all textboxes
         }
 
-        private void initialize()
+        private void initialize()//initialize controls 
         {
 
             /////////////////////////////////////////
@@ -204,11 +202,11 @@ namespace Task1
             FORM.Controls.Add(Default_GrouoBox3);
         }
 
-        public override void Save_Click(object sender, EventArgs e)
+        public override void Save_Click(object sender, EventArgs e)//click event hanlder for save button
         {
-            if (check(q.Current_values()))
+            if (check(q.Current_values()))//call method check in Base class that check question's values if they are correct or not 
             {
-                if (!question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))
+                if (!question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))//check question textbox if contain invalid inputs or default text
                 {
                     int Groupbox_index = Group_Index();//return index of selected control in GroupBox
 
@@ -218,12 +216,12 @@ namespace Task1
                         try
                         {
 
-                            Dv.Rows[0].Cells[0].Value = question_box.Text;
-                            Dv.Rows[0].Cells[1].Value = q.Question_order;
-                            Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index + 1];
+                            Dv.Rows[0].Cells[0].Value = question_box.Text;//fill data grid view with question text
+                            Dv.Rows[0].Cells[1].Value = q.Question_order;//fill data grid view with question order
+                            Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index + 1];//fill data grid view with question type
 
-                            DB.Insert(Groupbox_index, Tables, q);
-                            DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            DB.Insert(Groupbox_index, Tables, q);//call Insert method in DBclass to insert the new question into database
+                            DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);//conformation of insert operation
 
                             while (result != DialogResult.OK) ;//wait unitl MessageBox closes 
                             FORM.Visible = false;//hide Add dialog
@@ -231,21 +229,34 @@ namespace Task1
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            FORM.Visible = false;
+                            using (StreamWriter stream = new StreamWriter(@"C: \Users\a.barakat\source\repos\Task1\Error.txt", true))//save errors in Error.txt file
+                            {
+                                stream.WriteLine("-------------------------------------------------------------------\n");
+                                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                                while (ex != null)
+                                {
+
+                                    stream.WriteLine("Message :\n" + ex.Message);
+                                    stream.WriteLine("Stack trace :\n" + ex.StackTrace);
+
+                                    ex = ex.InnerException;
+                                }
+                            }
+                            FORM.Visible = false;//hide add_dialog form 
                         }
                        
                     }
                     else
-                        MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if no question type is selected 
 
 
                 }
-                else if (isEmpty(question_box) || question_box.Text == "")
+                else if (isEmpty(question_box) || question_box.Text == "")//if question textbox is empty or contain default value
                 {
                     question_box.Text = "";
                     MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else if (question_box.Text.Any(char.IsDigit))
+                else if (question_box.Text.Any(char.IsDigit))//if question textbox  contain a number in it
                 {
                     question_box.Text = "";
                     MessageBox.Show("Please Write a question without numbers   ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -255,7 +266,7 @@ namespace Task1
 
         }
 
-        private void CheckedChanged(object sender, EventArgs e)
+        private void CheckedChanged(object sender, EventArgs e)//check event hanlder of radio buttons to show groupbox that contain related controls 
         {
             if (ReferenceEquals(sender, SliderButton))
             {
@@ -274,7 +285,7 @@ namespace Task1
             }
         }
 
-        public void ShowDialog(DataTable Dt ,int order)
+        public  Add_dialog(DataTable Dt ,int order)//constructor to show add_dialog and initialize it's fields
         {
             initialize();
             Dv.DataSource = Dt.Clone();
@@ -282,7 +293,7 @@ namespace Task1
             FORM.Visible = true;
         }
 
-        public override bool isEmpty(TextBox box)
+        public override bool isEmpty(TextBox box)//this method to check if text box is contain default value or not 
         {
             if (ReferenceEquals(box, question_box))
             {
@@ -341,7 +352,7 @@ namespace Task1
 
         }
     
-        private int Group_Index()
+        private int Group_Index()//return a number that represent radio buttons (0 => Slider,1 => Smiley ,2 => Stars)
         {
 
             if (SliderButton.Checked)
