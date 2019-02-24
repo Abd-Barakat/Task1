@@ -14,9 +14,6 @@ namespace Task1
     {
         private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };
 
-
-
-
         private GroupBox groupBox = new GroupBox//define groupbox that contain 3 Radio buttons 
         {
             Text = "Question type",
@@ -98,17 +95,13 @@ namespace Task1
             }
         } 
 
-
-
-
         private void GotFocus(object sender, EventArgs e)
         {
             if (ReferenceEquals(sender, SliderButton))
             {
                 relese(q);
                 q = new Slider();
-                q.Reset_values();
-                q.Question_order = Question_order;
+                q.Question_order = Next_order;
                 SliderButton.Checked = true;
                 control1.Text = string.Format("Start ={0}", q.Default_values().ElementAt(0));
                 control2.Text = string.Format("End ={0}", q.Default_values().ElementAt(1));
@@ -120,8 +113,7 @@ namespace Task1
             {
                 relese(q);
                 q = new Smiley();
-                q.Reset_values();
-                q.Question_order = Question_order;
+                q.Question_order = Next_order;
                 SmileyButton.Checked = true;
                 control5.Text = string.Format("Smiles = {0}", q.Default_values().ElementAt(0));
                 Default_GrouoBox2.Visible = true;
@@ -131,8 +123,7 @@ namespace Task1
             {
                 relese(q);
                 q = new Stars();
-                q.Reset_values();
-                q.Question_order = Question_order;
+                q.Question_order = Next_order;
                 StarsButton.Checked = true;
                 control6.Text = string.Format("Stars = {0}", q.Default_values().ElementAt(0));
                 Default_GrouoBox3.Visible = true;
@@ -147,6 +138,7 @@ namespace Task1
                 q = null;
             }
         }
+
         public override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
         {
             q.Reset_values();
@@ -223,9 +215,6 @@ namespace Task1
                     if (Groupbox_index != -1)//if no control selected in GroupBox
                     {
 
-                        SqlConnection connection = new SqlConnection();
-                        connection.ConnectionString = ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString;
-                        SqlCommand command = new SqlCommand();
                         try
                         {
 
@@ -233,8 +222,7 @@ namespace Task1
                             Dv.Rows[0].Cells[1].Value = q.Question_order;
                             Dv.Rows[0].Cells[2].Value = Tables[Groupbox_index + 1];
 
-
-                            insert(connection, command);//insert data to a specific table 
+                            DB.Insert(Groupbox_index, Tables, q);
                             DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             while (result != DialogResult.OK) ;//wait unitl MessageBox closes 
@@ -245,14 +233,7 @@ namespace Task1
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             FORM.Visible = false;
                         }
-                        finally
-                        {
-                            if (connection != null)
-                            {
-                                ((IDisposable)connection).Dispose();
-                                ((IDisposable)command).Dispose();
-                            }
-                        }
+                       
                     }
                     else
                         MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -293,11 +274,11 @@ namespace Task1
             }
         }
 
-        public void ShowDialog(DataTable Dt ,int next_order)
+        public void ShowDialog(DataTable Dt ,int order)
         {
             initialize();
             Dv.DataSource = Dt.Clone();
-            Question_order = next_order;
+            Next_order =  order;
             FORM.Visible = true;
         }
 
@@ -360,42 +341,6 @@ namespace Task1
 
         }
     
-        private void insert(SqlConnection connection, SqlCommand command)
-        {
-            int Groupbox_index = Group_Index();
-            Open_connection(connection);
-            switch (Groupbox_index)
-            {
-                case 0:
-                    command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, q.Question_order, Tables[Groupbox_index + 1]);
-                    command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], q.Question_order, q.Current_values().ElementAt(0), q.Current_values().ElementAt(1), q.Current_values().ElementAt(2), q.Current_values().ElementAt(3));
-                    command.ExecuteNonQuery();
-                    break;
-                case 1:
-                    command.Connection = connection;
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, q.Question_order, Tables[Groupbox_index + 1]);
-                    command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], q.Question_order, q.Current_values().ElementAt(0));
-                    command.ExecuteNonQuery();
-                    break;
-                case 2:
-                    command.Connection = connection;
-
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], question_box.Text, q.Question_order, Tables[Groupbox_index + 1]);
-                    command.ExecuteNonQuery();
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], q.Question_order, q.Current_values().ElementAt(0));
-                    command.ExecuteNonQuery();
-                    break;
-            }
-        }
-
-        public override string Question_Type()
-        {
-            return Tables[Group_Index() + 1];
-        }
-
         private int Group_Index()
         {
 

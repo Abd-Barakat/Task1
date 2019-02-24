@@ -9,14 +9,15 @@ namespace Task1
     public abstract class Question
     {
         private string question_text;
-
+        private string question_type;
         private int question_order;
 
         public string Question_text
         {
             set
             {
-                question_text = value;
+                if (!value.Any(char.IsPunctuation))
+                    question_text = value;
             }
             get
             {
@@ -35,16 +36,35 @@ namespace Task1
                 return question_order;
             }
         }
+        public string Question_type
+        {
+            private set
+            {
+                question_type = value;
+            }
+            get
+            {
+                return question_type;
+            }
+        }
 
-        public Question(string text, int order)
+
+
+
+        public Question(string text, int order,string type)
         {
             Question_text = text;
             Question_order = order;
+            Question_type = type;
         }
 
         public abstract List<int> Default_values();
         public abstract void Reset_values();
         public abstract List<int> Current_values();
         public abstract void Set_values(List<int> Values);
+
+
+        public abstract bool Validate();
+       
     }
 }

@@ -14,7 +14,7 @@ namespace Task1
     {
 
 
-        private DataTable Type=new DataTable();
+        private DataTable Type_table=new DataTable();
         private DataTable question_table = new DataTable();
         private void initialize()
         {
@@ -58,14 +58,10 @@ namespace Task1
             ///////////////////////////////////////////
             FORM = form;
             FORM.Visible = true;
-          //  Dv.DataSource = Dt2.DefaultView.ToTable(false, "question_text");
             Save.Click += Save_Click;
         }
 
-        public override string Question_Type()
-        {
-            return question_table.Rows[0].ItemArray[2].ToString();
-        }
+       
 
         public override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
         {
@@ -75,46 +71,52 @@ namespace Task1
 
         private void ShowGroupBox(string type,DataRow dataRow)//this method show a specific Groupbox depends on type of question then save old data (before editing ) in variables 
         {
+            
             switch (type)
             {
+                 
                 case "Slider":
                     Default_GrouoBox.Visible = true;
-                    control1.Text = dataRow.ItemArray[1].ToString();
-                    control2.Text = dataRow.ItemArray[2].ToString();
-                    control3.Text = dataRow.ItemArray[3].ToString();
-                    control4.Text = dataRow.ItemArray[4].ToString();
-                    q = new Slider(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], Int32.Parse(control1.Text), Int32.Parse(control2.Text), Int32.Parse(control3.Text), Int32.Parse(control4.Text));
+                    q = new Slider(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int) (Type_table.Rows[0].ItemArray[1]), (int)(Type_table.Rows[0].ItemArray[2]), (int)(Type_table.Rows[0].ItemArray[3]), (int)(Type_table.Rows[0].ItemArray[4]));
+                    control1.Text = q.Current_values().ElementAt(0).ToString();
+                    control2.Text = q.Current_values().ElementAt(1).ToString();
+                    control3.Text = q.Current_values().ElementAt(2).ToString();
+                    control4.Text = q.Current_values().ElementAt(3).ToString();
                     break;
 
                 case "Smiley":
+                    q = new Smiley(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(Type_table.Rows[0].ItemArray[1]));
                     Default_GrouoBox2.Visible = true;
-                    control5.Text = dataRow.ItemArray[1].ToString();
-                    q = new Smiley(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], Int32.Parse(control5.Text));
-                  
-                        break;
-                case "Stars":
-                    Default_GrouoBox3.Visible = true;
-                    control6.Text = dataRow.ItemArray[1].ToString();
-                    q = new Smiley(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], Int32.Parse(control6.Text));
-                    
+                    control5.Text = q.Current_values().ElementAt(0).ToString();
                     break;
+
+                case "Stars":
+                    q = new Stars(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(Type_table.Rows[0].ItemArray[1]));
+                    Default_GrouoBox3.Visible = true;
+                    control6.Text = q.Current_values().ElementAt(0).ToString();
+                    break;
+
             }
 
         }
 
         private void Retrive_Data()//load saved data of selected question from database 
         {
-            string type = Question_Type();
-            ShowGroupBox(type,Type.Rows[0]);
+            string type = question_table.Rows[0].ItemArray[2].ToString();//get type of the question from question table 
+            ShowGroupBox(type,Type_table.Rows[0]);
         }
        
         public void ShowDialog(int order , DataRow question , DataRow type )//method used to be called in Form1 class (like constructor)
         {
-            Question_order = order;
-            Type=type.Table.Clone();
-            Type.Rows.Add(type.ItemArray);
-            this.question_table = question.Table.Clone();
-            this.question_table.Rows.Add(question.ItemArray);
+
+            Next_order = order;
+
+            Type_table=type.Table.Clone();
+            Type_table.Rows.Add(type.ItemArray);
+
+            question_table = question.Table.Clone();
+            question_table.Rows.Add(question.ItemArray);
+
             Dv.DataSource =this.question_table;
             initialize();
         }
@@ -125,14 +127,9 @@ namespace Task1
             {
                 if (!question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))
                 {
-                   
-                        SqlConnection connection = new SqlConnection();
-                        connection.ConnectionString = ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString;
-                        SqlCommand command = new SqlCommand();
                         try
                         {
-                           
-                            Update(connection, command);//Update data to a database
+                            DB.Update(q);
                             DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             while (result != DialogResult.OK) ;//wait unitl MessageBox closes 
@@ -143,16 +140,6 @@ namespace Task1
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             FORM.Visible = false;
                         }
-                        finally
-                        {
-                            if (connection != null)//check to avoid null reference exception
-                            {
-                                ((IDisposable)connection).Dispose();
-                                ((IDisposable)command).Dispose();
-                            }
-                        }
-                    
-
                 }
                 else if (isEmpty(question_box) || question_box.Text == "")
                 {
@@ -272,32 +259,8 @@ namespace Task1
 
         }
 
-        private void Update(SqlConnection connection, SqlCommand command) //update database with the new values 
-        {
-            command.Connection = connection;
-            command.CommandText = string.Format("update questions set question_text ='{0}' where question_order ={1}", question_box.Text, Question_order);
-            Open_connection(connection);
-            command.ExecuteNonQuery();
-            switch (Question_Type())
-            {
-                case "Slider":
-                    command.CommandText = string.Format("update Slider set Start_Value ={0},End_Value ={1},Start_Value_Caption ={2},End_Value_Caption ={3} where question_order={4}", control1.Text, control2.Text, control3.Text, control4.Text, Question_order);
-                    Open_connection(connection);
-                    command.ExecuteNonQuery();
-                    break;
-                case "Smiley":
+     
 
-                    command.CommandText = string.Format("update Smiley set Num_Faces ={0} where question_order={1}", control5.Text, Question_order);
-                    Open_connection(connection);
-                    command.ExecuteNonQuery();
-                    break;
-                case "Stars":
-                    command.CommandText = string.Format("update Stars set Num_Stars ={0} where question_order={1}", control6.Text, Question_order);
-                    Open_connection(connection);
-                    command.ExecuteNonQuery();
-                    break;
-            }
-        }
 
 
     }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 namespace Task1
 {
     class Smiley:Question
     {
         
-        private int faces =3;
+        private int faces;
+        private int Entered_faces;
         public int Faces
         {
             get
@@ -18,25 +19,29 @@ namespace Task1
             }
             set
             {
+                Entered_faces = value;
                 if (value >= 2 && value <= 5)
                 {
                     faces = value;
                 }
+                else
+                    MessageBox.Show("Number of faces should be between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
-        public Smiley(string text, int order, int faces=3):base(text,order)
+        public Smiley(string text, int order, int faces=3):base(text,order, "Smiley")
         {
             Faces = faces;
         }
-        public Smiley() : base("", -1)
+        public Smiley() : base("", -1, "Smiley")
         {
-
+            Faces = 3;
         }
         public override  List<int> Default_values()
         {
             List<int> temp = new List<int>();
-            temp.Add(Faces);
+            temp.Add(3);
             return temp;
         }
         public override void Reset_values()
@@ -52,6 +57,14 @@ namespace Task1
         public override void Set_values( List<int> Values)
         {
             Faces = Values[0];
+        }
+        public override bool Validate()
+        {
+            if (Entered_faces < 2 || Entered_faces > 5)//End caption should be higer than Start caption
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
