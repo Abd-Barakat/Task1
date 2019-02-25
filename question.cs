@@ -16,7 +16,8 @@ namespace Task1
         {
             set
             {
-                question_text = value;
+                if (!value.Any(char.IsPunctuation))
+                    question_text = value;
             }
             get
             {
@@ -46,6 +47,10 @@ namespace Task1
                 return question_type;
             }
         }
+
+
+
+
         public Question(string text, int order,string type)
         {
             Question_text = text;
@@ -57,5 +62,9 @@ namespace Task1
         public abstract void Reset_values();
         public abstract List<int> Current_values();
         public abstract void Set_values(List<int> Values);
+
+
+        public abstract bool Validate();
+       
     }
 }

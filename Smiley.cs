@@ -10,6 +10,7 @@ namespace Task1
     {
         
         private int faces;
+        private int Entered_faces;
         public int Faces
         {
             get
@@ -18,10 +19,14 @@ namespace Task1
             }
             set
             {
+                Entered_faces = value;
                 if (value >= 2 && value <= 5)
                 {
                     faces = value;
                 }
+                else
+                    MessageBox.Show("Number of faces should be between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -52,6 +57,14 @@ namespace Task1
         public override void Set_values( List<int> Values)
         {
             Faces = Values[0];
+        }
+        public override bool Validate()
+        {
+            if (Entered_faces < 2 || Entered_faces > 5)//End caption should be higer than Start caption
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
