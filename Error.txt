@@ -1,0 +1,10 @@
+-------------------------------------------------------------------
+
+Date :2/24/2019 12:44:28 PM
+Message :
+Number of Smiles should be integer number
+Stack trace :
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at Task1.Base.Values_Changes(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Base.cs:line 350
