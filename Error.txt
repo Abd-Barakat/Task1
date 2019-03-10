@@ -8,3 +8,21 @@ Stack trace :
    at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    at System.Int32.Parse(String s)
    at Task1.Base.Values_Changes(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Base.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/10/2019 3:36:34 PM
+Message :
+There is no row at position -1.
+Stack trace :
+   at System.Data.RBTree`1.GetNodeByIndex(Int32 userIndex)
+   at System.Data.DataRowCollection.get_Item(Int32 index)
+   at Task1.Main.Qustion_type() in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 79
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 115
+-------------------------------------------------------------------
+
+Date :3/10/2019 3:37:46 PM
+Message :
+Exception of type 'System.Exception' was thrown.
+Stack trace :
+   at Task1.Main.Selected_question_id() in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 144
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 114

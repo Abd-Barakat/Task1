@@ -11,13 +11,31 @@ namespace Task1
         private string question_text;
         private string question_type;
         private int question_order;
-
+        private int id;
+        public int ID
+        {
+            set
+            {
+                id = value;
+            }
+            get
+            {
+                return id;
+            }
+        }
         public string Question_text
         {
             set
             {
-                if (!value.Any(char.IsPunctuation))
+                if (value.Contains("'"))
+                {
+                   value= value.Replace("'", "''");
                     question_text = value;
+                }
+                else
+                {
+                    question_text = value;
+                }
             }
             get
             {
@@ -51,17 +69,18 @@ namespace Task1
 
 
 
-        public Question(string text, int order,string type)
+        public Question(string text, int order,string type,int id)
         {
             Question_text = text;
             Question_order = order;
             Question_type = type;
+            ID = id;
         }
 
-        public abstract List<int> Default_values();
+        public abstract List<string> Default_values();
         public abstract void Reset_values();
-        public abstract List<int> Current_values();
-        public abstract void Set_values(List<int> Values);
+        public abstract List<string> Current_values();
+        public abstract void Set_values(List<string> Values);
 
 
         public abstract bool Validate();

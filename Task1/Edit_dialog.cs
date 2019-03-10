@@ -19,6 +19,8 @@ namespace Task1
 
         private void initialize()//initialize events and controls
         {
+            Next_Number_UpDown();
+            QuestionOrderUpDown.ValueChanged += QuestionOrderUpDown_Click;
             Retrive_Data();
             Default_GrouoBox.Controls.Add(control1);
             Default_GrouoBox.Controls.Add(control2);
@@ -51,34 +53,54 @@ namespace Task1
             control4.KeyDown += KeyDown;
             ///////////////////////////////////////////
             FORM.Controls.Add(question_box);
+            FORM.Controls.Add(Cancel);
             FORM.Controls.Add(Default_GrouoBox);
             FORM.Controls.Add(Default_GrouoBox2);
             FORM.Controls.Add(Default_GrouoBox3);
-            FORM.Controls.Add(Dv);
             FORM.Controls.Add(Save);
             ///////////////////////////////////////////
             FORM = form;
+            FORM.Text = "Edit the question";
             FORM.Visible = true;
             Save.Click += Save_Click;
+            Cancel.Click += Cancel_Click;
         }
 
+        private void QuestionOrderUpDown_Click(object sender, EventArgs e)
+        {
 
+            if (QuestionOrderUpDown.Value > oldValue)
+            {
+                Next_Number_UpDown();
+                oldValue = (int)QuestionOrderUpDown.Value;
+            }
+            else
+            {
+                Prev_Number_UpDown();
+                oldValue = (int)QuestionOrderUpDown.Value;
+            }
+        }
 
-        public override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            FORM.Visible = false;
+        }
+
+        protected override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
         {
             q.Reset_values();//reset values to default
             Make_boxes_Empty();//clear text boxes
         }
 
-        private void ShowGroupBox(string type, DataRow dataRow)//this method show a specific Groupbox depends on type of question then save old data (before editing ) in variables 
+        private void ShowGroupBox(string type)//this method show a specific Groupbox depends on type of question then save old data (before editing ) in variables 
         {
-
             switch (type)//switch type of question 
             {
-
+                
                 case "Slider":
+                    Default_GrouoBox.Controls.Add(QuestionOrderUpDown);
                     Default_GrouoBox.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
-                    q = new Slider(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(Type_table.Rows[0].ItemArray[1]), (int)(Type_table.Rows[0].ItemArray[2]), (int)(Type_table.Rows[0].ItemArray[3]), (int)(Type_table.Rows[0].ItemArray[4]));//create object from slider class and fill it with saved values retrived from database (old values)
+                    q = new Slider(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1],(int)(question_table.Rows[0].ItemArray[3]) ,(int)(Type_table.Rows[0].ItemArray[1]), (int)(Type_table.Rows[0].ItemArray[2]),Type_table.Rows[0].ItemArray[3].ToString(),Type_table.Rows[0].ItemArray[4].ToString());//create object from slider class and fill it with saved values retrived from database (old values)
                     control1.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Start value
                     control2.Text = q.Current_values().ElementAt(1).ToString();//show stored value of End value
                     control3.Text = q.Current_values().ElementAt(2).ToString();//show stored value of Start_caption
@@ -86,14 +108,17 @@ namespace Task1
                     break;
 
                 case "Smiley":
+                    Default_GrouoBox2.Controls.Add(QuestionOrderUpDown);
                     Default_GrouoBox2.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
-                    q = new Smiley(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(Type_table.Rows[0].ItemArray[1]));//create object from Smiley and fill it with stored values retrived from database (old value)
+                    q = new Smiley(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(question_table.Rows[0].ItemArray[3]),(int)(Type_table.Rows[0].ItemArray[1]));//create object from Smiley and fill it with stored values retrived from database (old value)
                     control5.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Faces
                     break;
 
                 case "Stars":
+                    Default_GrouoBox3.Controls.Add(QuestionOrderUpDown);
+                    
                     Default_GrouoBox3.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
-                    q = new Stars(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(Type_table.Rows[0].ItemArray[1]));//create object from Stars and fill it with stored values retrived from database (old value)
+                    q = new Stars(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(question_table.Rows[0].ItemArray[3]), (int)(Type_table.Rows[0].ItemArray[1]));//create object from Stars and fill it with stored values retrived from database (old value)
                     control6.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Stars
                     break;
 
@@ -104,13 +129,11 @@ namespace Task1
         private void Retrive_Data()//load saved data of selected question from database 
         {
             string type = question_table.Rows[0].ItemArray[2].ToString();//get type of the question from question table 
-            ShowGroupBox(type, Type_table.Rows[0]);//call showgroub box
+            ShowGroupBox(type);//call showgroub box
         }
 
-        public  Edit_dialog(int order, DataRow question, DataRow type)//method used to be called in Form1 class (like constructor)
+        public  Edit_dialog(int Next_order, DataRow question, DataRow type)//method used to be called in Form1 class (like constructor)
         {
-
-            Next_order = order;//save next order 
 
             Type_table = type.Table.Clone();//copy  table's headers only
             Type_table.Rows.Add(type.ItemArray);//add row to type table
@@ -118,11 +141,10 @@ namespace Task1
             question_table = question.Table.Clone();//copy  table's headers only
             question_table.Rows.Add(question.ItemArray);//add row to question table
 
-            Dv.DataSource = question_table;
             initialize();//call method that initialize controls
         }
 
-        public override void Save_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
+        protected override void Save_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
         {
             if (check(q.Current_values()))//call check method to check inserted values before update database 
             {
@@ -131,15 +153,12 @@ namespace Task1
                     try
                     {
                         DB.Update(q);//upate database with new edited question
-                        DialogResult result = MessageBox.Show("Done !!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);//conform that the opeation is done
-
-                        while (result != DialogResult.OK) ;//wait unitl MessageBox closes 
                         FORM.Visible = false;//hide Add dialog that will call event handler in Form1 class to print new data from database to datagridview
                     }
                     catch (Exception ex)//to catch eny problem that may occure
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occure
-                        using (StreamWriter stream = new StreamWriter(@"C: \Users\a.barakat\source\repos\Task1\Error.txt", true))//save errors in Error.txt file
+                        using (StreamWriter stream = new StreamWriter(@"Error.txt", true))//save errors in Error.txt file
                         {
                             stream.WriteLine("-------------------------------------------------------------------\n");
                             stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
@@ -168,7 +187,7 @@ namespace Task1
 
         }
 
-        public override void Make_Empty(TextBox box)//this method for clear all text boxes to default values
+        protected override void Make_Empty(TextBox box)//this method for clear all text boxes to default values
         {
             if (ReferenceEquals(box, question_box))//question text box
             {
@@ -212,7 +231,7 @@ namespace Task1
             }
         }
 
-        public override bool isEmpty(TextBox box)//this method to check if text box is containing default value
+        protected override bool isEmpty(TextBox box)//this method to check if text box is containing default value
         {
             if (ReferenceEquals(box, question_box))// question text box
             {

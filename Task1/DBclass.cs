@@ -32,58 +32,66 @@ namespace Task1
         public void Insert(int Groupbox_index, string[] Tables, Question q)//this method to insert data to database 
         {
             Open_connection();//open connection to server via Open_connection() method
+            command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}',{4})", Tables[0], q.Question_text, q.Question_order, Tables[Groupbox_index + 1], q.ID);
+            command.ExecuteNonQuery();//execute command
             switch (Groupbox_index)//index of groupbox that determine type of question : 0 => slider , 1 => smiley, 2 => stars
             {
                 case 0:
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], q.Question_text, q.Question_order, Tables[Groupbox_index + 1]);
-                    command.ExecuteNonQuery();//execute command
-                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},{4},{5})", Tables[1], q.Question_order, q.Current_values().ElementAt(0), q.Current_values().ElementAt(1), q.Current_values().ElementAt(2), q.Current_values().ElementAt(3));
+                   
+                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3},'{4}','{5}',{6})", Tables[1], q.Question_order, q.Current_values().ElementAt(0), q.Current_values().ElementAt(1), q.Current_values().ElementAt(2), q.Current_values().ElementAt(3),q.ID);
                     command.ExecuteNonQuery();//execute command
                     break;
                 case 1:
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], q.Question_text, q.Question_order, Tables[Groupbox_index + 1]);
-                    command.ExecuteNonQuery();//execute command
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[2], q.Question_order, q.Current_values().ElementAt(0));
+                   
+                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3})", Tables[2], q.Question_order, q.Current_values().ElementAt(0),q.ID);
                     command.ExecuteNonQuery();//execute command
                     break;
                 case 2:
-                    command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}')", Tables[0], q.Question_text, q.Question_order, Tables[Groupbox_index + 1]);
-                    command.ExecuteNonQuery();//execute command
-                    command.CommandText = string.Format("insert into {0} values ({1},{2})", Tables[3], q.Question_order, q.Current_values().ElementAt(0));
+                  
+                    command.CommandText = string.Format("insert into {0} values ({1},{2},{3})", Tables[3], q.Question_order, q.Current_values().ElementAt(0),q.ID);
                     command.ExecuteNonQuery();//execute command
                     break;
             }
         }
         public void Update(Question q)
         {
-            command.CommandText = string.Format("update questions set question_text ='{0}' where question_order={1}",q.Question_text, q.Question_order);
+            command.CommandText = string.Format("update questions set question_text ='{0}' ,question_order ={1} where id={2}",q.Question_text,q.Question_order, q.ID);
             Open_connection();
             command.ExecuteNonQuery();//execute command
             switch (q.Question_type)
             {
                 case "Slider":
-                    command.CommandText = string.Format("update Slider set Start_Value ={0},End_Value ={1},Start_Value_Caption ={2},End_Value_Caption ={3} where question_order={4}", q.Current_values().ElementAt(0), q.Current_values().ElementAt(1), q.Current_values().ElementAt(2), q.Current_values().ElementAt(3), q.Question_order);
+                    command.CommandText = string.Format("update Slider set Start_Value ={0},End_Value ={1},Start_Value_Caption ='{2}',End_Value_Caption ='{3}',question_order ={4} where id={5}", q.Current_values().ElementAt(0), q.Current_values().ElementAt(1), q.Current_values().ElementAt(2), q.Current_values().ElementAt(3), q.Question_order,q.ID);
                     command.ExecuteNonQuery();
                     break;
                 case "Smiley":
-                    command.CommandText = string.Format("update Smiley set Num_Faces ={0} where question_order={1}", q.Current_values().ElementAt(0), q.Question_order);
+                    command.CommandText = string.Format("update Smiley set Num_Faces ={0},question_order={1} where id={2}", q.Current_values().ElementAt(0),q.Question_order,q.ID);
                     command.ExecuteNonQuery();
                     break;
                 case "Stars":
-                    command.CommandText = string.Format("update Stars set Num_Stars ={0} where question_order={1}", q.Current_values().ElementAt(0), q.Question_order);
+                    command.CommandText = string.Format("update Stars set Num_Stars ={0},question_order={1} where id={2}", q.Current_values().ElementAt(0), q.Question_order,q.ID);
                     command.ExecuteNonQuery();
                     break;
             }
         }
-        public void Delete (string type,int order)//method to delete a row that contain a specific question order 
+        public void Delete (string type,int id)//method to delete a row that contain a specific question order 
         {
             Open_connection();
 
-            command.CommandText = string.Format("delete from {0} where question_order={1}",type,order);//sql command
+            command.CommandText = string.Format("delete from {0} where id={1}",type,id);//sql command
             command.ExecuteNonQuery();//execute command 
 
-            command.CommandText = string.Format("delete from questions where question_order= {0}", order);//change sql command text 
+            command.CommandText = string.Format("delete from questions where id= {0}", id);//change sql command text 
             command.ExecuteNonQuery();//execute command 
+        }
+        public DataTable Orders ()
+        {
+            DataTable Temp_table = new DataTable();
+            Open_connection();
+            command.CommandText = "select question_order from questions";
+            SqlDataAdapter temp = new SqlDataAdapter(command);
+            temp.Fill(Temp_table);
+            return Temp_table;
         }
         public DataTable load ()//this method used to load all data from database and cache them
         {
@@ -113,11 +121,11 @@ namespace Task1
             return dataTables[0].DefaultView.ToTable(false, "question_text");//extract one column from data table ;
 
         }
-        public DataRow [] extract_row(int order,int index)//return two rows one from question table and another from specific table determined by index 
+        public DataRow [] extract_row(int id,int index)//return two rows one from question table and another from specific table determined by index 
         {
             DataRow[] temp = new DataRow[2];
-            temp[0] = dataTables[0].Select(string.Format("Convert(question_order,'System.String') LIKE '%{0}%'", order)).First();//Like method compare two elements with same type so question order is int type and order converted to string implcitly , we must convert question_order to string first 
-            temp[1] = dataTables[index].Select(string.Format("Convert(question_order,'System.String') LIKE '%{0}%'", order)).First();//Like method compare two elements with same type so question order is int type and order converted to string implcitly , w
+            temp[0] = dataTables[0].Select(string.Format("Convert(id,'System.String') LIKE '%{0}%'", id)).First();//Like method compare two elements with same type so question order is int type and order converted to string implcitly , we must convert question_order to string first 
+            temp[1] = dataTables[index].Select(string.Format("Convert(id,'System.String') LIKE '%{0}%'", id)).First();//Like method compare two elements with same type so question order is int type and order converted to string implcitly , w
             return temp;
         }
         public DataTable question_table ()//return  question table

@@ -11,9 +11,21 @@ namespace Task1
 {
     abstract public class Base
     {
-        public int Next_order;
-        public Question q;
-        public DBclass DB = new DBclass();
+        protected int oldValue = 0;
+        protected int Next_ID;
+        protected DataTable question_order;
+        protected List<int> Reserved_orders = new List<int>();
+        protected Question q;
+        protected DBclass DB = new DBclass();
+        protected NumericUpDown QuestionOrderUpDown = new NumericUpDown
+        {
+            Size = new System.Drawing.Size(100, 20),
+            Location = new System.Drawing.Point(5, 45),
+            Increment = 1,
+            ReadOnly = true,
+            Minimum = -1,
+            Maximum=1000,
+        };
         public Form FORM //property to edit form 
         {
             protected set
@@ -25,14 +37,14 @@ namespace Task1
                 return form;
             }
         }
-        public TextBox control1 = new TextBox //textbox for start value in Slider questions
+        protected TextBox control1 = new TextBox //textbox for start value in Slider questions
         {
             Location = new System.Drawing.Point(5, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
             TabIndex = 0,
         };
-        public TextBox control2 = new TextBox//textbox for end value in Slider questions
+        protected TextBox control2 = new TextBox//textbox for end value in Slider questions
         {
             Location = new System.Drawing.Point(140, 20),
             Size = new System.Drawing.Size(100, 20),
@@ -40,7 +52,7 @@ namespace Task1
             TabIndex = 1,
 
         };
-        public TextBox control3 = new TextBox//textbox for start value caption in Slider questions
+        protected TextBox control3 = new TextBox//textbox for start value caption in Slider questions
         {
             Location = new System.Drawing.Point(275, 20),
             Size = new System.Drawing.Size(100, 20),
@@ -48,7 +60,7 @@ namespace Task1
             TabIndex = 2,
 
         };
-        public TextBox control4 = new TextBox//textbox for End value caption in Slider questions
+        protected TextBox control4 = new TextBox//textbox for End value caption in Slider questions
         {
             Location = new System.Drawing.Point(410, 20),
             Size = new System.Drawing.Size(100, 20),
@@ -56,29 +68,29 @@ namespace Task1
             TabIndex = 3,
 
         };
-        public TextBox control5 = new TextBox//textbox for smile Faces in smiley questions
+        protected TextBox control5 = new TextBox//textbox for smile Faces in smiley questions
         {
             Location = new System.Drawing.Point(5, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
         };
-        public TextBox control6 = new TextBox//textbox for stars number  in smiley questions
+        protected TextBox control6 = new TextBox//textbox for stars number  in smiley questions
         {
             Location = new System.Drawing.Point(5, 20),
             Size = new System.Drawing.Size(100, 20),
             ForeColor = System.Drawing.Color.Gray,
         };
-        public TextBox question_box = new TextBox//text box to write a new question within 
+        protected TextBox question_box = new TextBox//text box to write a new question within 
         {
-            Location = new System.Drawing.Point(50, 98),
+            Location = new System.Drawing.Point(50, 27),
             TabStop = true,
             TabIndex = 0,
-            Size = new System.Drawing.Size(400, 50),
+            Size = new System.Drawing.Size(400, 112),
             ForeColor = System.Drawing.Color.Gray,
             Multiline = true,
 
         };
-        public Form form = new Form//make form to show controls 
+        protected Form form = new Form//make form to show controls 
         {
             Width = 600,
             Height = 400,
@@ -86,48 +98,40 @@ namespace Task1
             MinimumSize = new System.Drawing.Size(663, 400),
 
         };
-        public Button Save = new Button//button to save changes to database 
+        protected Button Save = new Button//button to save changes to database 
         {
             Text = "Save",
-            Location = new System.Drawing.Point(50, 300),
+            Location = new System.Drawing.Point(430, 300),
         };
-        public DataGridView Dv = new DataGridView//grid view to show new data 
+        protected Button Cancel = new Button
         {
-            Size = new System.Drawing.Size(536, 50),
-            Location = new System.Drawing.Point(50, 20),
-            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-            AllowUserToDeleteRows = false,
-            AllowUserToAddRows = true,
-            AllowDrop = false,
-            ReadOnly = true,
-            AllowUserToResizeRows = false,
-            AllowUserToResizeColumns = false,
-            TabStop = false,
+            Text = "Cancel",
+            Location = new System.Drawing.Point(515, 300),
         };
-        public GroupBox Default_GrouoBox = new GroupBox //to hold a slider question controls
+        protected GroupBox Default_GrouoBox = new GroupBox //to hold a slider question controls
         {
-            Location = new System.Drawing.Point(50, 220),
-            Size = new System.Drawing.Size(536, 50),
+            Location = new System.Drawing.Point(50, 160),
+            Size = new System.Drawing.Size(536, 70),
             Text = "Current values",
             TabIndex = 2,
             TabStop = true,
             Visible = false,
 
         };
-        public GroupBox Default_GrouoBox2 = new GroupBox//to hold a smiley question controls
+        protected GroupBox Default_GrouoBox2 = new GroupBox//to hold a smiley question controls
         {
-            Location = new System.Drawing.Point(50, 220),
-            Size = new System.Drawing.Size(400, 50),
+            Location = new System.Drawing.Point(50, 160),
+            Size = new System.Drawing.Size(400, 70),
             Text = "Current value",
             TabIndex = 2,
             TabStop = true,
             Visible = false,
 
         };
-        public GroupBox Default_GrouoBox3 = new GroupBox//to hold a star question controls
+        protected GroupBox Default_GrouoBox3 = new GroupBox//to hold a star question controls
         {
-            Location = new System.Drawing.Point(50, 220),
-            Size = new System.Drawing.Size(400, 50),
+            Location = new System.Drawing.Point(50, 160),
+            Size = new System.Drawing.Size(400, 70),
             Text = "Current value",
             TabIndex = 2,
             TabStop = true,
@@ -138,25 +142,25 @@ namespace Task1
 
 
 
-        public abstract void Make_Empty(TextBox box);//this function to fill each  textboxes in the dialog with default values 
-        public abstract bool isEmpty(TextBox box);//this function check the passed textbox if contain default value or it's empty 
-        public abstract void Save_Click(object sender, EventArgs e);//event handler for click event on save button 
-        public abstract void Reset();//reset values and then call Make_Empty method to print them in textboxes
+        protected abstract void Make_Empty(TextBox box);//this function to fill each  textboxes in the dialog with default values 
+        protected abstract bool isEmpty(TextBox box);//this function check the passed textbox if contain default value or it's empty 
+        protected abstract void Save_Click(object sender, EventArgs e);//event handler for click event on save button 
+        protected abstract void Reset();//reset values and then call Make_Empty method to print them in textboxes
 
 
 
 
-        public bool check(List<int> Values)//this function check if entered values are correct and within thier ranges 
+        protected bool check(List<string> Values)//this function check if entered values are correct and within thier ranges 
         {
-            if (!Values_Changes(Values))//if no values entered then no need to check 
+            if (!Values_Changed(Values))//if no values entered then no need to check 
             {
                 return false;
             }
             return q.Validate();
-           
+
         }
 
-        public void Make_boxes_Empty()//call Make_Empty method to all textboxes
+        protected void Make_boxes_Empty()//call Make_Empty method to all textboxes
         {
             if (q.Question_type == "Slider")
             {
@@ -175,16 +179,17 @@ namespace Task1
             }
         }
 
-        public bool Correct_Format(TextBox box)
+        protected bool Correct_Format(TextBox box)
         {
             if (box.Text.Any(char.IsPunctuation))
                 return false;
             else
                 return true;
         }
-        public bool Values_Changes(List<int> Values)//check if values are changed or not 
-        {
 
+        protected bool Values_Changed(List<string> Values)//check if values are changed or not 
+        {
+            q.Question_order = (int)QuestionOrderUpDown.Value;
             if (question_box.Text == "")
             {
                 Make_Empty(question_box);
@@ -196,14 +201,14 @@ namespace Task1
                 {
                     if (!isEmpty(question_box))
                     {
-                            q.Question_text = question_box.Text;//validate user input 
-                        if (q.Question_text =="")
+                        q.Question_text = question_box.Text;//validate user input 
+                        if (q.Question_text == "")
                         {
                             MessageBox.Show("Questions  shouldn't  contain any punctuation  mark", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
-                        q.Question_text = question_box.Text;//validate user input 
+                    q.Question_text = question_box.Text;//validate user input 
 
                 }
                 catch (FormatException)
@@ -212,86 +217,122 @@ namespace Task1
                     return false;
                 }
             }
-
+           
             if (q.Question_type == "Slider")
             {
+               
+                if (control1.Text == "")
                 {
-                    if (control1.Text == "")
+                    Make_Empty(control1);
+                }
+                else
+                {
+                    try
                     {
-                        Make_Empty(control1);
-                    }
-                    else
-                    {
-                        try
+                        if (!isEmpty(control1))
                         {
-                            if (!isEmpty(control1))
+                            if (control1.Text.All(char.IsDigit))
                             {
-                                
-                                Values[0] = Int32.Parse(control1.Text);//validate user input 
+                                Values[0] = control1.Text;
                             }
+                            else
+                            {
+                                throw new FormatException();
+                            }
+                        }
 
-                        }
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
-                        }
                     }
-                    if (control2.Text == "")
+                    catch (FormatException)
                     {
-                        Make_Empty(control2);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            if (!isEmpty(control2))
-                                Values[1] = Int32.Parse(control2.Text);
-
-                        }
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
-                        }
-                    }
-                    if (control3.Text == "")
-                    {
-                        Make_Empty(control3);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            if (!isEmpty(control3))
-                                Values[2] = Int32.Parse(control3.Text);
-
-                        }
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("Start caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
-                        }
-                    }
-                    if (control4.Text == "")
-                    {
-
-                        Make_Empty(control4);
-                    }
-                    else
-                    {
-                        try
-                        {
-                            if (!isEmpty(control4))
-                                Values[3] = Int32.Parse(control4.Text);
-                        }
-                        catch (FormatException)
-                        {
-                            MessageBox.Show("End caption should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
-                        }
+                        MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
                     }
                 }
+                if (control2.Text == "")
+                {
+                    Make_Empty(control2);
+                }
+                else
+                {
+                    try
+                    {
+                        if (!isEmpty(control2))
+                        {
+                            if (control2.Text.All(char.IsDigit))
+                            {
+                                Values[1] = control2.Text;
+                            }
+                            else
+                            {
+                                throw new FormatException();
+                            }
+                        }
+
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                if (control3.Text == "")
+                {
+                    Make_Empty(control3);
+                }
+                else
+                {
+                    try
+                    {
+                        if (!isEmpty(control3))
+                        {
+                            if (control3.Text.Any(char.IsPunctuation))
+                            {
+                                throw new FormatException();
+                            }
+                            if (control3.Text.Any(char.IsDigit))
+                            {
+                                throw new FormatException();
+                            }
+                            Values[2] = control3.Text;
+                        }
+
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("Start Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                if (control4.Text == "")
+                {
+
+                    Make_Empty(control4);
+                }
+                else
+                {
+                    try
+                    {
+                        if (!isEmpty(control4))
+                        {
+                            if (control4.Text.Any(char.IsPunctuation))
+                            {
+                                throw new FormatException();
+                            }
+                            if (control4.Text.Any(char.IsDigit))
+                            {
+                                throw new FormatException();
+                            }
+                            Values[3] = control4.Text;
+
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("End Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+
                 q.Set_values(Values);
             }
             else if (q.Question_type == "Smiley")
@@ -307,7 +348,16 @@ namespace Task1
                     try
                     {
                         if (!isEmpty(control5))
-                            Values[0] = Int32.Parse(control5.Text);
+                        {
+                            if (control5.Text.All(char.IsDigit))
+                            {
+                                Values[0] = control5.Text;
+                            }
+                            else
+                            {
+                                throw new FormatException();
+                            }
+                        }
                     }
                     catch (FormatException)
                     {
@@ -320,7 +370,7 @@ namespace Task1
             }
             else if (q.Question_type == "Stars")
             {
-           
+
                 if (control6.Text == "")
                 {
                     Make_Empty(control6);
@@ -330,7 +380,17 @@ namespace Task1
                     try
                     {
                         if (!isEmpty(control6))
-                            Values[0] = Int32.Parse(control6.Text);
+
+                        {
+                            if (control6.Text.All(char.IsDigit))
+                            {
+                                Values[0] = control6.Text;
+                            }
+                            else
+                            {
+                                throw new FormatException();
+                            }
+                        }
 
                     }
                     catch (FormatException)
@@ -345,8 +405,41 @@ namespace Task1
 
             return true;
         }
-
-        public void TextChanged(object sender, EventArgs e)//event handler to change color or each text in textboxes in dialog and make them Empty 
+        public void Next_Number_UpDown()
+        {
+            if (question_order == null)
+            {
+                question_order = DB.Orders();
+                foreach (DataRow row in question_order.Rows)
+                {
+                    Reserved_orders.Add((int)row.ItemArray[0]);
+                }
+            }           
+            while (  QuestionOrderUpDown.Value==-1 ||Reserved_orders.Contains((int)QuestionOrderUpDown.Value)  )
+            {
+                QuestionOrderUpDown.Value++;
+            }
+        }
+        public void Prev_Number_UpDown()
+        {
+            if (question_order == null)
+            {
+                question_order = DB.Orders();
+                foreach (DataRow row in question_order.Rows)
+                {
+                    Reserved_orders.Add((int)row.ItemArray[0]);
+                }
+            }
+            while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value)&& QuestionOrderUpDown.Value >=0)
+            {
+                QuestionOrderUpDown.Value--;
+                if (QuestionOrderUpDown.Value ==-1)
+                {
+                    Next_Number_UpDown();
+                }
+            }
+        }
+        protected void TextChanged(object sender, EventArgs e)//event handler to change color or each text in textboxes in dialog and make them Empty 
         {
             if (ReferenceEquals(sender, question_box))
             {
@@ -415,7 +508,7 @@ namespace Task1
             }
         }
 
-        public void KeyDown(object sender, KeyEventArgs e)//to move to next control 
+        protected void KeyDown(object sender, KeyEventArgs e)//to move to next control 
         {
             if (e.KeyCode == Keys.Enter)
             {

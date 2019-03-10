@@ -10,10 +10,10 @@ namespace Task1
     {
 
         private int start;
-        private int start_caption;
+        private string start_caption;
         private int end;
-        private int end_caption;
-        public readonly List<int> Slider_default = new List<int> { 0, 100, 20, 80 };
+        private string end_caption;
+        public readonly List<string> Slider_default = new List<string> { "0", "100", "Not satisfied", "Extremely statisfied" };
 
 
         public int Start
@@ -31,7 +31,7 @@ namespace Task1
 
             }
         }
-        public int Start_Caption
+        public string Start_Caption
         {
             get
             {
@@ -39,10 +39,8 @@ namespace Task1
             }
             set
             {
-                if (value >= 0 && value <= 100)
+                if (!value.Any(char.IsPunctuation))
                     start_caption = value;
-                else
-                    MessageBox.Show("Start caption should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
@@ -61,7 +59,7 @@ namespace Task1
 
             }
         }
-        public int End_Caption
+        public string End_Caption
         {
             get
             {
@@ -69,14 +67,13 @@ namespace Task1
             }
             set
             {
-                if (value >= 0 && value <= 100)
+                if (!value.Any(char.IsPunctuation))
                     end_caption = value;
-                else
-                    MessageBox.Show("End caption should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
-        public Slider(string text, int order, int start = 0, int end = 100, int start_caption = 20, int end_caption = 80) : base(text, order, "Slider")
+        public Slider(string text, int order, int id ,int start = 0, int end = 100 , string start_caption = "Not satisfied", string end_caption ="Extremely statisfied" ) : base(text, order, "Slider",id)
         {
             Start = start;
             Start_Caption = start_caption;
@@ -84,38 +81,38 @@ namespace Task1
             End_Caption = end_caption;
 
         }
-        public Slider() : base("", -1, "Slider")
+        public Slider(int id) : base("", -1, "Slider",id)
         {
-            Start = Slider_default[0];
-            End = Slider_default[1];
+            Start = Int32.Parse( Slider_default[0]);
+            End = Int32.Parse(Slider_default[1]);
             Start_Caption = Slider_default[2];
             End_Caption = Slider_default[3];
         }
-        public override List<int> Current_values()
+        public override List<string> Current_values()
         {
-            List<int> temp = new List<int>();
-            temp.Add(Start);
-            temp.Add(End);
+            List<string> temp = new List<string>();
+            temp.Add(Start.ToString());
+            temp.Add(End.ToString());
             temp.Add(Start_Caption);
             temp.Add(End_Caption);
             return temp;
         }
-        public override List<int> Default_values()
+        public override List<string> Default_values()
         {
             return Slider_default;
         }
         public override void Reset_values()
         {
-            Start = Slider_default[0];
-            Start_Caption = Slider_default[1];
-            End = Slider_default[2];
+            Start = Int32.Parse(Slider_default[0]);
+            Start_Caption = Slider_default[2];
+            End = Int32.Parse(Slider_default[1]);
             End_Caption = Slider_default[3];
 
         }
-        public override void Set_values(List<int> Values)
+        public override void Set_values(List<string> Values)
         {
-            Start = Values[0];
-            End = Values[1];
+            Start = Int32.Parse( Values[0]);
+            End = Int32.Parse(Values[1]);
             Start_Caption = Values[2];
             End_Caption = Values[3];
          
@@ -130,42 +127,9 @@ namespace Task1
                 MessageBox.Show("Start value should be lower than end value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (Start >= Start_Caption)
-            {
-                Reset_values();
+         
 
-                MessageBox.Show("Start value should be lower than Start caption ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-
-            if (Start_Caption >= End)//Start Caption should be lower than End value 
-            {
-                MessageBox.Show(Start_Caption.ToString());
-                Reset_values();
-                MessageBox.Show("Start Caption should be lower than End value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Start_Caption >= End_Caption)
-            {
-                Reset_values();
-                MessageBox.Show("Start Caption should be lower than End caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (End_Caption >= End)//End caption should be lower than End value 
-            {
-                Reset_values();
-                MessageBox.Show("End Caption should be Lower than End value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (End_Caption <= Start_Caption)//End caption should be higer than Start caption
-            {
-                Reset_values();
-                MessageBox.Show("End caption should be higer than Start caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
+         
             return true;
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Task1
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -32,13 +32,15 @@
             this.Add_Button = new System.Windows.Forms.Button();
             this.Delete_Button = new System.Windows.Forms.Button();
             this.Edit_Button = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DatabaseListBox = new System.Windows.Forms.ListBox();
+            this.Close_Button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.Close_Button);
             this.panel1.Controls.Add(this.Add_Button);
             this.panel1.Controls.Add(this.Delete_Button);
             this.panel1.Controls.Add(this.Edit_Button);
@@ -50,9 +52,10 @@
             // 
             // Add_Button
             // 
-            this.Add_Button.Location = new System.Drawing.Point(35, 158);
+            this.Add_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Add_Button.Location = new System.Drawing.Point(19, 12);
             this.Add_Button.Name = "Add_Button";
-            this.Add_Button.Size = new System.Drawing.Size(75, 23);
+            this.Add_Button.Size = new System.Drawing.Size(91, 23);
             this.Add_Button.TabIndex = 0;
             this.Add_Button.Text = "Add";
             this.Add_Button.UseVisualStyleBackColor = true;
@@ -60,9 +63,9 @@
             // 
             // Delete_Button
             // 
-            this.Delete_Button.Location = new System.Drawing.Point(35, 268);
+            this.Delete_Button.Location = new System.Drawing.Point(19, 70);
             this.Delete_Button.Name = "Delete_Button";
-            this.Delete_Button.Size = new System.Drawing.Size(75, 23);
+            this.Delete_Button.Size = new System.Drawing.Size(91, 23);
             this.Delete_Button.TabIndex = 2;
             this.Delete_Button.Text = "Delete";
             this.Delete_Button.UseVisualStyleBackColor = true;
@@ -70,47 +73,52 @@
             // 
             // Edit_Button
             // 
-            this.Edit_Button.Location = new System.Drawing.Point(35, 213);
+            this.Edit_Button.Location = new System.Drawing.Point(19, 41);
             this.Edit_Button.Name = "Edit_Button";
-            this.Edit_Button.Size = new System.Drawing.Size(75, 23);
+            this.Edit_Button.Size = new System.Drawing.Size(91, 23);
             this.Edit_Button.TabIndex = 1;
             this.Edit_Button.Text = "Edit";
             this.Edit_Button.UseVisualStyleBackColor = true;
             this.Edit_Button.Click += new System.EventHandler(this.Edit_Button_Click);
             // 
-            // dataGridView1
+            // DatabaseListBox
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.DatabaseListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 83);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(504, 316);
-            this.dataGridView1.TabIndex = 1;
+            this.DatabaseListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DatabaseListBox.FormattingEnabled = true;
+            this.DatabaseListBox.IntegralHeight = false;
+            this.DatabaseListBox.ItemHeight = 16;
+            this.DatabaseListBox.Location = new System.Drawing.Point(12, 12);
+            this.DatabaseListBox.Name = "DatabaseListBox";
+            this.DatabaseListBox.Size = new System.Drawing.Size(507, 341);
+            this.DatabaseListBox.TabIndex = 2;
             // 
-            // Form1
+            // Close_Button
+            // 
+            this.Close_Button.Location = new System.Drawing.Point(19, 371);
+            this.Close_Button.Name = "Close_Button";
+            this.Close_Button.Size = new System.Drawing.Size(91, 23);
+            this.Close_Button.TabIndex = 3;
+            this.Close_Button.Text = "Close";
+            this.Close_Button.UseVisualStyleBackColor = true;
+            this.Close_Button.Click += new System.EventHandler(this.Close_Button_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(647, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DatabaseListBox);
             this.Controls.Add(this.panel1);
-            this.IsMdiContainer = true;
             this.MinimumSize = new System.Drawing.Size(663, 489);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Main";
+            this.Text = "Survey Configurator";
+            this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -120,7 +128,8 @@
         private System.Windows.Forms.Button Add_Button;
         private System.Windows.Forms.Button Delete_Button;
         private System.Windows.Forms.Button Edit_Button;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ListBox DatabaseListBox;
+        private System.Windows.Forms.Button Close_Button;
     }
 }
 

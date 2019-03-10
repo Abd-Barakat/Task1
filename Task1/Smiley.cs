@@ -30,33 +30,33 @@ namespace Task1
             }
         }
 
-        public Smiley(string text, int order, int faces=3):base(text,order, "Smiley")
+        public Smiley(string text, int order, int id, int faces=3):base(text,order, "Smiley",id)
         {
             Faces = faces;
         }
-        public Smiley() : base("", -1, "Smiley")
+        public Smiley(int id) : base("", -1, "Smiley",id)
         {
             Faces = 3;
         }
-        public override  List<int> Default_values()
+        public override  List<string> Default_values()
         {
-            List<int> temp = new List<int>();
-            temp.Add(3);
+            List<string> temp = new List<string>();
+            temp.Add("3");
             return temp;
         }
         public override void Reset_values()
         {
             Faces = 3;
         }
-        public override List<int> Current_values()
+        public override List<string> Current_values()
         {
-            List<int> temp = new List<int>();
-            temp.Add(Faces);
+            List<string> temp = new List<string>();
+            temp.Add(Faces.ToString());
             return temp;
         }
-        public override void Set_values( List<int> Values)
+        public override void Set_values( List<string> Values)
         {
-            Faces = Values[0];
+            Faces = Int32.Parse( Values[0]);
         }
         public override bool Validate()
         {
