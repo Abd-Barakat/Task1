@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-
 namespace Task1
 {
     class Stars:Question
@@ -32,7 +30,7 @@ namespace Task1
                 }
                 else
                 {
-                    MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new ArgumentOutOfRangeException();
                 }
 
             }

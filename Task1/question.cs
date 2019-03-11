@@ -44,9 +44,10 @@ namespace Task1
                    value= value.Replace("'", "''");//replace each ' with '' 
                     question_text = value;
                 }
-                else
+                else if (!value.Any(char.IsDigit))
                 {
                     question_text = value;
+
                 }
             }
             get
@@ -130,6 +131,6 @@ namespace Task1
         /// </summary>
         /// <returns></returns>
         public abstract bool Validate();
-       
+      
     }
 }

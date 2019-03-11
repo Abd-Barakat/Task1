@@ -36,43 +36,29 @@ namespace Task1
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
         {
-            if (!question_box.Text.Any(char.IsDigit) && !IsEmpty(question_box))//check if question box contain any number or is empty 
+            if (Check(q.Current_values()))//call check method to check inserted values before update database 
             {
-                if (Check(q.Current_values()))//call check method to check inserted values before update database 
+                try
                 {
-
-                    try
-                    {
-                        DB.Update(q);//upate database with new edited question
-                        this.Close();
-                    }
-                    catch (Exception ex)//to catch eny problem that may occure
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occure
-                        using (StreamWriter stream = new StreamWriter(@"Error.txt", true))//save errors in Error.txt file
-                        {
-                            stream.WriteLine("-------------------------------------------------------------------\n");
-                            stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
-                            while (ex != null)
-                            {
-                                stream.WriteLine("Message :\n" + ex.Message);
-                                stream.WriteLine("Stack trace :\n" + ex.StackTrace);
-                                ex = ex.InnerException;
-                            }
-                        }
-                        this.Close();
-                    }
+                    DB.Update(q);//upate database with new edited question
+                    this.Close();
                 }
-            }
-            else if (IsEmpty(question_box) || question_box.Text == "")//check what error is 
-            {
-                question_box.Text = "";
-                MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (question_box.Text.Any(char.IsDigit))//check what error is 
-            {
-                question_box.Text = "";
-                MessageBox.Show("Please Write a question without numbers   ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)//to catch eny problem that may occure
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occure
+                    using (StreamWriter stream = new StreamWriter(@"Error.txt", true))//save errors in Error.txt file
+                    {
+                        stream.WriteLine("-------------------------------------------------------------------\n");
+                        stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                        while (ex != null)
+                        {
+                            stream.WriteLine("Message :\n" + ex.Message);
+                            stream.WriteLine("Stack trace :\n" + ex.StackTrace);
+                            ex = ex.InnerException;
+                        }
+                    }
+                    this.Close();
+                }
             }
         }
         /// <summary>
@@ -86,14 +72,14 @@ namespace Task1
         {
             if (ReferenceEquals(box, question_box))// question text box
             {
-                if (question_box.Text == "Write a new question here ...")//check default 
+                if (question_box.Text == "")//check default 
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, Start_textBox))// start text box
             {
-                if (Start_textBox.Text == q.Default_values().ElementAt(0).ToString())//check default 
+                if (Start_textBox.Text == q.Current_values().ElementAt(0).ToString())//check default 
                     return true;
                 else
                     return false;
@@ -101,21 +87,21 @@ namespace Task1
             }
             else if (ReferenceEquals(box, End_textBox))// end text box
             {
-                if (End_textBox.Text == q.Default_values().ElementAt(1).ToString())//check default 
+                if (End_textBox.Text == q.Current_values().ElementAt(1).ToString())//check default 
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, Start_caption_textBox))// start caption text box
             {
-                if (Start_caption_textBox.Text == q.Default_values().ElementAt(2).ToString())//check default 
+                if (Start_caption_textBox.Text == q.Current_values().ElementAt(2).ToString())//check default 
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, End_caption_textBox))// end captiono text box
             {
-                if (End_caption_textBox.Text == q.Default_values().ElementAt(3).ToString())//check default 
+                if (End_caption_textBox.Text == q.Current_values().ElementAt(3).ToString())//check default 
                     return true;
                 else
                     return false;
@@ -123,7 +109,7 @@ namespace Task1
 
             else if (ReferenceEquals(box, Smile_textBox))// faces text box
             {
-                if (Smile_textBox.Text == q.Default_values().ElementAt(0).ToString())//check default 
+                if (Smile_textBox.Text == q.Current_values().ElementAt(0).ToString())//check default 
                     return true;
                 else
                     return false;
@@ -131,7 +117,7 @@ namespace Task1
 
             else if (ReferenceEquals(box, Stars_textbox))// stars text box
             {
-                if (Stars_textbox.Text == q.Default_values().ElementAt(0).ToString())//check default 
+                if (Stars_textbox.Text == q.Current_values().ElementAt(0).ToString())//check default 
                     return true;
                 else
                     return false;
@@ -269,6 +255,6 @@ namespace Task1
             }
 
         }
-       
+
     }
 }

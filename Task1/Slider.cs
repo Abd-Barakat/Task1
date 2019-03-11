@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 namespace Task1
 {
     class Slider : Question
@@ -32,8 +31,9 @@ namespace Task1
                 if (value >= 0 && value <= 100)
                     start = value;
                 else
-                    MessageBox.Show("Start value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
         }
         /// <summary>
@@ -52,6 +52,10 @@ namespace Task1
             {
                 if (!value.Any(char.IsPunctuation))
                     start_caption = value;
+                else
+                {
+                    throw new FormatException();
+                }
 
             }
         }
@@ -72,8 +76,9 @@ namespace Task1
                 if (value >= 0 && value <= 100)
                     end = value;
                 else
-                    MessageBox.Show("End value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
         }
         /// <summary>
@@ -92,6 +97,10 @@ namespace Task1
             {
                 if (!value.Any(char.IsPunctuation))
                     end_caption = value;
+                else
+                {
+                    throw new FormatException();
+                }
 
             }
         }
@@ -180,9 +189,7 @@ namespace Task1
         {
             if (Start >= End)
             {
-                Reset_values();
-                MessageBox.Show("Start value should be lower than end value ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                throw new ArgumentOutOfRangeException();
             }
             return true;
         }

@@ -26,3 +26,174 @@ Exception of type 'System.Exception' was thrown.
 Stack trace :
    at Task1.Main.Selected_question_id() in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 144
    at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 114
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:13:26 PM
+Message :
+Start value should be lower than End value
+Stack trace :
+   at Task1.Slider.Validate() in C:\Users\a.barakat\source\repos\Task1\Task1\Slider.cs:line 192
+   at Task1.BaseForm.Check(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 113
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:38:04 PM
+Message :
+Start value should be lower than End value
+Stack trace :
+   at Task1.Slider.Validate() in C:\Users\a.barakat\source\repos\Task1\Task1\Slider.cs:line 192
+   at Task1.BaseForm.Check(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 113
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:39:27 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 312
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:40:21 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 312
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:40:26 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 312
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:40:42 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 312
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:43:09 PM
+Message     : Start value should be lower than End value
+Stack trace :    at Task1.Slider.Validate() in C:\Users\a.barakat\source\repos\Task1\Task1\Slider.cs:line 192
+   at Task1.BaseForm.Check(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 113
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:44:31 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Task1.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 34
+   at Task1.Smiley.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 87
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 276
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:47:14 PM
+Message     : Number of Smiles should be integer number
+Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 280
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:47:28 PM
+Message     : Number of Smiles should be integer number
+Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 280
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:47:59 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Task1.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 34
+   at Task1.Smiley.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 87
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 276
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:48:22 PM
+Message :
+Please Write a question
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:48:31 PM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/11/2019 3:58:03 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:00:46 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:00:51 PM
+Message     : Question should be text only
+Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 140
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:08:29 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 317
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:08:32 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 317
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:23:46 PM
+Message :
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+Stack trace :
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Task1.DBclass.Open_connection() in C:\Users\a.barakat\source\repos\Task1\Task1\DBclass.cs:line 33
+   at Task1.DBclass.load() in C:\Users\a.barakat\source\repos\Task1\Task1\DBclass.cs:line 128
+   at Task1.Main.Upload() in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 191
+Message :
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+Stack trace :
+
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:37:49 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Task1.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 34
+   at Task1.Smiley.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 87
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 282
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:45:00 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:45:22 PM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:46:06 PM
+Message :
+No questions to delete
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:47:30 PM
+Message     : Question should not contain a number
+Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 140
+-------------------------------------------------------------------
+
+Date :3/11/2019 4:49:06 PM
+Message :
+Please write a question

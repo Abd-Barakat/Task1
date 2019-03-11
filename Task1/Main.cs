@@ -14,8 +14,9 @@ namespace Task1
 {
     public partial class Main : Form
     {
-        
-   
+
+
+        private string Path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
         private DBclass DB = new DBclass();
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -115,27 +116,22 @@ namespace Task1
                         }
                         catch (Exception ex)
                         {
-                            using (StreamWriter stream = new StreamWriter(@"C: \Users\a.barakat\source\repos\Task1\Error.txt", true))
-                            {
-                                stream.WriteLine("-------------------------------------------------------------------\n");
-                                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
-                                while (ex != null)
-                                {
-                                    stream.WriteLine("Message :\n" + ex.Message + "\nStack trace :\n" + ex.StackTrace);
-                                    ex = ex.InnerException;
-                                }
-                            }
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occur
+                            Print_Errors(ex.Message, ex);
                         }
                     }
                 }
                 else
                 {
                     MessageBox.Show("No question selected", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                    Print_Errors("No question selected");
                 }
             }
             else
+            {
                 MessageBox.Show("No questions to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                Print_Errors("No questions to delete");
+            }
         }
         /// <summary>
         /// return id for selected question.
@@ -149,6 +145,7 @@ namespace Task1
             else
             {
                 MessageBox.Show("No question selected ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                Print_Errors("No question selected ");
                 return -1;
             }
         }
@@ -199,17 +196,8 @@ namespace Task1
             }
             catch (Exception ex)
             {
-                using (StreamWriter stream = new StreamWriter(@"C: \Users\a.barakat\source\repos\Task1\text.txt", true))
-                {
-                    stream.Write("-------------------------------------------------------------------");
-                    stream.WriteLine("Date :" + DateTime.Now.ToLongDateString());
-                    while (ex != null)
-                    {
-                        stream.WriteLine("Message :\n" + ex.Message + "\nStack trace :\n" + ex.StackTrace);
-                        ex = ex.InnerException;
-                    }
-                }
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);//to show any error could occur
+                Print_Errors(ex.Message, ex);
             }
 
         }
@@ -221,6 +209,41 @@ namespace Task1
         private void Close_Button_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        /// <summary>
+        /// Prints the errors in Error.txt file.
+        /// </summary>
+        /// <param name="Message">The message.</param>
+        /// <param name="ex">The ex.</param>
+        protected void Print_Errors(string Message, Exception ex)
+        {
+            string Error_file = string.Format(@Path + @"\Error.txt");
+            using (StreamWriter stream = new StreamWriter(Error_file, true))//save errors in Error.txt file
+            {
+                stream.WriteLine("-------------------------------------------------------------------\n");
+                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                while (ex != null)
+                {
+                    stream.WriteLine("Message :\n" + Message);
+                    stream.WriteLine("Stack trace :\n" + ex.StackTrace);
+                    ex = ex.InnerException;
+                }
+            }
+        }
+        /// <summary>
+        /// Prints the errors in Error.txt file.
+        /// </summary>
+        /// <param name="Message">The message.</param>
+        protected void Print_Errors(string Message)
+        {
+            string Error_file = string.Format(@Path + @"\Error.txt");
+            using (StreamWriter stream = new StreamWriter(Error_file, true))//save errors in Error.txt file
+            {
+                stream.WriteLine("-------------------------------------------------------------------\n");
+                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                stream.WriteLine("Message :\n" + Message);
+
+            }
         }
     }
 }

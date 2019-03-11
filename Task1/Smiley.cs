@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 namespace Task1
 {
     class Smiley:Question
@@ -31,8 +30,9 @@ namespace Task1
                     faces = value;
                 }
                 else
-                    MessageBox.Show("Number of faces should be between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
         }
         /// <summary>

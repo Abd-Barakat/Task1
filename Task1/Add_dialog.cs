@@ -24,6 +24,7 @@ namespace Task1
         {
             InitializeComponent();
             this.Next_ID = Next_ID;
+          
         }
 
         /// <summary>
@@ -213,51 +214,26 @@ namespace Task1
 
             if (Groupbox_index != -1)//if no control selected in GroupBox
             {
-                if (!question_box.Text.Any(char.IsDigit) && !IsEmpty(question_box))//check question textbox if contain invalid inputs or default text
+                if (Check(q.Current_values()))//call method check in Base class that check question's values if they are correct or not 
                 {
-
-                    if (Check(q.Current_values()))//call method check in Base class that check question's values if they are correct or not 
+                    try
                     {
-                        try
-                        {
-                            DB.Insert(Groupbox_index, Tables, q);//call Insert method in DBclass to insert the new question into database
-                            this.Close();//hide Add dialog
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            using (StreamWriter stream = new StreamWriter(@"Error.txt", true))//save errors in Error.txt file
-                            {
-                                stream.WriteLine("-------------------------------------------------------------------\n");
-                                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
-                                while (ex != null)
-                                {
-
-                                    stream.WriteLine("Message :\n" + ex.Message);
-                                    stream.WriteLine("Stack trace :\n" + ex.StackTrace);
-
-                                    ex = ex.InnerException;
-                                }
-                            }
-                            this.Close();//hide add_dialog form 
-                        }
-
+                        DB.Insert(Groupbox_index, Tables, q);//call Insert method in DBclass to insert the new question into database
+                        this.Close();//hide Add dialog
                     }
-
-                }
-                else if (IsEmpty(question_box) || question_box.Text == "")//if question textbox is empty or contain default value
-                {
-                    question_box.Text = "";
-                    MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (question_box.Text.Any(char.IsDigit))//if question textbox  contain a number in it
-                {
-                    question_box.Text = "";
-                    MessageBox.Show("Please Write a question without numbers   ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors(ex.Message, ex);
+                        this.Close();//hide add_dialog form 
+                    }
                 }
             }
             else
+            {
                 MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if no question type is selected 
+                Print_Errors("Please select question type ");
+            }
         }
         /// <summary>
         /// Groups the index.
@@ -277,72 +253,5 @@ namespace Task1
             else
                 return -1;
         }
-        /// <summary>
-        /// Determines whether the specified box is empty, consider that the default value is empty too.
-        /// </summary>
-        /// <param name="box">The box.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified box is empty; otherwise, <c>false</c>.
-        /// </returns>
-        protected override bool IsEmpty(TextBox box)
-        {
-            if (ReferenceEquals(box, question_box))
-            {
-                if (question_box.Text == "")
-                    return true;
-                else
-                    return false;
-            }
-            else if (ReferenceEquals(box, Stars_textbox))
-            {
-                if (Stars_textbox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
-                    return true;
-                else
-                    return false;
-
-            }
-            else if (ReferenceEquals(box, End_textBox))
-            {
-                if (End_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(1)))
-                    return true;
-                else
-                    return false;
-            }
-            else if (ReferenceEquals(box, Start_caption_textBox))
-            {
-                if (Start_caption_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(2)))
-                    return true;
-                else
-                    return false;
-            }
-            else if (ReferenceEquals(box, End_caption_textBox))
-            {
-                if (End_caption_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(3)))
-                    return true;
-                else
-                    return false;
-            }
-
-            else if (ReferenceEquals(box, Smile_textBox))
-            {
-                if (Smile_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
-                    return true;
-                else
-                    return false;
-            }
-
-            else if (ReferenceEquals(box, Stars_textbox))
-            {
-                if (Stars_textbox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
-
-        }
-
-
     }
 }

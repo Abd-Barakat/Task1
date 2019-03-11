@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
 namespace Task1
 {
     public partial class BaseForm : Form
     {
-
+        private string Path =System.IO.Directory.GetParent(@"..\..\..\").FullName;
         protected Question q;
         protected int oldValue = 0;
         protected DataTable question_order;
@@ -42,7 +42,60 @@ namespace Task1
         /// </returns>
         protected virtual bool IsEmpty(TextBox box)
         {
-            return false;
+            if (ReferenceEquals(box, question_box))
+            {
+                if (question_box.Text == "")
+                    return true;
+                else
+                    return false;
+            }
+            else if (ReferenceEquals(box, Stars_textbox))
+            {
+                if (Stars_textbox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
+                    return true;
+                else
+                    return false;
+
+            }
+            else if (ReferenceEquals(box, End_textBox))
+            {
+                if (End_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(1)))
+                    return true;
+                else
+                    return false;
+            }
+            else if (ReferenceEquals(box, Start_caption_textBox))
+            {
+                if (Start_caption_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(2)))
+                    return true;
+                else
+                    return false;
+            }
+            else if (ReferenceEquals(box, End_caption_textBox))
+            {
+                if (End_caption_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(3)))
+                    return true;
+                else
+                    return false;
+            }
+
+            else if (ReferenceEquals(box, Smile_textBox))
+            {
+                if (Smile_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
+                    return true;
+                else
+                    return false;
+            }
+
+            else if (ReferenceEquals(box, Stars_textbox))
+            {
+                if (Stars_textbox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
         }
         /// <summary>
         /// Checks the specified values if they are correct then save them in question object.
@@ -55,8 +108,17 @@ namespace Task1
             {
                 return false;
             }
-            return q.Validate();
-
+            try
+            {
+                q.Validate();
+                return true;
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show("Start value should be lower than End value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Print_Errors("Start value should be lower than End value", ex);
+                return false;
+            }
         }
         /// <summary>
         /// change question values if they are correct.
@@ -67,7 +129,7 @@ namespace Task1
         /// </exception>
         protected bool Values_Changed(List<string> Values)//check if values are changed or not 
         {
-            
+
             try
             {
                 if (!IsEmpty(question_box))
@@ -78,11 +140,17 @@ namespace Task1
                         throw new FormatException();
                     }
                 }
-
+                else
+                {
+                    MessageBox.Show("Please write a question", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Please write a question");
+                    return false;
+                }
             }
-            catch (FormatException)
+            catch (FormatException ex)
             {
-                MessageBox.Show("Questions  shouldn't  contain number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Question should not contain a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Print_Errors("Question should not contain a number", ex);
                 return false;
             }
             if (q.Question_type == "Slider")
@@ -105,9 +173,10 @@ namespace Task1
                         }
 
                     }
-                    catch (FormatException)
+                    catch (FormatException ex)
                     {
                         MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("Start value should be integer number", ex);
                         return false;
                     }
                 }
@@ -128,9 +197,10 @@ namespace Task1
                         }
 
                     }
-                    catch (FormatException)
+                    catch (FormatException ex)
                     {
                         MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("End value should be integer number", ex);
                         return false;
                     }
                 }
@@ -152,9 +222,10 @@ namespace Task1
                         }
 
                     }
-                    catch (FormatException)
+                    catch (FormatException ex)
                     {
                         MessageBox.Show("Start Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("Start Caption should be text only", ex);
                         return false;
                     }
                 }
@@ -176,17 +247,28 @@ namespace Task1
 
                         }
                     }
-                    catch (FormatException)
+
+                    catch (FormatException ex)
                     {
                         MessageBox.Show("End Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("End Caption should be text only", ex);
                         return false;
                     }
                 }
-                q.Set_values(Values);
+                try
+                {
+                    q.Set_values(Values);
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    MessageBox.Show("Both or Start and End values should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Both or Start and End values should be between 0-100", ex);
+                    return false;
+                }
             }
             else if (q.Question_type == "Smiley")
             {
-                q.Question_order = (int)QuestionOrderUpDown2.Value;
+                q.Question_order = (int)QuestionOrderUpDown3.Value;
 
                 if (Smile_textBox.Text != "")
                 {
@@ -197,6 +279,7 @@ namespace Task1
                             if (Smile_textBox.Text.All(char.IsDigit))
                             {
                                 Values[0] = Smile_textBox.Text;
+                                q.Set_values(Values);
                             }
                             else
                             {
@@ -204,29 +287,34 @@ namespace Task1
                             }
                         }
                     }
-                    catch (FormatException)
+                    catch (ArgumentOutOfRangeException ex)
                     {
-                        MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Number of faces should be between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("Number of faces should be between 2-5", ex);
                         return false;
                     }
-                    q.Set_values(Values);
+                    catch (FormatException ex)
+                    {
+                        MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("Number of Smiles should be integer number", ex);
+                        return false;
+                    }
                 }
-
             }
             else if (q.Question_type == "Stars")
             {
-                q.Question_order = (int)QuestionOrderUpDown3.Value;
+                q.Question_order = (int)QuestionOrderUpDown2.Value;
 
                 if (Stars_textbox.Text != "")
                 {
                     try
                     {
                         if (!IsEmpty(Stars_textbox))
-
                         {
                             if (Stars_textbox.Text.All(char.IsDigit))
                             {
                                 Values[0] = Stars_textbox.Text;
+                                q.Set_values(Values);
                             }
                             else
                             {
@@ -235,19 +323,59 @@ namespace Task1
                         }
 
                     }
-                    catch (FormatException)
+                    catch (ArgumentOutOfRangeException ex)
                     {
-                        MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("Number of stars  should be between 0-10", ex);
                         return false;
                     }
-                    q.Set_values(Values);
+                    catch (FormatException ex)
+                    {
+                        MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Print_Errors("Number of Stars should be integer", ex);
+                        return false;
+                    }
                 }
 
             }
 
             return true;
         }
-       
-        
+
+
+        /// <summary>
+        /// Prints the errors in Error.txt file.
+        /// </summary>
+        /// <param name="Message">The message.</param>
+        protected void Print_Errors(string Message, Exception ex)
+        {
+            string Error_file = string.Format(@Path + @"\Error.txt");
+            using (StreamWriter stream = new StreamWriter(@Error_file, true))//save errors in Error.txt file
+            {
+                stream.WriteLine("-------------------------------------------------------------------\n");
+                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                while (ex != null)
+                {
+                    stream.WriteLine("Message     : " + Message);
+                    stream.WriteLine("Stack trace : " + ex.StackTrace);
+                    ex = ex.InnerException;
+                }
+            }
+        }
+        /// <summary>
+        /// Prints the errors in Error.txt file.
+        /// </summary>
+        /// <param name="Message">The message.</param>
+        protected void Print_Errors(string Message)
+        {
+            string Error_file = string.Format(@Path + @"\Error.txt");
+            using (StreamWriter stream = new StreamWriter(@Error_file, true))//save errors in Error.txt file
+            {
+                stream.WriteLine("-------------------------------------------------------------------\n");
+                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                stream.WriteLine("Message :\n" + Message);
+
+            }
+        }
     }
 }

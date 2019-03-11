@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            SaveButton.Click += Save_Click;
+            QuestionOrderUpDown1.ValueChanged += QuestionOrderUpDown_ValueChanged;
+            QuestionOrderUpDown2.ValueChanged += QuestionOrderUpDown_ValueChanged;
+            QuestionOrderUpDown3.ValueChanged += QuestionOrderUpDown_ValueChanged;
+            //////////////////////////////////////////////////////////////
             this.Radio_GroupBox = new System.Windows.Forms.GroupBox();
             this.Stars_Radio = new System.Windows.Forms.RadioButton();
             this.Smiley_Radio = new System.Windows.Forms.RadioButton();
@@ -56,7 +61,7 @@
             // Stars_Radio
             // 
             this.Stars_Radio.AutoSize = true;
-            this.Stars_Radio.Location = new System.Drawing.Point(43, 80);
+            this.Stars_Radio.Location = new System.Drawing.Point(60, 75);
             this.Stars_Radio.Name = "Stars_Radio";
             this.Stars_Radio.Size = new System.Drawing.Size(49, 17);
             this.Stars_Radio.TabIndex = 2;
@@ -69,7 +74,7 @@
             // Smiley_Radio
             // 
             this.Smiley_Radio.AutoSize = true;
-            this.Smiley_Radio.Location = new System.Drawing.Point(43, 57);
+            this.Smiley_Radio.Location = new System.Drawing.Point(60, 52);
             this.Smiley_Radio.Name = "Smiley_Radio";
             this.Smiley_Radio.Size = new System.Drawing.Size(55, 17);
             this.Smiley_Radio.TabIndex = 1;
@@ -82,7 +87,7 @@
             // Slider_Radio
             // 
             this.Slider_Radio.AutoSize = true;
-            this.Slider_Radio.Location = new System.Drawing.Point(43, 34);
+            this.Slider_Radio.Location = new System.Drawing.Point(60, 29);
             this.Slider_Radio.Name = "Slider_Radio";
             this.Slider_Radio.Size = new System.Drawing.Size(51, 17);
             this.Slider_Radio.TabIndex = 0;
