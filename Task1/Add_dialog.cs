@@ -1,254 +1,227 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
 using System.Configuration;
+using System.Collections;
+using System.Linq;
 using System.IO;
 namespace Task1
 {
-    class Add_dialog :Base
+    public partial class Add : Task1.BaseForm
     {
         private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };
-
-        private GroupBox groupBox = new GroupBox//define groupbox that contain 3 Radio buttons 
+        DBclass DB = new DBclass();
+        private int Next_ID;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Add"/> class.
+        /// </summary>
+        /// <param name="Next_ID">The next question's id.</param>
+        public Add(int Next_ID)
         {
-            Text = "Question type",
-            Size = new System.Drawing.Size(116, 120),
-            AutoSize = false,
-            Location = new System.Drawing.Point(470, 20),
-            Dock = DockStyle.Right & DockStyle.Bottom,
-            TabIndex = 1,
-            TabStop = true,
+            InitializeComponent();
+            this.Next_ID = Next_ID;
+        }
 
-        };
-        private RadioButton SliderButton = new RadioButton
+        /// <summary>
+        /// Handles the ValueChanged event of the QuestionOrderUpDown control, call Prev_Number_UpDown or Next_Number_UpDown depends on up or down button that pressed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void QuestionOrderUpDown_ValueChanged(object sender, EventArgs e)
         {
-            Text = "Slider",
-            Location = new System.Drawing.Point(10, 30),
-            TabIndex = 0,
-            TabStop = true
+            if (ReferenceEquals(sender, QuestionOrderUpDown1))
+            {
+                if (QuestionOrderUpDown1.Value > oldValue)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown1);
+                    oldValue = (int)QuestionOrderUpDown1.Value;
+                }
+                else
+                {
+                    Prev_Number_UpDown(QuestionOrderUpDown1);
+                    oldValue = (int)QuestionOrderUpDown1.Value;
+                }
+            }
+            else if (ReferenceEquals(sender, QuestionOrderUpDown2))
+            {
+                if (QuestionOrderUpDown2.Value > oldValue)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown2);
+                    oldValue = (int)QuestionOrderUpDown2.Value;
+                }
+                else
+                {
+                    Prev_Number_UpDown(QuestionOrderUpDown2);
+                    oldValue = (int)QuestionOrderUpDown2.Value;
+                }
+            }
+            else if (ReferenceEquals(sender, QuestionOrderUpDown3))
+            {
+                if (QuestionOrderUpDown3.Value > oldValue)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown3);
+                    oldValue = (int)QuestionOrderUpDown3.Value;
+                }
+                else
+                {
+                    Prev_Number_UpDown(QuestionOrderUpDown3);
+                    oldValue = (int)QuestionOrderUpDown3.Value;
+                }
+            }
 
-        };
-
-        private RadioButton SmileyButton = new RadioButton
+        }
+        /// <summary>
+        /// increment question order with exclude reserved orders that already exist in the database.
+        /// </summary>
+        /// <param name="QuestionOrderUpDown">The question order up down.</param>
+        private void Next_Number_UpDown(NumericUpDown QuestionOrderUpDown)
         {
-            Text = "Smiley",
-            Location = new System.Drawing.Point(10, 60),
-            TabIndex = 1,
-            TabStop = true
-        };
+            if (question_order == null)
+            {
+                question_order = DB.Orders();
+                foreach (DataRow row in question_order.Rows)
+                {
+                    Reserved_orders.Add((int)row.ItemArray[0]);
+                }
+            }
+            while (QuestionOrderUpDown.Value == -1 || Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
+            {
+                QuestionOrderUpDown.Value++;
+            }
+            q.Question_order = (int)QuestionOrderUpDown.Value;
+        }
 
-        private RadioButton StarsButton = new RadioButton
+        /// <summary>
+        /// decrement question order with exclude reserved orders that already exist in the database.
+        /// </summary>
+        /// <param name="QuestionOrderUpDown">The question order up down.</param>
+        private void Prev_Number_UpDown(NumericUpDown QuestionOrderUpDown)
         {
-            Text = "Stars",
-            Location = new System.Drawing.Point(10, 90),
-            TabIndex = 2,
-            TabStop = true
-        };
-
-
-        protected override void Make_Empty(TextBox box)
+            if (question_order == null)
+            {
+                question_order = DB.Orders();
+                foreach (DataRow row in question_order.Rows)
+                {
+                    Reserved_orders.Add((int)row.ItemArray[0]);
+                }
+            }
+            while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value) && QuestionOrderUpDown.Value >= 0)
+            {
+                QuestionOrderUpDown.Value--;
+                if (QuestionOrderUpDown.Value == -1)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown);
+                }
+            }
+            q.Question_order = (int)QuestionOrderUpDown.Value;
+        }
+        /// <summary>
+        /// Releses the specified question.
+        /// </summary>
+        /// <param name="q">The q.</param>
+        private void Relese(Question q)
         {
-            if (ReferenceEquals(box, question_box))
+            if (q != null)//to avoid null refrence exception
             {
-                question_box.ForeColor = System.Drawing.Color.Gray;
-                question_box.Text = "Write a question here ...";
+                q = null;
             }
-            else if (ReferenceEquals(box, control1))
-            {
-                control1.ForeColor = System.Drawing.Color.Gray;
-                control1.Text = string.Format("Start ={0}", q.Default_values().ElementAt(0));
-
-            }
-            else if (ReferenceEquals(box, control2))
-            {
-                control2.ForeColor = System.Drawing.Color.Gray;
-                control2.Text = string.Format("End ={0}", q.Default_values().ElementAt(1));
-            }
-            else if (ReferenceEquals(box, control3))
-            {
-                control3.ForeColor = System.Drawing.Color.Gray;
-                control3.Text = string.Format("Start Caption ={0}", q.Default_values().ElementAt(2));
-
-            }
-            else if (ReferenceEquals(box, control4))
-            {
-                control4.ForeColor = System.Drawing.Color.Gray;
-                control4.Text = string.Format("End Caption ={0}", q.Default_values().ElementAt(3));
-
-            }
-
-            else if (ReferenceEquals(box, control5))
-            {
-                control5.ForeColor = System.Drawing.Color.Gray;
-                control5.Text = string.Format("Smiles = {0}", q.Default_values().ElementAt(0));
-            }
-
-            else if (ReferenceEquals(box, control6))
-            {
-                control6.ForeColor = System.Drawing.Color.Gray;
-                control6.Text = string.Format("Stars = {0}", q.Default_values().ElementAt(0));
-            }
-        } 
-
-        private void GotFocus(object sender, EventArgs e)//focus event handler for radio buttons in groupBox 
+        }
+        /// <summary>
+        /// Handles the CheckedChanged event of the Radio controls, show groupboxes depends on selection of radio buttons.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void Radio_CheckedChanged(object sender, EventArgs e)
         {
-            relese(q);//call method release that release  q object if refere to another object 
-            if (ReferenceEquals(sender, SliderButton))//if slider radio button 
+            if (ReferenceEquals(sender, Slider_Radio))
+            {
+                if (!Slider_Radio.Checked)
+                    Slider_GroupBox.Visible = false;
+            }
+            else if (ReferenceEquals(sender, Smiley_Radio))
+            {
+                if (!Smiley_Radio.Checked)
+                    Smiley_GroupBox.Visible = false;
+            }
+            else if (ReferenceEquals(sender, Stars_Radio))
+            {
+                if (!Stars_Radio.Checked)
+                    Stars_GroupBox.Visible = false;
+            }
+
+        }
+        /// <summary>
+        /// Handles the Click event of the Radio control, create question object and fill controls with default values of that question.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void Radio_Click(object sender, EventArgs e)
+        {
+            Relese(q);//call method release that release  q object if refere to another object 
+            if (ReferenceEquals(sender, Slider_Radio))//if slider radio button 
             {
 
                 q = new Slider(Next_ID)//create slider object
                 {
                     ID = Next_ID,
                 };
-                SliderButton.Checked = true;//set check property of Slider radio button to true
-                control1.Text = string.Format("Start ={0}", q.Default_values().ElementAt(0));//fill textbox with default value of start 
-                control2.Text = string.Format("End ={0}", q.Default_values().ElementAt(1));//fill textbox with default value of end 
-                control3.Text = string.Format("Start Caption ={0}", q.Default_values().ElementAt(2));//fill textbox with default value of start caption 
-                control4.Text = string.Format("End Caption ={0}", q.Default_values().ElementAt(3));//fill textbox with default value of end caption 
-                Default_GrouoBox.Controls.Add(QuestionOrderUpDown);
-                Default_GrouoBox.Visible = true;//make groupbox that contain above controls visible
+                Slider_Radio.Checked = true;//set check property of Slider radio button to true
+                Start_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of start 
+                End_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(1));//fill textbox with default value of end 
+                Start_caption_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(2));//fill textbox with default value of start caption 
+                End_caption_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(3));//fill textbox with default value of end caption 
+                Next_Number_UpDown(QuestionOrderUpDown1);
+                Slider_GroupBox.Visible = true;//make groupbox that contain above controls visible
             }
-            else if (ReferenceEquals(sender, SmileyButton))//if Smiley radio button 
+            else if (ReferenceEquals(sender, Smiley_Radio))//if Smiley radio button 
             {
                 q = new Smiley(Next_ID)//create smiley object
                 {
                     Question_order = Next_ID//sign qustion_order property to next_order field
                 };
-                SmileyButton.Checked = true;//set check property of Smiley radio button to true
-                control5.Text = string.Format("Smiles = {0}", q.Default_values().ElementAt(0));//fill textbox with default value of faces 
-                Default_GrouoBox2.Controls.Add(QuestionOrderUpDown);
-                Default_GrouoBox2.Visible = true;//make groupbox that contain above controls visible
-
+                Smiley_Radio.Checked = true;//set check property of Smiley radio button to true
+                Smile_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of faces 
+                Next_Number_UpDown(QuestionOrderUpDown3);
+                Smiley_GroupBox.Visible = true;//make groupbox that contain above controls visible
             }
-            else if (ReferenceEquals(sender, StarsButton))//if Stars radio button 
+            else if (ReferenceEquals(sender, Stars_Radio))//if Stars radio button 
             {
                 q = new Stars(Next_ID)//create star object               
                 {
                     Question_order = Next_ID//sign qustion_order property to next_order field
                 };
-                
-                StarsButton.Checked = true;//set check property of Stars radio button to true
-                control6.Text = string.Format("Stars = {0}", q.Default_values().ElementAt(0));//fill textbox with default value of stars 
-                Default_GrouoBox3.Controls.Add(QuestionOrderUpDown);
-                Default_GrouoBox3.Visible = true;//make groupbox that contain above controls visible
+
+                Stars_Radio.Checked = true;//set check property of Stars radio button to true
+                Stars_textbox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of stars 
+                Next_Number_UpDown(QuestionOrderUpDown2);
+                Stars_GroupBox.Visible = true;//make groupbox that contain above controls visible
 
             }
         }
-
-        private void relese (Question q)
+        /// <summary>
+        /// Handles the Click event of the Save control, save the new question in database after validation.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Save_Click(object sender, EventArgs e)//click event hanlder for save button
         {
-            if (q !=null)//to avoid null refrence exception
+            int Groupbox_index = Group_Index();//return index of selected control in GroupBox
+
+            if (Groupbox_index != -1)//if no control selected in GroupBox
             {
-                q = null;
-            }
-        }
-
-        protected override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
-        {
-            q.Reset_values();//call reset values method in Questions class
-            Make_boxes_Empty();//call method that clear all textboxes
-        }
-
-        private void initialize()//initialize controls 
-        {
-            Next_Number_UpDown();
-            QuestionOrderUpDown.ValueChanged += QuestionOrderUpDown_Click;
-            /////////////////////////////////////////
-            question_box.Text = "Write a question here ...";
-            /////////////////////////////////////////
-            SliderButton.GotFocus += GotFocus;
-            SmileyButton.GotFocus += GotFocus;
-            StarsButton.GotFocus += GotFocus;
-            //////////////////////////////////////////
-            SmileyButton.CheckedChanged += CheckedChanged;
-            SliderButton.CheckedChanged += CheckedChanged;
-            StarsButton.CheckedChanged += CheckedChanged;
-            //////////////////////////////////////////
-            groupBox.Controls.Add(SliderButton);
-            groupBox.Controls.Add(SmileyButton);
-            groupBox.Controls.Add(StarsButton);
-            /////////////////////////////////////////
-            control1.GotFocus += TextChanged;
-            control2.GotFocus += TextChanged;
-            control3.GotFocus += TextChanged;
-            control4.GotFocus += TextChanged;
-            control5.GotFocus += TextChanged;
-            control6.GotFocus += TextChanged;
-            question_box.GotFocus += TextChanged;
-            /////////////////////////////////////////
-            control1.KeyDown += KeyDown;
-            control2.KeyDown += KeyDown;
-            control3.KeyDown += KeyDown;
-            control4.KeyDown += KeyDown;
-            /////////////////////////////////////////
-            control1.MouseClick += TextChanged;
-            control2.MouseClick += TextChanged;
-            control3.MouseClick += TextChanged;
-            control4.MouseClick += TextChanged;
-            control5.MouseClick += TextChanged;
-            control6.MouseClick += TextChanged;
-            question_box.MouseClick += TextChanged;
-            /////////////////////////////////////////
-            Default_GrouoBox.Controls.Add(control1);
-            Default_GrouoBox.Controls.Add(control2);
-            Default_GrouoBox.Controls.Add(control3);
-            Default_GrouoBox.Controls.Add(control4);
-            /////////////////////////////////////////
-            Save.Click += Save_Click;
-            Cancel.Click += Cancel_Click;
-            /////////////////////////////////////////
-            Default_GrouoBox2.Controls.Add(control5);
-            /////////////////////////////////////////
-            Default_GrouoBox3.Controls.Add(control6);
-            /////////////////////////////////////////
-            FORM.Controls.Add(Save);
-            FORM.Controls.Add(Cancel);
-            FORM.Controls.Add(question_box);
-            FORM.Controls.Add(groupBox);
-            FORM.Controls.Add(Default_GrouoBox);
-            FORM.Controls.Add(Default_GrouoBox2);
-            FORM.Controls.Add(Default_GrouoBox3);
-        }
-
-        private void QuestionOrderUpDown_Click(object sender, EventArgs e)
-        {
-            if (QuestionOrderUpDown.Value > oldValue)
-            {
-                Next_Number_UpDown();
-                oldValue =(int) QuestionOrderUpDown.Value;
-            }
-            else
-            {
-                Prev_Number_UpDown();
-                oldValue = (int)QuestionOrderUpDown.Value;
-            }
-        }
-
-        private void Cancel_Click(object sender, EventArgs e)
-        {
-            this.FORM.Close();
-        }
-
-        protected override void Save_Click(object sender, EventArgs e)//click event hanlder for save button
-        {
-            if (check(q.Current_values()))//call method check in Base class that check question's values if they are correct or not 
-            {
-                if (!question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))//check question textbox if contain invalid inputs or default text
+                if (!question_box.Text.Any(char.IsDigit) && !IsEmpty(question_box))//check question textbox if contain invalid inputs or default text
                 {
-                    int Groupbox_index = Group_Index();//return index of selected control in GroupBox
 
-                    if (Groupbox_index != -1)//if no control selected in GroupBox
+                    if (Check(q.Current_values()))//call method check in Base class that check question's values if they are correct or not 
                     {
-
                         try
                         {
                             DB.Insert(Groupbox_index, Tables, q);//call Insert method in DBclass to insert the new question into database
-                            FORM.Visible = false;//hide Add dialog
+                            this.Close();//hide Add dialog
                         }
                         catch (Exception ex)
                         {
@@ -266,16 +239,13 @@ namespace Task1
                                     ex = ex.InnerException;
                                 }
                             }
-                            FORM.Visible = false;//hide add_dialog form 
+                            this.Close();//hide add_dialog form 
                         }
-                       
-                    }
-                    else
-                        MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if no question type is selected 
 
+                    }
 
                 }
-                else if (isEmpty(question_box) || question_box.Text == "")//if question textbox is empty or contain default value
+                else if (IsEmpty(question_box) || question_box.Text == "")//if question textbox is empty or contain default value
                 {
                     question_box.Text = "";
                     MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -285,89 +255,85 @@ namespace Task1
                     question_box.Text = "";
                     MessageBox.Show("Please Write a question without numbers   ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
-
+            else
+                MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if no question type is selected 
         }
-
-        private void CheckedChanged(object sender, EventArgs e)//check event hanlder of radio buttons to show groupbox that contain related controls 
+        /// <summary>
+        /// Groups the index.
+        /// </summary>
+        /// <returns>
+        /// number that represent radio buttons (0 => Slider,1 => Smiley ,2 => Stars)
+        /// </returns>
+        private int Group_Index()//return a number that represent radio buttons (0 => Slider,1 => Smiley ,2 => Stars)
         {
-            if (ReferenceEquals(sender, SliderButton))
-            {
-                if (!SliderButton.Checked)
-                    Default_GrouoBox.Visible = false;
-            }
-            else if (ReferenceEquals(sender, SmileyButton))
-            {
-                if (!SmileyButton.Checked)
-                    Default_GrouoBox2.Visible = false;
-            }
-            else if (ReferenceEquals(sender, StarsButton))
-            {
-                if (!StarsButton.Checked)
-                    Default_GrouoBox3.Visible = false;
-            }
-        }
 
-        public  Add_dialog(int Next_id)//constructor to show add_dialog and initialize it's fields
-        {
-            initialize();
-            Next_ID = Next_id;
-            FORM.Text = "Add a question";
-            FORM.Visible = true;
-            
+            if (Slider_Radio.Checked)
+                return 0;
+            else if (Smiley_Radio.Checked)
+                return 1;
+            else if (Stars_Radio.Checked)
+                return 2;
+            else
+                return -1;
         }
-
-        protected override bool isEmpty(TextBox box)//this method to check if text box is contain default value or not 
+        /// <summary>
+        /// Determines whether the specified box is empty, consider that the default value is empty too.
+        /// </summary>
+        /// <param name="box">The box.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified box is empty; otherwise, <c>false</c>.
+        /// </returns>
+        protected override bool IsEmpty(TextBox box)
         {
             if (ReferenceEquals(box, question_box))
             {
-                if (question_box.Text == "Write a question here ...")
+                if (question_box.Text == "")
                     return true;
                 else
                     return false;
             }
-            else if (ReferenceEquals(box, control1))
+            else if (ReferenceEquals(box, Stars_textbox))
             {
-                if (control1.Text == string.Format("Start ={0}", q.Default_values().ElementAt(0)))
+                if (Stars_textbox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
                     return true;
                 else
                     return false;
 
             }
-            else if (ReferenceEquals(box, control2))
+            else if (ReferenceEquals(box, End_textBox))
             {
-                if (control2.Text == string.Format("End ={0}", q.Default_values().ElementAt(1)))
+                if (End_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(1)))
                     return true;
                 else
                     return false;
             }
-            else if (ReferenceEquals(box, control3))
+            else if (ReferenceEquals(box, Start_caption_textBox))
             {
-                if (control3.Text == string.Format("Start Caption ={0}", q.Default_values().ElementAt(2)))
+                if (Start_caption_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(2)))
                     return true;
                 else
                     return false;
             }
-            else if (ReferenceEquals(box, control4))
+            else if (ReferenceEquals(box, End_caption_textBox))
             {
-                if (control4.Text == string.Format("End Caption ={0}", q.Default_values().ElementAt(3) ))
-                    return true;
-                else
-                    return false;
-            }
-
-            else if (ReferenceEquals(box, control5))
-            {
-                if (control5.Text == string.Format("Smiles = {0}", q.Default_values().ElementAt(0)))
+                if (End_caption_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(3)))
                     return true;
                 else
                     return false;
             }
 
-            else if (ReferenceEquals(box, control6))
+            else if (ReferenceEquals(box, Smile_textBox))
             {
-                if (control6.Text == string.Format("Stars = {0}", q.Default_values().ElementAt(0)))
+                if (Smile_textBox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
+                    return true;
+                else
+                    return false;
+            }
+
+            else if (ReferenceEquals(box, Stars_textbox))
+            {
+                if (Stars_textbox.Text == string.Format("{0}", q.Default_values().ElementAt(0)))
                     return true;
                 else
                     return false;
@@ -376,20 +342,7 @@ namespace Task1
                 return false;
 
         }
-    
-        private int Group_Index()//return a number that represent radio buttons (0 => Slider,1 => Smiley ,2 => Stars)
-        {
 
-            if (SliderButton.Checked)
-                return 0;
-            else if (SmileyButton.Checked)
-                return 1;
-            else if (StarsButton.Checked)
-                return 2;
-            else
-                return -1;
-        }
+
     }
-
 }
-

@@ -1,159 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Collections;
 using System.IO;
+using System.Linq;
 namespace Task1
 {
-    public class Edit_dialog : Base
+    public partial class Edit_dialog : Task1.BaseForm
     {
-
-
         private DataTable Type_table = new DataTable();//table will hold the selected question (text ,order ,type)
         private DataTable question_table = new DataTable();//table will hold values related to the selected question
-
-        private void initialize()//initialize events and controls
+        private DBclass DB = new DBclass();
+        /// <summary>
+        /// Show groupbox that contain controls to show current values and initializes a new instance of the <see cref="Edit_dialog"/> class.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        public Edit_dialog(DataRow[] rows)
         {
-            Next_Number_UpDown();
-            QuestionOrderUpDown.ValueChanged += QuestionOrderUpDown_Click;
-            Retrive_Data();
-            Default_GrouoBox.Controls.Add(control1);
-            Default_GrouoBox.Controls.Add(control2);
-            Default_GrouoBox.Controls.Add(control3);
-            Default_GrouoBox.Controls.Add(control4);
-            Default_GrouoBox2.Controls.Add(control5);
-            Default_GrouoBox3.Controls.Add(control6);
-            Default_GrouoBox3.Controls.Add(question_box);
-            ///////////////////////////////////////////
-            question_box.Text = "Write a new question here ...";
-            ///////////////////////////////////////////
-            control1.GotFocus += TextChanged;
-            control2.GotFocus += TextChanged;
-            control3.GotFocus += TextChanged;
-            control4.GotFocus += TextChanged;
-            control5.GotFocus += TextChanged;
-            control6.GotFocus += TextChanged;
-            question_box.GotFocus += TextChanged;
-            control1.MouseClick += TextChanged;
-            control2.MouseClick += TextChanged;
-            control3.MouseClick += TextChanged;
-            control4.MouseClick += TextChanged;
-            control5.MouseClick += TextChanged;
-            control6.MouseClick += TextChanged;
-            question_box.MouseClick += TextChanged;
-            ///////////////////////////////////////////
-            control1.KeyDown += KeyDown;
-            control2.KeyDown += KeyDown;
-            control3.KeyDown += KeyDown;
-            control4.KeyDown += KeyDown;
-            ///////////////////////////////////////////
-            FORM.Controls.Add(question_box);
-            FORM.Controls.Add(Cancel);
-            FORM.Controls.Add(Default_GrouoBox);
-            FORM.Controls.Add(Default_GrouoBox2);
-            FORM.Controls.Add(Default_GrouoBox3);
-            FORM.Controls.Add(Save);
-            ///////////////////////////////////////////
-            FORM = form;
-            FORM.Text = "Edit the question";
-            FORM.Visible = true;
-            Save.Click += Save_Click;
-            Cancel.Click += Cancel_Click;
-        }
-
-        private void QuestionOrderUpDown_Click(object sender, EventArgs e)
-        {
-
-            if (QuestionOrderUpDown.Value > oldValue)
-            {
-                Next_Number_UpDown();
-                oldValue = (int)QuestionOrderUpDown.Value;
-            }
-            else
-            {
-                Prev_Number_UpDown();
-                oldValue = (int)QuestionOrderUpDown.Value;
-            }
-        }
-
-        private void Cancel_Click(object sender, EventArgs e)
-        {
-            FORM.Visible = false;
-        }
-
-        protected override void Reset() //to reset default values of smiley ,slider and star questions in case invalid input entered
-        {
-            q.Reset_values();//reset values to default
-            Make_boxes_Empty();//clear text boxes
-        }
-
-        private void ShowGroupBox(string type)//this method show a specific Groupbox depends on type of question then save old data (before editing ) in variables 
-        {
-            switch (type)//switch type of question 
-            {
-                
-                case "Slider":
-                    Default_GrouoBox.Controls.Add(QuestionOrderUpDown);
-                    Default_GrouoBox.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
-                    q = new Slider(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1],(int)(question_table.Rows[0].ItemArray[3]) ,(int)(Type_table.Rows[0].ItemArray[1]), (int)(Type_table.Rows[0].ItemArray[2]),Type_table.Rows[0].ItemArray[3].ToString(),Type_table.Rows[0].ItemArray[4].ToString());//create object from slider class and fill it with saved values retrived from database (old values)
-                    control1.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Start value
-                    control2.Text = q.Current_values().ElementAt(1).ToString();//show stored value of End value
-                    control3.Text = q.Current_values().ElementAt(2).ToString();//show stored value of Start_caption
-                    control4.Text = q.Current_values().ElementAt(3).ToString();//show stored value of End_caption
-                    break;
-
-                case "Smiley":
-                    Default_GrouoBox2.Controls.Add(QuestionOrderUpDown);
-                    Default_GrouoBox2.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
-                    q = new Smiley(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(question_table.Rows[0].ItemArray[3]),(int)(Type_table.Rows[0].ItemArray[1]));//create object from Smiley and fill it with stored values retrived from database (old value)
-                    control5.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Faces
-                    break;
-
-                case "Stars":
-                    Default_GrouoBox3.Controls.Add(QuestionOrderUpDown);
-                    
-                    Default_GrouoBox3.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
-                    q = new Stars(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(question_table.Rows[0].ItemArray[3]), (int)(Type_table.Rows[0].ItemArray[1]));//create object from Stars and fill it with stored values retrived from database (old value)
-                    control6.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Stars
-                    break;
-
-            }
-
-        }
-
-        private void Retrive_Data()//load saved data of selected question from database 
-        {
+            InitializeComponent();
+            Type_table = rows[1].Table.Clone();//copy  table's headers only
+            Type_table.Rows.Add(rows[1].ItemArray);//add row to type table
+            question_table = rows[0].Table.Clone();//copy  table's headers only
+            question_table.Rows.Add(rows[0].ItemArray);//add row to question table
             string type = question_table.Rows[0].ItemArray[2].ToString();//get type of the question from question table 
             ShowGroupBox(type);//call showgroub box
         }
-
-        public  Edit_dialog(int Next_order, DataRow question, DataRow type)//method used to be called in Form1 class (like constructor)
+        /// <summary>
+        /// Handles the Click event of the Save control that save updates to database.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Save_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
         {
-
-            Type_table = type.Table.Clone();//copy  table's headers only
-            Type_table.Rows.Add(type.ItemArray);//add row to type table
-
-            question_table = question.Table.Clone();//copy  table's headers only
-            question_table.Rows.Add(question.ItemArray);//add row to question table
-
-            initialize();//call method that initialize controls
-        }
-
-        protected override void Save_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
-        {
-            if (check(q.Current_values()))//call check method to check inserted values before update database 
+            if (!question_box.Text.Any(char.IsDigit) && !IsEmpty(question_box))//check if question box contain any number or is empty 
             {
-                if (!question_box.Text.Any(char.IsDigit) && !isEmpty(question_box))//check if question box contain any number or is empty 
+                if (Check(q.Current_values()))//call check method to check inserted values before update database 
                 {
+
                     try
                     {
                         DB.Update(q);//upate database with new edited question
-                        FORM.Visible = false;//hide Add dialog that will call event handler in Form1 class to print new data from database to datagridview
+                        this.Close();
                     }
                     catch (Exception ex)//to catch eny problem that may occure
                     {
@@ -164,74 +55,34 @@ namespace Task1
                             stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
                             while (ex != null)
                             {
-                                stream.WriteLine("Message :\n" + ex.Message  );
+                                stream.WriteLine("Message :\n" + ex.Message);
                                 stream.WriteLine("Stack trace :\n" + ex.StackTrace);
                                 ex = ex.InnerException;
                             }
                         }
-                            FORM.Visible = false;
+                        this.Close();
                     }
                 }
-                else if (isEmpty(question_box) || question_box.Text == "")//check what error is 
-                {
-                    question_box.Text = "";
-                    MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (question_box.Text.Any(char.IsDigit))//check what error is 
-                {
-                    question_box.Text = "";
-                    MessageBox.Show("Please Write a question without numbers   ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
             }
-
-        }
-
-        protected override void Make_Empty(TextBox box)//this method for clear all text boxes to default values
-        {
-            if (ReferenceEquals(box, question_box))//question text box
+            else if (IsEmpty(question_box) || question_box.Text == "")//check what error is 
             {
-                question_box.ForeColor = System.Drawing.Color.Gray;//make font color gray 
-                question_box.Text = "Write a new question here ...";
+                question_box.Text = "";
+                MessageBox.Show("Please Write a question  ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (ReferenceEquals(box, control1))//start text box
+            else if (question_box.Text.Any(char.IsDigit))//check what error is 
             {
-                control1.ForeColor = System.Drawing.Color.Gray;//make font color gray 
-                control1.Text = q.Default_values().ElementAt(0).ToString();//set default value 
-
-            }
-            else if (ReferenceEquals(box, control2))//end text box
-            {
-                control2.ForeColor = System.Drawing.Color.Gray;//make font color gray 
-                control2.Text = q.Default_values().ElementAt(1).ToString();//set default value 
-            }
-            else if (ReferenceEquals(box, control3))//start caption text box
-            {
-                control3.ForeColor = System.Drawing.Color.Gray;//make font color gray 
-                control3.Text = q.Default_values().ElementAt(2).ToString();//set default value 
-
-            }
-            else if (ReferenceEquals(box, control4))//end caption text box
-            {
-                control4.ForeColor = System.Drawing.Color.Gray;//make font color gray 
-                control4.Text = q.Default_values().ElementAt(3).ToString();//set default value 
-
-            }
-
-            else if (ReferenceEquals(box, control5))//faces text box
-            {
-                control5.ForeColor = System.Drawing.Color.Gray;//make font color gray 
-                control5.Text = q.Default_values().ElementAt(0).ToString();//set default value 
-            }
-
-            else if (ReferenceEquals(box, control6))//stars text box
-            {
-                control6.ForeColor = System.Drawing.Color.Gray;//make font color gray 
-                control6.Text = q.Default_values().ElementAt(0).ToString();//set default value 
+                question_box.Text = "";
+                MessageBox.Show("Please Write a question without numbers   ", "Incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        protected override bool isEmpty(TextBox box)//this method to check if text box is containing default value
+        /// <summary>
+        /// Determines whether the specified box is empty.
+        /// </summary>
+        /// <param name="box">The box.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified box is empty; otherwise, <c>false</c>.
+        /// </returns>
+        protected override bool IsEmpty(TextBox box)//this method to check if text box is containing default value
         {
             if (ReferenceEquals(box, question_box))// question text box
             {
@@ -240,47 +91,47 @@ namespace Task1
                 else
                     return false;
             }
-            else if (ReferenceEquals(box, control1))// start text box
+            else if (ReferenceEquals(box, Start_textBox))// start text box
             {
-                if (control1.Text == q.Default_values().ElementAt(0).ToString())//check default 
+                if (Start_textBox.Text == q.Default_values().ElementAt(0).ToString())//check default 
                     return true;
                 else
                     return false;
 
             }
-            else if (ReferenceEquals(box, control2))// end text box
+            else if (ReferenceEquals(box, End_textBox))// end text box
             {
-                if (control2.Text == q.Default_values().ElementAt(1).ToString())//check default 
+                if (End_textBox.Text == q.Default_values().ElementAt(1).ToString())//check default 
                     return true;
                 else
                     return false;
             }
-            else if (ReferenceEquals(box, control3))// start caption text box
+            else if (ReferenceEquals(box, Start_caption_textBox))// start caption text box
             {
-                if (control3.Text == q.Default_values().ElementAt(2).ToString())//check default 
+                if (Start_caption_textBox.Text == q.Default_values().ElementAt(2).ToString())//check default 
                     return true;
                 else
                     return false;
             }
-            else if (ReferenceEquals(box, control4))// end captiono text box
+            else if (ReferenceEquals(box, End_caption_textBox))// end captiono text box
             {
-                if (control4.Text == q.Default_values().ElementAt(3).ToString())//check default 
-                    return true;
-                else
-                    return false;
-            }
-
-            else if (ReferenceEquals(box, control5))// faces text box
-            {
-                if (control5.Text == q.Default_values().ElementAt(0).ToString())//check default 
+                if (End_caption_textBox.Text == q.Default_values().ElementAt(3).ToString())//check default 
                     return true;
                 else
                     return false;
             }
 
-            else if (ReferenceEquals(box, control6))// stars text box
+            else if (ReferenceEquals(box, Smile_textBox))// faces text box
             {
-                if (control6.Text == q.Default_values().ElementAt(0).ToString())//check default 
+                if (Smile_textBox.Text == q.Default_values().ElementAt(0).ToString())//check default 
+                    return true;
+                else
+                    return false;
+            }
+
+            else if (ReferenceEquals(box, Stars_textbox))// stars text box
+            {
+                if (Stars_textbox.Text == q.Default_values().ElementAt(0).ToString())//check default 
                     return true;
                 else
                     return false;
@@ -289,10 +140,135 @@ namespace Task1
                 return false;
 
         }
+        /// <summary>
+        /// Handles the ValueChanged event of the QuestionOrderUpDown control, call Prev_Number_UpDown or Next_Number_UpDown depends on up or down button that pressed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void QuestionOrderUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (ReferenceEquals(sender, QuestionOrderUpDown1))
+            {
+                if (QuestionOrderUpDown1.Value > oldValue)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown1);
+                    oldValue = (int)QuestionOrderUpDown1.Value;
+                }
+                else
+                {
+                    Prev_Number_UpDown(QuestionOrderUpDown1);
+                    oldValue = (int)QuestionOrderUpDown1.Value;
+                }
+            }
+            else if (ReferenceEquals(sender, QuestionOrderUpDown2))
+            {
+                if (QuestionOrderUpDown2.Value > oldValue)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown2);
+                    oldValue = (int)QuestionOrderUpDown2.Value;
+                }
+                else
+                {
+                    Prev_Number_UpDown(QuestionOrderUpDown2);
+                    oldValue = (int)QuestionOrderUpDown2.Value;
+                }
+            }
+            else if (ReferenceEquals(sender, QuestionOrderUpDown3))
+            {
+                if (QuestionOrderUpDown3.Value > oldValue)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown3);
+                    oldValue = (int)QuestionOrderUpDown3.Value;
+                }
+                else
+                {
+                    Prev_Number_UpDown(QuestionOrderUpDown3);
+                    oldValue = (int)QuestionOrderUpDown3.Value;
+                }
+            }
 
+        }
+        /// <summary>
+        /// increment question order with exclude reserved orders that already exist in the database.
+        /// </summary>
+        /// <param name="QuestionOrderUpDown">The question order up down.</param>
+        private void Next_Number_UpDown(NumericUpDown QuestionOrderUpDown)
+        {
+            if (question_order == null)
+            {
+                question_order = DB.Orders();
+                foreach (DataRow row in question_order.Rows)
+                {
+                    Reserved_orders.Add((int)row.ItemArray[0]);
+                }
+            }
+            while (QuestionOrderUpDown.Value == -1 || Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
+            {
+                QuestionOrderUpDown.Value++;
+            }
+            q.Question_order = (int)QuestionOrderUpDown.Value;
+        }
+        /// <summary>
+        /// decrement question order with exclude reserved orders that already exist in the database.
+        /// </summary>
+        /// <param name="QuestionOrderUpDown">The question order up down.</param>
+        private void Prev_Number_UpDown(NumericUpDown QuestionOrderUpDown)
+        {
+            if (question_order == null)
+            {
+                question_order = DB.Orders();
+                foreach (DataRow row in question_order.Rows)
+                {
+                    Reserved_orders.Add((int)row.ItemArray[0]);
+                }
+            }
+            while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value) && QuestionOrderUpDown.Value >= 0)
+            {
+                QuestionOrderUpDown.Value--;
+                if (QuestionOrderUpDown.Value == -1)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown);
+                }
+            }
+            q.Question_order = (int)QuestionOrderUpDown.Value;
+        }
+        /// <summary>
+        /// Shows a specific group box depends on selected question's type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        private void ShowGroupBox(string type)//this method show a specific Groupbox depends on type of question then save old data (before editing ) in variables 
+        {
+            switch (type)//switch type of question 
+            {
 
+                case "Slider":
+                    q = new Slider(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(question_table.Rows[0].ItemArray[3]), (int)(Type_table.Rows[0].ItemArray[1]), (int)(Type_table.Rows[0].ItemArray[2]), Type_table.Rows[0].ItemArray[3].ToString(), Type_table.Rows[0].ItemArray[4].ToString());//create object from slider class and fill it with saved values retrived from database (old values)
+                    Start_textBox.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Start value
+                    End_textBox.Text = q.Current_values().ElementAt(1).ToString();//show stored value of End value
+                    Start_caption_textBox.Text = q.Current_values().ElementAt(2).ToString();//show stored value of Start_caption
+                    End_caption_textBox.Text = q.Current_values().ElementAt(3).ToString();//show stored value of End_caption
+                    Next_Number_UpDown(QuestionOrderUpDown1);
+                    Slider_GroupBox.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
+                    break;
 
+                case "Smiley":
+                    q = new Smiley(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(question_table.Rows[0].ItemArray[3]), (int)(Type_table.Rows[0].ItemArray[1]));//create object from Smiley and fill it with stored values retrived from database (old value)
+                    Smile_textBox.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Faces
+                    Next_Number_UpDown(QuestionOrderUpDown3);
+                    Smiley_GroupBox.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
+                    break;
 
+                case "Stars":
+                    q = new Stars(question_table.Rows[0].ItemArray[0].ToString(), (int)question_table.Rows[0].ItemArray[1], (int)(question_table.Rows[0].ItemArray[3]), (int)(Type_table.Rows[0].ItemArray[1]));//create object from Stars and fill it with stored values retrived from database (old value)
+                    Stars_textbox.Text = q.Current_values().ElementAt(0).ToString();//show stored value of Stars
+                    Next_Number_UpDown(QuestionOrderUpDown2);
+                    Stars_GroupBox.Visible = true;//show groupbox that hold  text boxes to display and editing question's values
 
+                    break;
+
+            }
+
+        }
+       
     }
 }

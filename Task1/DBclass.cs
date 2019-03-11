@@ -24,17 +24,26 @@ namespace Task1
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["DataBase"].ConnectionString;//save connection string that saved in configuration file
             command.Connection = connection;
         }
-        public void Open_connection()//to open SQL connection if it is closed otherwise leave it open 
+        /// <summary>
+        ///  open SQL connection if it is closed otherwise leave it open 
+        /// </summary>
+        public void Open_connection()
         {
             if (connection.State == ConnectionState.Closed)
                 connection.Open();
         }
-        public void Insert(int Groupbox_index, string[] Tables, Question q)//this method to insert data to database 
+        /// <summary>
+        ///  insert data to database 
+        /// </summary>
+        /// <param name="question_type_index">Index of the question type.</param>
+        /// <param name="Tables">Table contain names of tables.</param>
+        /// <param name="q">Question.</param>
+        public void Insert(int question_type_index, string[] Tables, Question q)//this method to insert data to database 
         {
             Open_connection();//open connection to server via Open_connection() method
-            command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}',{4})", Tables[0], q.Question_text, q.Question_order, Tables[Groupbox_index + 1], q.ID);
+            command.CommandText = string.Format("insert into {0} values ('{1}',{2},'{3}',{4})", Tables[0], q.Question_text, q.Question_order, Tables[question_type_index + 1], q.ID);
             command.ExecuteNonQuery();//execute command
-            switch (Groupbox_index)//index of groupbox that determine type of question : 0 => slider , 1 => smiley, 2 => stars
+            switch (question_type_index)//index of groupbox that determine type of question : 0 => slider , 1 => smiley, 2 => stars
             {
                 case 0:
                    
@@ -53,6 +62,10 @@ namespace Task1
                     break;
             }
         }
+        /// <summary>
+        /// Updates the specified question.
+        /// </summary>
+        /// <param name="q">question.</param>
         public void Update(Question q)
         {
             command.CommandText = string.Format("update questions set question_text ='{0}' ,question_order ={1} where id={2}",q.Question_text,q.Question_order, q.ID);
@@ -74,6 +87,11 @@ namespace Task1
                     break;
             }
         }
+        /// <summary>
+        /// Deletes the specified question.
+        /// </summary>
+        /// <param name="type">type of question.</param>
+        /// <param name="id">id of question.</param>
         public void Delete (string type,int id)//method to delete a row that contain a specific question order 
         {
             Open_connection();
@@ -84,6 +102,12 @@ namespace Task1
             command.CommandText = string.Format("delete from questions where id= {0}", id);//change sql command text 
             command.ExecuteNonQuery();//execute command 
         }
+        /// <summary>
+        /// extract orderes of saved questions
+        /// </summary>
+        /// <returns> 
+        /// table of orderes
+        /// </returns>
         public DataTable Orders ()
         {
             DataTable Temp_table = new DataTable();
@@ -93,6 +117,12 @@ namespace Task1
             temp.Fill(Temp_table);
             return Temp_table;
         }
+        /// <summary>
+        /// Loads the database and save it in tables.
+        /// </summary>
+        /// <returns>
+        /// table contain questions only
+        /// </returns>
         public DataTable load ()//this method used to load all data from database and cache them
         {
             Open_connection();
@@ -121,6 +151,15 @@ namespace Task1
             return dataTables[0].DefaultView.ToTable(false, "question_text");//extract one column from data table ;
 
         }
+        /// <summary>
+        /// Extracts the row of specified quesion using id.
+        /// </summary>
+        /// <param name="id">The id of selected question.</param>
+        /// <param name="index">The index of question types.</param>
+        /// <returns>.
+        /// first row : return row from question table
+        /// second row : return row from Slider or Smiley or Stars table depends on the index of question table
+        /// </returns>
         public DataRow [] extract_row(int id,int index)//return two rows one from question table and another from specific table determined by index 
         {
             DataRow[] temp = new DataRow[2];
@@ -128,6 +167,10 @@ namespace Task1
             temp[1] = dataTables[index].Select(string.Format("Convert(id,'System.String') LIKE '%{0}%'", id)).First();//Like method compare two elements with same type so question order is int type and order converted to string implcitly , w
             return temp;
         }
+        /// <summary>
+        /// return question table with all properties.
+        /// </summary>
+        /// <returns></returns>
         public DataTable question_table ()//return  question table
         {
             return dataTables[0];

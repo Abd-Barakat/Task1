@@ -11,7 +11,12 @@ namespace Task1
     {
         private int star =5;
         private int Entered_star;
-
+        /// <summary>
+        /// Gets or sets the star.
+        /// </summary>
+        /// <value>
+        /// The star.
+        /// </value>
         public int Star//property to get and set field within range[0-100]
         {
             get
@@ -32,18 +37,31 @@ namespace Task1
 
             }
         }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Stars"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         public Stars (int id ):base ("",-1, "Stars",id)//constructor used to add question with empty fields
         {
             Star = 5;
         }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Stars"/> class.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="order">The order.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="star">The star.</param>
         public Stars(string text, int order,int id, int star=5):base(text,order, "Stars",id)//constructor used to initialize  fields and send text,order and stars to question constuctor
         {
             Star = star;
         }
         /// <summary>
-        /// return default values
+        /// Return default values.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// question's default values
+        /// </returns>
         public override List<string> Default_values()
         {
             List<string> temp = new List<string>();
@@ -51,16 +69,11 @@ namespace Task1
             return temp;
         }
         /// <summary>
-        /// Resets the values.
+        /// Return current values.
         /// </summary>
-        public override void Reset_values()
-        {
-            Star = 5;
-        }
-        /// <summary>
-        /// return currents the values.
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// question's current values
+        /// </returns>
         public override List<string> Current_values()
         {
             List<string> temp = new List<string>();
@@ -68,16 +81,16 @@ namespace Task1
             return temp;
         }
         /// <summary>
-        /// Sets the values.
+        /// Sets the question's values.
         /// </summary>
-        /// <param name="Values"></param>
+        /// <param name="Values">The values.</param>
         public override void Set_values(List<string> Values)
         {
 
             Star =Int32.Parse( Values[0]);
         }
         /// <summary>
-        /// validate user inputs
+        /// Validates this qustion's values.
         /// </summary>
         /// <returns></returns>
         public override bool Validate()

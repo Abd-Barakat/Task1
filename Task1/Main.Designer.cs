@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Close_Button = new System.Windows.Forms.Button();
             this.Add_Button = new System.Windows.Forms.Button();
             this.Delete_Button = new System.Windows.Forms.Button();
             this.Edit_Button = new System.Windows.Forms.Button();
             this.DatabaseListBox = new System.Windows.Forms.ListBox();
-            this.Close_Button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,10 +45,21 @@
             this.panel1.Controls.Add(this.Delete_Button);
             this.panel1.Controls.Add(this.Edit_Button);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(525, 0);
+            this.panel1.Location = new System.Drawing.Point(678, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(122, 450);
+            this.panel1.Size = new System.Drawing.Size(122, 530);
             this.panel1.TabIndex = 0;
+            // 
+            // Close_Button
+            // 
+            this.Close_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Close_Button.Location = new System.Drawing.Point(19, 469);
+            this.Close_Button.Name = "Close_Button";
+            this.Close_Button.Size = new System.Drawing.Size(91, 23);
+            this.Close_Button.TabIndex = 3;
+            this.Close_Button.Text = "Close";
+            this.Close_Button.UseVisualStyleBackColor = true;
+            this.Close_Button.Click += new System.EventHandler(this.Close_Button_Click);
             // 
             // Add_Button
             // 
@@ -91,32 +102,22 @@
             this.DatabaseListBox.IntegralHeight = false;
             this.DatabaseListBox.ItemHeight = 16;
             this.DatabaseListBox.Location = new System.Drawing.Point(12, 12);
+            this.DatabaseListBox.MinimumSize = new System.Drawing.Size(100, 100);
             this.DatabaseListBox.Name = "DatabaseListBox";
-            this.DatabaseListBox.Size = new System.Drawing.Size(507, 341);
+            this.DatabaseListBox.Size = new System.Drawing.Size(660, 452);
             this.DatabaseListBox.TabIndex = 2;
-            // 
-            // Close_Button
-            // 
-            this.Close_Button.Location = new System.Drawing.Point(19, 371);
-            this.Close_Button.Name = "Close_Button";
-            this.Close_Button.Size = new System.Drawing.Size(91, 23);
-            this.Close_Button.TabIndex = 3;
-            this.Close_Button.Text = "Close";
-            this.Close_Button.UseVisualStyleBackColor = true;
-            this.Close_Button.Click += new System.EventHandler(this.Close_Button_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(647, 450);
+            this.ClientSize = new System.Drawing.Size(800, 530);
             this.Controls.Add(this.DatabaseListBox);
             this.Controls.Add(this.panel1);
-            this.MinimumSize = new System.Drawing.Size(663, 489);
+            this.MinimumSize = new System.Drawing.Size(816, 569);
             this.Name = "Main";
             this.Text = "Survey Configurator";
-            this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

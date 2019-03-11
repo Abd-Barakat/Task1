@@ -48,10 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Add_dialog.cs" />
-    <Compile Include="Base.cs" />
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBclass.cs" />
-    <Compile Include="Edit_dialog.cs" />
+    <Compile Include="Add_dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add_dialog.Designer.cs">
+      <DependentUpon>Add_dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit_dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Edit_dialog.Designer.cs">
+      <DependentUpon>Edit_dialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +79,15 @@
     <Compile Include="Slider.cs" />
     <Compile Include="Smiley.cs" />
     <Compile Include="Stars.cs" />
+    <EmbeddedResource Include="BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Add_dialog.resx">
+      <DependentUpon>Add_dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Edit_dialog.resx">
+      <DependentUpon>Edit_dialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
