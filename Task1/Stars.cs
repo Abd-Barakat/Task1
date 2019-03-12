@@ -93,7 +93,7 @@ namespace Task1
         /// <returns></returns>
         public override bool Validate()
         {
-            if (Entered_star < 0|| Entered_star >10)//End caption should be higer than Start caption
+            if (Entered_star < 0|| Entered_star >10)
             {
                 return false;
             }

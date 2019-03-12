@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             SaveButton.Click += Save_Click;
-            QuestionOrderUpDown1.ValueChanged += QuestionOrderUpDown_ValueChanged;
-            QuestionOrderUpDown2.ValueChanged += QuestionOrderUpDown_ValueChanged;
-            QuestionOrderUpDown3.ValueChanged += QuestionOrderUpDown_ValueChanged;
             //////////////////////////////////////////////////////////////
             this.Radio_GroupBox = new System.Windows.Forms.GroupBox();
             this.Stars_Radio = new System.Windows.Forms.RadioButton();

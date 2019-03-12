@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             SaveButton.Click += Save_Click;
-            QuestionOrderUpDown1.ValueChanged += QuestionOrderUpDown_ValueChanged;
-            QuestionOrderUpDown2.ValueChanged += QuestionOrderUpDown_ValueChanged;
-            QuestionOrderUpDown3.ValueChanged += QuestionOrderUpDown_ValueChanged;
             //////////////////////////////////////////////////////////////////////////////////////
             this.Slider_GroupBox.SuspendLayout();
             this.Stars_GroupBox.SuspendLayout();

@@ -97,6 +97,7 @@
             this.QuestionOrderUpDown1.ReadOnly = true;
             this.QuestionOrderUpDown1.Size = new System.Drawing.Size(82, 20);
             this.QuestionOrderUpDown1.TabIndex = 9;
+            this.QuestionOrderUpDown1.ValueChanged += new System.EventHandler(this.QuestionOrderUpDown_ValueChanged);
             // 
             // Order_Label1
             // 
@@ -229,6 +230,7 @@
             this.QuestionOrderUpDown2.ReadOnly = true;
             this.QuestionOrderUpDown2.Size = new System.Drawing.Size(82, 20);
             this.QuestionOrderUpDown2.TabIndex = 14;
+            this.QuestionOrderUpDown2.ValueChanged += new System.EventHandler(this.QuestionOrderUpDown_ValueChanged);
             // 
             // Order_Label2
             // 
@@ -295,6 +297,7 @@
             this.QuestionOrderUpDown3.ReadOnly = true;
             this.QuestionOrderUpDown3.Size = new System.Drawing.Size(82, 20);
             this.QuestionOrderUpDown3.TabIndex = 15;
+            this.QuestionOrderUpDown3.ValueChanged += new System.EventHandler(this.QuestionOrderUpDown_ValueChanged);
             // 
             // Smile_Label
             // 

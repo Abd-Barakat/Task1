@@ -14,7 +14,6 @@ namespace Task1
     public partial class Add : Task1.BaseForm
     {
         private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };
-        DBclass DB = new DBclass();
         private int Next_ID;
         /// <summary>
         /// Initializes a new instance of the <see cref="Add"/> class.
@@ -23,103 +22,12 @@ namespace Task1
         public Add(int Next_ID)
         {
             InitializeComponent();
+            DB = new DBclass();
             this.Next_ID = Next_ID;
-          
+            Path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
         }
 
-        /// <summary>
-        /// Handles the ValueChanged event of the QuestionOrderUpDown control, call Prev_Number_UpDown or Next_Number_UpDown depends on up or down button that pressed.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void QuestionOrderUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (ReferenceEquals(sender, QuestionOrderUpDown1))
-            {
-                if (QuestionOrderUpDown1.Value > oldValue)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown1);
-                    oldValue = (int)QuestionOrderUpDown1.Value;
-                }
-                else
-                {
-                    Prev_Number_UpDown(QuestionOrderUpDown1);
-                    oldValue = (int)QuestionOrderUpDown1.Value;
-                }
-            }
-            else if (ReferenceEquals(sender, QuestionOrderUpDown2))
-            {
-                if (QuestionOrderUpDown2.Value > oldValue)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown2);
-                    oldValue = (int)QuestionOrderUpDown2.Value;
-                }
-                else
-                {
-                    Prev_Number_UpDown(QuestionOrderUpDown2);
-                    oldValue = (int)QuestionOrderUpDown2.Value;
-                }
-            }
-            else if (ReferenceEquals(sender, QuestionOrderUpDown3))
-            {
-                if (QuestionOrderUpDown3.Value > oldValue)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown3);
-                    oldValue = (int)QuestionOrderUpDown3.Value;
-                }
-                else
-                {
-                    Prev_Number_UpDown(QuestionOrderUpDown3);
-                    oldValue = (int)QuestionOrderUpDown3.Value;
-                }
-            }
-
-        }
-        /// <summary>
-        /// increment question order with exclude reserved orders that already exist in the database.
-        /// </summary>
-        /// <param name="QuestionOrderUpDown">The question order up down.</param>
-        private void Next_Number_UpDown(NumericUpDown QuestionOrderUpDown)
-        {
-            if (question_order == null)
-            {
-                question_order = DB.Orders();
-                foreach (DataRow row in question_order.Rows)
-                {
-                    Reserved_orders.Add((int)row.ItemArray[0]);
-                }
-            }
-            while (QuestionOrderUpDown.Value == -1 || Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
-            {
-                QuestionOrderUpDown.Value++;
-            }
-            q.Question_order = (int)QuestionOrderUpDown.Value;
-        }
-
-        /// <summary>
-        /// decrement question order with exclude reserved orders that already exist in the database.
-        /// </summary>
-        /// <param name="QuestionOrderUpDown">The question order up down.</param>
-        private void Prev_Number_UpDown(NumericUpDown QuestionOrderUpDown)
-        {
-            if (question_order == null)
-            {
-                question_order = DB.Orders();
-                foreach (DataRow row in question_order.Rows)
-                {
-                    Reserved_orders.Add((int)row.ItemArray[0]);
-                }
-            }
-            while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value) && QuestionOrderUpDown.Value >= 0)
-            {
-                QuestionOrderUpDown.Value--;
-                if (QuestionOrderUpDown.Value == -1)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown);
-                }
-            }
-            q.Question_order = (int)QuestionOrderUpDown.Value;
-        }
+      
         /// <summary>
         /// Releses the specified question.
         /// </summary>

@@ -14,13 +14,13 @@ namespace Task1
     {
         private DataTable Type_table = new DataTable();//table will hold the selected question (text ,order ,type)
         private DataTable question_table = new DataTable();//table will hold values related to the selected question
-        private DBclass DB = new DBclass();
         /// <summary>
         /// Show groupbox that contain controls to show current values and initializes a new instance of the <see cref="Edit_dialog"/> class.
         /// </summary>
         /// <param name="rows">The rows.</param>
         public Edit_dialog(DataRow[] rows)
         {
+            DB = new DBclass();
             InitializeComponent();
             Type_table = rows[1].Table.Clone();//copy  table's headers only
             Type_table.Rows.Add(rows[1].ItemArray);//add row to type table
@@ -107,7 +107,7 @@ namespace Task1
                     return false;
             }
 
-            else if (ReferenceEquals(box, Smile_textBox))// faces text box
+            else if (ReferenceEquals(box, Smile_textBox))//smiles text box
             {
                 if (Smile_textBox.Text == q.Current_values().ElementAt(0).ToString())//check default 
                     return true;
@@ -115,7 +115,7 @@ namespace Task1
                     return false;
             }
 
-            else if (ReferenceEquals(box, Stars_textbox))// stars text box
+            else if (ReferenceEquals(box, Stars_textbox))//stars text box
             {
                 if (Stars_textbox.Text == q.Current_values().ElementAt(0).ToString())//check default 
                     return true;
@@ -125,98 +125,6 @@ namespace Task1
             else
                 return false;
 
-        }
-        /// <summary>
-        /// Handles the ValueChanged event of the QuestionOrderUpDown control, call Prev_Number_UpDown or Next_Number_UpDown depends on up or down button that pressed.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void QuestionOrderUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (ReferenceEquals(sender, QuestionOrderUpDown1))
-            {
-                if (QuestionOrderUpDown1.Value > oldValue)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown1);
-                    oldValue = (int)QuestionOrderUpDown1.Value;
-                }
-                else
-                {
-                    Prev_Number_UpDown(QuestionOrderUpDown1);
-                    oldValue = (int)QuestionOrderUpDown1.Value;
-                }
-            }
-            else if (ReferenceEquals(sender, QuestionOrderUpDown2))
-            {
-                if (QuestionOrderUpDown2.Value > oldValue)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown2);
-                    oldValue = (int)QuestionOrderUpDown2.Value;
-                }
-                else
-                {
-                    Prev_Number_UpDown(QuestionOrderUpDown2);
-                    oldValue = (int)QuestionOrderUpDown2.Value;
-                }
-            }
-            else if (ReferenceEquals(sender, QuestionOrderUpDown3))
-            {
-                if (QuestionOrderUpDown3.Value > oldValue)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown3);
-                    oldValue = (int)QuestionOrderUpDown3.Value;
-                }
-                else
-                {
-                    Prev_Number_UpDown(QuestionOrderUpDown3);
-                    oldValue = (int)QuestionOrderUpDown3.Value;
-                }
-            }
-
-        }
-        /// <summary>
-        /// increment question order with exclude reserved orders that already exist in the database.
-        /// </summary>
-        /// <param name="QuestionOrderUpDown">The question order up down.</param>
-        private void Next_Number_UpDown(NumericUpDown QuestionOrderUpDown)
-        {
-            if (question_order == null)
-            {
-                question_order = DB.Orders();
-                foreach (DataRow row in question_order.Rows)
-                {
-                    Reserved_orders.Add((int)row.ItemArray[0]);
-                }
-            }
-            while (QuestionOrderUpDown.Value == -1 || Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
-            {
-                QuestionOrderUpDown.Value++;
-            }
-            q.Question_order = (int)QuestionOrderUpDown.Value;
-        }
-        /// <summary>
-        /// decrement question order with exclude reserved orders that already exist in the database.
-        /// </summary>
-        /// <param name="QuestionOrderUpDown">The question order up down.</param>
-        private void Prev_Number_UpDown(NumericUpDown QuestionOrderUpDown)
-        {
-            if (question_order == null)
-            {
-                question_order = DB.Orders();
-                foreach (DataRow row in question_order.Rows)
-                {
-                    Reserved_orders.Add((int)row.ItemArray[0]);
-                }
-            }
-            while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value) && QuestionOrderUpDown.Value >= 0)
-            {
-                QuestionOrderUpDown.Value--;
-                if (QuestionOrderUpDown.Value == -1)
-                {
-                    Next_Number_UpDown(QuestionOrderUpDown);
-                }
-            }
-            q.Question_order = (int)QuestionOrderUpDown.Value;
         }
         /// <summary>
         /// Shows a specific group box depends on selected question's type.

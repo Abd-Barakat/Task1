@@ -197,3 +197,10 @@ Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.b
 Date :3/11/2019 4:49:06 PM
 Message :
 Please write a question
+-------------------------------------------------------------------
+
+Date :3/12/2019 2:28:57 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 317
