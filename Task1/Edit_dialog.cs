@@ -20,6 +20,7 @@ namespace Task1
         /// <param name="rows">The rows.</param>
         public Edit_dialog(DataRow[] rows)
         {
+            Path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
             DB = new DBclass();
             InitializeComponent();
             Type_table = rows[1].Table.Clone();//copy  table's headers only
@@ -36,29 +37,20 @@ namespace Task1
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
         {
-            if (Check(q.Current_values()))//call check method to check inserted values before update database 
+            try
             {
-                try
+                if (Check(q.Current_values()))//call check method to check inserted values before update database 
                 {
+
                     DB.Update(q);//upate database with new edited question
                     this.Close();
                 }
-                catch (Exception ex)//to catch eny problem that may occure
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occure
-                    using (StreamWriter stream = new StreamWriter(@"Error.txt", true))//save errors in Error.txt file
-                    {
-                        stream.WriteLine("-------------------------------------------------------------------\n");
-                        stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
-                        while (ex != null)
-                        {
-                            stream.WriteLine("Message :\n" + ex.Message);
-                            stream.WriteLine("Stack trace :\n" + ex.StackTrace);
-                            ex = ex.InnerException;
-                        }
-                    }
-                    this.Close();
-                }
+            }
+            catch (Exception ex)//to catch eny problem that may occure
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occure
+                Print_Errors(ex.Message, ex);
+                this.Close();
             }
         }
         /// <summary>

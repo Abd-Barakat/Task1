@@ -43,9 +43,12 @@ namespace Task1
         private void Add_Button_Click(object sender, EventArgs e)
         {
             int next_id = Next_question_id();
-            Add _Add = new Add(next_id);
-            _Add.ShowDialog();
-            Upload();//update data grid view with new data when add dialog close
+            if (next_id != -1)
+            {
+                Add _Add = new Add(next_id);
+                _Add.ShowDialog();
+                Upload();//update data grid view with new data when add dialog close
+            }
         }
         /// <summary>
         /// Handles the Click event of the Edit_Button control, create Edit dialog object.
@@ -54,19 +57,30 @@ namespace Task1
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Edit_Button_Click(object sender, EventArgs e)
         {
-            if (!IsEmpty())//check if list box is empty to return index of selected row 
+            try
             {
-                int Question_id = Selected_question_id();//return selected question's id
-                if (DatabaseListBox.SelectedIndex != -1)//check if a question is selected
+                if (!IsEmpty())//check if list box is empty to return index of selected row 
                 {
-                    DataRow[] rows = DB.extract_row(Question_id, dataTable_index());//extract rows related to that question
-                    Edit_dialog _Edit = new Edit_dialog(rows);
-                    _Edit.ShowDialog();
-                    Upload();//update data grid view with new data when add dialog close
+                    int Question_id = Selected_question_id();//return selected question's id
+                    if (DatabaseListBox.SelectedIndex != -1)//check if a question is selected
+                    {
+                        DataRow[] rows = DB.extract_row(Question_id, dataTable_index());//extract rows related to that question
+                        Edit_dialog _Edit = new Edit_dialog(rows);
+                        _Edit.ShowDialog();
+                        Upload();//update data grid view with new data when add dialog close
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No questions to edit", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if data grid view or database contian no records
+                    Print_Errors("No questions to edit");
                 }
             }
-            else
-                MessageBox.Show("No questions to edit", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if data grid view or database contian no records
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Print_Errors(ex.Message, ex);
+            }
         }
         /// <summary>
         /// this method return question type from database.
@@ -93,7 +107,6 @@ namespace Task1
             }
             return -1;
         }
-
         /// <summary>
         /// Handles the Click event of the Delete_Button control that delete the selected question.
         /// </summary>
@@ -101,51 +114,63 @@ namespace Task1
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void Delete_Button_Click(object sender, EventArgs e)//click event  handler for delete button
         {
-            if (!IsEmpty())//check if list box contain any row or not 
+            try
             {
-                if (DatabaseListBox.SelectedIndex != -1)//check if there a selected question
+                if (!IsEmpty())//check if list box contain any row or not 
                 {
-                    DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);//to make sure user want to delete 
-                    if (result == DialogResult.Yes)//if user is sure to delete the selected  row 
+                    if (DatabaseListBox.SelectedIndex != -1)//check if there a selected question
                     {
-                        try
+                        DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);//to make sure user want to delete 
+                        if (result == DialogResult.Yes)//if user is sure to delete the selected  row 
                         {
                             int id = Selected_question_id();//return selected question order from database 
                             DB.Delete(Qustion_type(), id);//call method in class DBclass
                             Upload();//update data grid view with new data from database 
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occur
-                            Print_Errors(ex.Message, ex);
-                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No question selected", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                        Print_Errors("No question selected");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("No question selected", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
-                    Print_Errors("No question selected");
+                    MessageBox.Show("No questions to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                    Print_Errors("No questions to delete");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("No questions to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
-                Print_Errors("No questions to delete");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occur
+                Print_Errors(ex.Message, ex);
             }
         }
+
         /// <summary>
         /// return id for selected question.
         /// </summary>
         /// <returns></returns>
         private int Selected_question_id()//this method return question order of selected question in data grid view 
         {
-            int current_row_index = DatabaseListBox.SelectedIndex;//return current row index from data grid view
-            if (DatabaseListBox.SelectedIndex != -1)
-                return (int)DB.question_table().Rows[current_row_index].ItemArray[3];//return question order from selected question
-            else
+            try
             {
-                MessageBox.Show("No question selected ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
-                Print_Errors("No question selected ");
+                int current_row_index = DatabaseListBox.SelectedIndex;//return current row index from data grid view
+                if (DatabaseListBox.SelectedIndex != -1)
+                {
+                    return (int)DB.question_table().Rows[current_row_index].ItemArray[3];//return question order from selected question
+                }
+                else
+                {
+                    MessageBox.Show("No question selected ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                    Print_Errors("No question selected ");
+                    return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Print_Errors(ex.Message, ex);
                 return -1;
             }
         }
@@ -157,13 +182,22 @@ namespace Task1
         /// </returns>
         private int Next_question_id()
         {
-            if (DatabaseListBox.Items.Count > 0)//if theres rows in data grid view 
+            try
             {
-                int number_of_rows = DatabaseListBox.Items.Count;
-                return (int)DB.question_table().Rows[number_of_rows - 1].ItemArray[3] + 1;//return question order from last question in data grid view and add 1 to it 
+                if (DatabaseListBox.Items.Count > 0)//if theres rows in data grid view 
+                {
+                    int number_of_rows = DatabaseListBox.Items.Count;
+                    return (int)DB.question_table().Rows[number_of_rows - 1].ItemArray[3] + 1;//return question order from last question in data grid view and add 1 to it 
+                }
+                else//no rows found 
+                    return 0;
             }
-            else//no rows found 
-                return 0;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Print_Errors(ex.Message, ex);
+                return -1;
+            }
         }
 
 
@@ -242,9 +276,9 @@ namespace Task1
                 stream.WriteLine("-------------------------------------------------------------------\n");
                 stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
                 stream.WriteLine("Message :\n" + Message);
-
             }
         }
+        
     }
 }
 

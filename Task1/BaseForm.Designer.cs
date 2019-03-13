@@ -288,11 +288,6 @@
             0,
             0,
             0});
-            this.QuestionOrderUpDown3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
             this.QuestionOrderUpDown3.Name = "QuestionOrderUpDown3";
             this.QuestionOrderUpDown3.ReadOnly = true;
             this.QuestionOrderUpDown3.Size = new System.Drawing.Size(82, 20);

@@ -105,12 +105,12 @@ namespace Task1
         /// <returns></returns>
         protected bool Check(List<string> Values)//this function check if entered values are correct and within thier ranges 
         {
-            if (!Values_Changed(Values))//if no values entered then no need to check 
-            {
-                return false;
-            }
             try
             {
+                if (!Values_Changed(Values))//if no values entered then no need to check 
+                {
+                    return false;
+                }
                 q.Validate();
                 return true;
             }
@@ -156,10 +156,10 @@ namespace Task1
             }
             if (q.Question_type == "Slider")
             {
-                q.Question_order = (int)QuestionOrderUpDown1.Value;
-                if (Start_textBox.Text != "")
+                try
                 {
-                    try
+                    q.Question_order = (int)QuestionOrderUpDown1.Value;
+                    if (Start_textBox.Text != "")
                     {
                         if (!IsEmpty(Start_textBox))
                         {
@@ -172,18 +172,17 @@ namespace Task1
                                 throw new FormatException();
                             }
                         }
-
-                    }
-                    catch (FormatException ex)
-                    {
-                        MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("Start value should be integer number", ex);
-                        return false;
                     }
                 }
-                if (End_textBox.Text != "")
+                catch (FormatException ex)
                 {
-                    try
+                    MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Start value should be integer number", ex);
+                    return false;
+                }
+                try
+                {
+                    if (End_textBox.Text != "")
                     {
                         if (!IsEmpty(End_textBox))
                         {
@@ -196,18 +195,17 @@ namespace Task1
                                 throw new FormatException();
                             }
                         }
-
-                    }
-                    catch (FormatException ex)
-                    {
-                        MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("End value should be integer number", ex);
-                        return false;
                     }
                 }
-                if (Start_caption_textBox.Text != "")
+                catch (FormatException ex)
                 {
-                    try
+                    MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("End value should be integer number", ex);
+                    return false;
+                }
+                try
+                {
+                    if (Start_caption_textBox.Text != "")
                     {
                         if (!IsEmpty(Start_caption_textBox))
                         {
@@ -221,18 +219,17 @@ namespace Task1
                             }
                             Values[2] = Start_caption_textBox.Text;
                         }
-
-                    }
-                    catch (FormatException ex)
-                    {
-                        MessageBox.Show("Start Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("Start Caption should be text only", ex);
-                        return false;
                     }
                 }
-                if (End_caption_textBox.Text != "")
+                catch (FormatException ex)
                 {
-                    try
+                    MessageBox.Show("Start Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Start Caption should be text only", ex);
+                    return false;
+                }
+                try
+                {
+                    if (End_caption_textBox.Text != "")
                     {
                         if (!IsEmpty(End_caption_textBox))
                         {
@@ -245,16 +242,14 @@ namespace Task1
                                 throw new FormatException();
                             }
                             Values[3] = End_caption_textBox.Text;
-
                         }
                     }
-
-                    catch (FormatException ex)
-                    {
-                        MessageBox.Show("End Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("End Caption should be text only", ex);
-                        return false;
-                    }
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("End Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("End Caption should be text only", ex);
+                    return false;
                 }
                 try
                 {
@@ -262,18 +257,17 @@ namespace Task1
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {
-                    MessageBox.Show("Both or Start and End values should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("Both or Start and End values should be between 0-100", ex);
+                    MessageBox.Show("Both of Start and End values should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Both of Start and End values should be between 0-100", ex);
                     return false;
                 }
             }
             else if (q.Question_type == "Smiley")
             {
-                q.Question_order = (int)QuestionOrderUpDown3.Value;
-
-                if (Smile_textBox.Text != "")
+                try
                 {
-                    try
+                    q.Question_order = (int)QuestionOrderUpDown3.Value;
+                    if (Smile_textBox.Text != "")
                     {
                         if (!IsEmpty(Smile_textBox))
                         {
@@ -288,27 +282,26 @@ namespace Task1
                             }
                         }
                     }
-                    catch (ArgumentOutOfRangeException ex)
-                    {
-                        MessageBox.Show("Number of faces should be between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("Number of faces should be between 2-5", ex);
-                        return false;
-                    }
-                    catch (FormatException ex)
-                    {
-                        MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("Number of Smiles should be integer number", ex);
-                        return false;
-                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    MessageBox.Show("Number of faces should be between 2-5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Number of faces should be between 2-5", ex);
+                    return false;
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Number of Smiles should be integer number", ex);
+                    return false;
                 }
             }
             else if (q.Question_type == "Stars")
             {
-                q.Question_order = (int)QuestionOrderUpDown2.Value;
-
-                if (Stars_textbox.Text != "")
+                try
                 {
-                    try
+                    q.Question_order = (int)QuestionOrderUpDown2.Value;
+                    if (Stars_textbox.Text != "")
                     {
                         if (!IsEmpty(Stars_textbox))
                         {
@@ -322,24 +315,21 @@ namespace Task1
                                 throw new FormatException();
                             }
                         }
-
-                    }
-                    catch (ArgumentOutOfRangeException ex)
-                    {
-                        MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("Number of stars  should be between 0-10", ex);
-                        return false;
-                    }
-                    catch (FormatException ex)
-                    {
-                        MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors("Number of Stars should be integer", ex);
-                        return false;
                     }
                 }
-
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Number of stars  should be between 0-10", ex);
+                    return false;
+                }
+                catch (FormatException ex)
+                {
+                    MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Number of Stars should be integer", ex);
+                    return false;
+                }
             }
-
             return true;
         }
 
@@ -405,7 +395,7 @@ namespace Task1
                     Reserved_orders.Add((int)row.ItemArray[0]);
                 }
             }
-            while (QuestionOrderUpDown.Value == -1 || Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
+            while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
             {
                 QuestionOrderUpDown.Value++;
             }
@@ -418,6 +408,7 @@ namespace Task1
         /// <param name="QuestionOrderUpDown">The question order up down.</param>
         private void Prev_Number_UpDown(NumericUpDown QuestionOrderUpDown)
         {
+            int Order = (int)QuestionOrderUpDown.Value;
             if (question_order == null)
             {
                 question_order = DB.Orders();
@@ -426,15 +417,16 @@ namespace Task1
                     Reserved_orders.Add((int)row.ItemArray[0]);
                 }
             }
-            while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value) && QuestionOrderUpDown.Value >=0)
+            while (Reserved_orders.Contains(Order) && Order >= 0)
             {
-                QuestionOrderUpDown.Value--;
-              
+                Order--;
+                if (Order == -1)
+                {
+                    Next_Number_UpDown(QuestionOrderUpDown);
+                    return;
+                }
             }
-            if (QuestionOrderUpDown.Value == -1)
-            {
-                Next_Number_UpDown(QuestionOrderUpDown);
-            }
+            QuestionOrderUpDown.Value = Order;
             q.Question_order = (int)QuestionOrderUpDown.Value;
         }
         /// <summary>
@@ -446,13 +438,20 @@ namespace Task1
             string Error_file = string.Format(@Path + @"\Error.txt");
             using (StreamWriter stream = new StreamWriter(@Error_file, true))//save errors in Error.txt file
             {
-                stream.WriteLine("-------------------------------------------------------------------\n");
-                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
-                while (ex != null)
+                if (stream != null)
                 {
-                    stream.WriteLine("Message     : " + Message);
-                    stream.WriteLine("Stack trace : " + ex.StackTrace);
-                    ex = ex.InnerException;
+                    stream.WriteLine("-------------------------------------------------------------------\n");
+                    stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                    while (ex != null)
+                    {
+                        stream.WriteLine("Message     : " + Message);
+                        stream.WriteLine("Stack trace : " + ex.StackTrace);
+                        ex = ex.InnerException;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("File not found !!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -465,13 +464,17 @@ namespace Task1
             string Error_file = string.Format(@Path + @"\Error.txt");
             using (StreamWriter stream = new StreamWriter(@Error_file, true))//save errors in Error.txt file
             {
-                stream.WriteLine("-------------------------------------------------------------------\n");
-                stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
-                stream.WriteLine("Message :\n" + Message);
-
+                if (stream != null)
+                {
+                    stream.WriteLine("-------------------------------------------------------------------\n");
+                    stream.WriteLine("Date :" + DateTime.Now.ToLocalTime());
+                    stream.WriteLine("Message :\n" + Message);
+                }
+                else
+                {
+                    MessageBox.Show("File not found !!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
-
-       
     }
 }

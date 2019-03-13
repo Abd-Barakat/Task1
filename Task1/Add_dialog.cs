@@ -13,8 +13,8 @@ namespace Task1
 {
     public partial class Add : Task1.BaseForm
     {
-        private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };
-        private int Next_ID;
+        private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };//hold tables names
+        private int Next_ID;//hold id for next question
         /// <summary>
         /// Initializes a new instance of the <see cref="Add"/> class.
         /// </summary>
@@ -27,7 +27,7 @@ namespace Task1
             Path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
         }
 
-      
+
         /// <summary>
         /// Releses the specified question.
         /// </summary>
@@ -79,12 +79,8 @@ namespace Task1
                     ID = Next_ID,
                 };
                 Slider_Radio.Checked = true;//set check property of Slider radio button to true
-                Start_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of start 
-                End_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(1));//fill textbox with default value of end 
-                Start_caption_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(2));//fill textbox with default value of start caption 
-                End_caption_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(3));//fill textbox with default value of end caption 
                 Next_Number_UpDown(QuestionOrderUpDown1);
-                Slider_GroupBox.Visible = true;//make groupbox that contain above controls visible
+                Show_controls();
             }
             else if (ReferenceEquals(sender, Smiley_Radio))//if Smiley radio button 
             {
@@ -93,9 +89,8 @@ namespace Task1
                     Question_order = Next_ID//sign qustion_order property to next_order field
                 };
                 Smiley_Radio.Checked = true;//set check property of Smiley radio button to true
-                Smile_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of faces 
                 Next_Number_UpDown(QuestionOrderUpDown3);
-                Smiley_GroupBox.Visible = true;//make groupbox that contain above controls visible
+                Show_controls();
             }
             else if (ReferenceEquals(sender, Stars_Radio))//if Stars radio button 
             {
@@ -103,12 +98,31 @@ namespace Task1
                 {
                     Question_order = Next_ID//sign qustion_order property to next_order field
                 };
-
                 Stars_Radio.Checked = true;//set check property of Stars radio button to true
-                Stars_textbox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of stars 
                 Next_Number_UpDown(QuestionOrderUpDown2);
-                Stars_GroupBox.Visible = true;//make groupbox that contain above controls visible
-
+                Show_controls();
+            }
+        }
+        private void Show_controls()
+        {
+            int index = Group_Index();
+            switch (index)
+            {
+                case 0:
+                    Start_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of start 
+                    End_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(1));//fill textbox with default value of end 
+                    Start_caption_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(2));//fill textbox with default value of start caption 
+                    End_caption_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(3));//fill textbox with default value of end caption
+                    Slider_GroupBox.Visible = true;//make groupbox that contain above controls visible
+                    break;
+                case 1:
+                    Smile_textBox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of faces 
+                    Smiley_GroupBox.Visible = true;//make groupbox that contain above controls visible
+                    break;
+                case 2:
+                    Stars_textbox.Text = string.Format("{0}", q.Default_values().ElementAt(0));//fill textbox with default value of stars 
+                    Stars_GroupBox.Visible = true;//make groupbox that contain above controls visible
+                    break;
             }
         }
         /// <summary>
@@ -118,29 +132,28 @@ namespace Task1
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_Click(object sender, EventArgs e)//click event hanlder for save button
         {
-            int Groupbox_index = Group_Index();//return index of selected control in GroupBox
-
-            if (Groupbox_index != -1)//if no control selected in GroupBox
+            try
             {
-                if (Check(q.Current_values()))//call method check in Base class that check question's values if they are correct or not 
+                int Groupbox_index = Group_Index();//return index of selected control in GroupBox
+                if (Groupbox_index != -1)//if no control selected in GroupBox
                 {
-                    try
+                    if (Check(q.Current_values()))//call method check in Base class that check question's values if they are correct or not 
                     {
                         DB.Insert(Groupbox_index, Tables, q);//call Insert method in DBclass to insert the new question into database
                         this.Close();//hide Add dialog
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Print_Errors(ex.Message, ex);
-                        this.Close();//hide add_dialog form 
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if no question type is selected 
+                    Print_Errors("Please select question type ");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select question type ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//if no question type is selected 
-                Print_Errors("Please select question type ");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Print_Errors(ex.Message, ex);
+                this.Close();//hide add_dialog form 
             }
         }
         /// <summary>

@@ -211,3 +211,96 @@ Message     : Number of faces should be between 2-5
 Stack trace :    at Task1.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 34
    at Task1.Smiley.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Smiley.cs:line 87
    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 283
+-------------------------------------------------------------------
+
+Date :3/12/2019 5:53:57 PM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/12/2019 5:56:04 PM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/12/2019 6:28:31 PM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/12/2019 6:42:38 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Task1.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 33
+   at Task1.Stars.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Stars.cs:line 88
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 311
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:47:16 AM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:54:46 AM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:54:57 AM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:57:51 AM
+Message     : Start value should be integer number
+Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 172
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:57:57 AM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:58:03 AM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:58:38 AM
+Message     : Start value should be integer number
+Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 172
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:58:50 AM
+Message     : Both or Start and End values should be between 0-100
+Stack trace :    at Task1.Slider.set_Start(Int32 value) in C:\Users\a.barakat\source\repos\Task1\Task1\Slider.cs:line 35
+   at Task1.Slider.Set_values(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\Slider.cs:line 178
+   at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 256
+-------------------------------------------------------------------
+
+Date :3/13/2019 9:59:54 AM
+Message :
+No question selected 
+-------------------------------------------------------------------
+
+Date :3/13/2019 10:00:10 AM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/13/2019 10:08:52 AM
+Message     : String or binary data would be truncated.
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Task1.DBclass.Insert(Int32 question_type_index, String[] Tables, Question q) in C:\Users\a.barakat\source\repos\Task1\Task1\DBclass.cs:line 45
+   at Task1.Add.Save_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Add_dialog.cs:line 142
+-------------------------------------------------------------------
+
+Date :3/13/2019 10:33:58 AM
+Message     : Question should not contain a number
+Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 141
