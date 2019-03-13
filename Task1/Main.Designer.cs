@@ -29,42 +29,30 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Close_Button = new System.Windows.Forms.Button();
             this.Add_Button = new System.Windows.Forms.Button();
             this.Delete_Button = new System.Windows.Forms.Button();
             this.Edit_Button = new System.Windows.Forms.Button();
             this.DatabaseListBox = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.Close_Button);
             this.panel1.Controls.Add(this.Add_Button);
             this.panel1.Controls.Add(this.Delete_Button);
             this.panel1.Controls.Add(this.Edit_Button);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(678, 0);
+            this.panel1.Location = new System.Drawing.Point(583, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(122, 530);
+            this.panel1.Size = new System.Drawing.Size(122, 442);
             this.panel1.TabIndex = 0;
-            // 
-            // Close_Button
-            // 
-            this.Close_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Close_Button.Location = new System.Drawing.Point(19, 469);
-            this.Close_Button.Name = "Close_Button";
-            this.Close_Button.Size = new System.Drawing.Size(91, 23);
-            this.Close_Button.TabIndex = 3;
-            this.Close_Button.Text = "Close";
-            this.Close_Button.UseVisualStyleBackColor = true;
-            this.Close_Button.Click += new System.EventHandler(this.Close_Button_Click);
             // 
             // Add_Button
             // 
             this.Add_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Add_Button.Location = new System.Drawing.Point(19, 12);
+            this.Add_Button.Location = new System.Drawing.Point(3, 28);
             this.Add_Button.Name = "Add_Button";
             this.Add_Button.Size = new System.Drawing.Size(91, 23);
             this.Add_Button.TabIndex = 0;
@@ -74,7 +62,7 @@
             // 
             // Delete_Button
             // 
-            this.Delete_Button.Location = new System.Drawing.Point(19, 70);
+            this.Delete_Button.Location = new System.Drawing.Point(3, 86);
             this.Delete_Button.Name = "Delete_Button";
             this.Delete_Button.Size = new System.Drawing.Size(91, 23);
             this.Delete_Button.TabIndex = 2;
@@ -84,7 +72,7 @@
             // 
             // Edit_Button
             // 
-            this.Edit_Button.Location = new System.Drawing.Point(19, 41);
+            this.Edit_Button.Location = new System.Drawing.Point(3, 57);
             this.Edit_Button.Name = "Edit_Button";
             this.Edit_Button.Size = new System.Drawing.Size(91, 23);
             this.Edit_Button.TabIndex = 1;
@@ -102,26 +90,39 @@
             this.DatabaseListBox.HorizontalScrollbar = true;
             this.DatabaseListBox.IntegralHeight = false;
             this.DatabaseListBox.ItemHeight = 16;
-            this.DatabaseListBox.Location = new System.Drawing.Point(12, 12);
+            this.DatabaseListBox.Location = new System.Drawing.Point(12, 28);
             this.DatabaseListBox.MinimumSize = new System.Drawing.Size(100, 100);
             this.DatabaseListBox.Name = "DatabaseListBox";
-            this.DatabaseListBox.Size = new System.Drawing.Size(660, 452);
+            this.DatabaseListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.DatabaseListBox.Size = new System.Drawing.Size(565, 402);
             this.DatabaseListBox.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Question list :";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(800, 530);
+            this.ClientSize = new System.Drawing.Size(705, 442);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.DatabaseListBox);
             this.Controls.Add(this.panel1);
-            this.MinimumSize = new System.Drawing.Size(816, 569);
+            this.MinimumSize = new System.Drawing.Size(564, 429);
             this.Name = "Main";
             this.Text = "Survey Configurator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -131,7 +132,7 @@
         private System.Windows.Forms.Button Delete_Button;
         private System.Windows.Forms.Button Edit_Button;
         private System.Windows.Forms.ListBox DatabaseListBox;
-        private System.Windows.Forms.Button Close_Button;
+        private System.Windows.Forms.Label label1;
     }
 }
 

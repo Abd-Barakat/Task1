@@ -304,3 +304,63 @@ Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exc
 Date :3/13/2019 10:33:58 AM
 Message     : Question should not contain a number
 Stack trace :    at Task1.BaseForm.Values_Changed(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 141
+-------------------------------------------------------------------
+
+Date :3/13/2019 11:39:31 AM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/13/2019 11:50:22 AM
+Message     : Start value should be lower than End value
+Stack trace :    at Task1.Slider.Validate() in C:\Users\a.barakat\source\repos\Task1\Task1\Slider.cs:line 192
+   at Task1.BaseForm.Check(List`1 Values) in C:\Users\a.barakat\source\repos\Task1\Task1\BaseForm.cs:line 114
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:03:29 PM
+Message :
+There is no row at position -1.
+Stack trace :
+   at System.Data.RBTree`1.GetNodeByIndex(Int32 userIndex)
+   at System.Data.DataRowCollection.get_Item(Int32 index)
+   at Task1.Main.Selected_question_id() in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 169
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:06:49 PM
+Message :
+Please select a question
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:09:20 PM
+Message :
+Please select one question to edit
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:15:45 PM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:16:01 PM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:21:04 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:28:26 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:36:29 PM
+Message :
+No questions to delete
+-------------------------------------------------------------------
+
+Date :3/13/2019 1:36:32 PM
+Message :
+No questions to delete

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
+using DataBase;
 namespace Task1
 {
     public partial class Main : Form
@@ -61,13 +62,18 @@ namespace Task1
             {
                 if (!IsEmpty())//check if list box is empty to return index of selected row 
                 {
-                    int Question_id = Selected_question_id();//return selected question's id
-                    if (DatabaseListBox.SelectedIndex != -1)//check if a question is selected
+                    if (DatabaseListBox.SelectedIndices.Count != 0)
                     {
-                        DataRow[] rows = DB.extract_row(Question_id, dataTable_index());//extract rows related to that question
+                        int Question_id = Selected_question_id();//return selected question's id
+                        DataRow[] rows = DB.extract_row(Question_id, DataTable_index());//extract rows related to that question
                         Edit_dialog _Edit = new Edit_dialog(rows);
                         _Edit.ShowDialog();
                         Upload();//update data grid view with new data when add dialog close
+                    }
+                    else
+                    {
+                        MessageBox.Show("No question selected", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                        Print_Errors("No question selected");
                     }
                 }
                 else
@@ -94,7 +100,7 @@ namespace Task1
         /// pair question types with indexes.
         /// </summary>
         /// <returns></returns>
-        private int dataTable_index()//return a number that represent question type (used to determine which data table to be retrived)
+        private int DataTable_index()//return a number that represent question type (used to determine which data table to be retrived)
         {
             switch (Qustion_type())
             {
@@ -118,20 +124,24 @@ namespace Task1
             {
                 if (!IsEmpty())//check if list box contain any row or not 
                 {
-                    if (DatabaseListBox.SelectedIndex != -1)//check if there a selected question
+                    if (DatabaseListBox.SelectedIndices.Count > 0)//check if there a selected question
                     {
                         DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);//to make sure user want to delete 
                         if (result == DialogResult.Yes)//if user is sure to delete the selected  row 
                         {
-                            int id = Selected_question_id();//return selected question order from database 
-                            DB.Delete(Qustion_type(), id);//call method in class DBclass
+                            for (int Counter = 0; Counter < DatabaseListBox.SelectedIndices.Count; )
+                            {
+                                int id = Selected_question_id(DatabaseListBox.SelectedIndices[Counter]);//return selected question order from database 
+                                DB.Delete(Qustion_type(), id);//call method in class DBclass
+                                Counter++;
+                            }
                             Upload();//update data grid view with new data from database 
                         }
                     }
                     else
                     {
-                        MessageBox.Show("No question selected", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
-                        Print_Errors("No question selected");
+                        MessageBox.Show("Please select any question to delete", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
+                        Print_Errors("Please select any question to delete");
                     }
                 }
                 else
@@ -148,24 +158,47 @@ namespace Task1
         }
 
         /// <summary>
-        /// return id for selected question.
+        /// return id for selected question from database.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Id for selected question
+        /// </returns>
         private int Selected_question_id()//this method return question order of selected question in data grid view 
         {
             try
             {
-                int current_row_index = DatabaseListBox.SelectedIndex;//return current row index from data grid view
-                if (DatabaseListBox.SelectedIndex != -1)
+
+                if (DatabaseListBox.SelectedIndices.Count > 1)
                 {
-                    return (int)DB.question_table().Rows[current_row_index].ItemArray[3];//return question order from selected question
+                    MessageBox.Show("Please select one question to edit", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("Please select one question to edit");
+                    return -1;
                 }
                 else
                 {
-                    MessageBox.Show("No question selected ", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);//in case database is empty 
-                    Print_Errors("No question selected ");
-                    return -1;
+                    int current_row_index = DatabaseListBox.SelectedIndex;//return current row index from data grid view
+                    return (int)DB.question_table().Rows[current_row_index].ItemArray[3];//return question order from selected question
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Print_Errors(ex.Message, ex);
+                return -1;
+            }
+        }
+        /// <summary>
+        /// return id for selected question from database.
+        /// </summary>
+        /// <returns>
+        /// id for selection question
+        /// </returns>
+        private int Selected_question_id(int index)//this method return question order of selected question in data grid view 
+        {
+            try
+            {
+                
+                return (int)DB.question_table().Rows[index].ItemArray[3];//return question order from selected question
             }
             catch (Exception ex)
             {
@@ -217,7 +250,7 @@ namespace Task1
         /// <summary>
         /// Uploads list box with new questions from database.
         /// </summary>
-        private void Upload()//this method for update data grid  view with data from database 
+        private void Upload()//this method for update List box with data from database 
         {
             try
             {
@@ -278,7 +311,7 @@ namespace Task1
                 stream.WriteLine("Message :\n" + Message);
             }
         }
-        
+
     }
 }
 
