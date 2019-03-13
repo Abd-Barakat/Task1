@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
-using DataBase;
+using   DataBase;
 namespace Task1
 {
     public partial class Main : Form
@@ -46,8 +46,8 @@ namespace Task1
             int next_id = Next_question_id();
             if (next_id != -1)
             {
-                Add _Add = new Add(next_id);
-                _Add.ShowDialog();
+                //Add _Add = new Add(next_id);
+                //_Add.ShowDialog();
                 Upload();//update data grid view with new data when add dialog close
             }
         }
@@ -66,8 +66,8 @@ namespace Task1
                     {
                         int Question_id = Selected_question_id();//return selected question's id
                         DataRow[] rows = DB.extract_row(Question_id, DataTable_index());//extract rows related to that question
-                        Edit_dialog _Edit = new Edit_dialog(rows);
-                        _Edit.ShowDialog();
+                        //Edit_dialog _Edit = new Edit_dialog(rows);
+                        //_Edit.ShowDialog();
                         Upload();//update data grid view with new data when add dialog close
                     }
                     else
