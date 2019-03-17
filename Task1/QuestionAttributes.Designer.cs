@@ -81,9 +81,9 @@
             // 
             this.QuestionType_ComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.QuestionType_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.QuestionType_ComboBox.FormattingEnabled = true;
             this.QuestionType_ComboBox.Items.AddRange(new object[] {
-            "Question type",
             "Slider",
             "Smiley",
             "Stars"});
@@ -107,18 +107,19 @@
             this.End_label.AutoSize = true;
             this.End_label.Location = new System.Drawing.Point(7, 13);
             this.End_label.Name = "End_label";
-            this.End_label.Size = new System.Drawing.Size(62, 13);
+            this.End_label.Size = new System.Drawing.Size(32, 13);
             this.End_label.TabIndex = 5;
-            this.End_label.Text = "End Value :";
+            this.End_label.Text = "End :";
             // 
             // Shared_label
             // 
             this.Shared_label.AutoSize = true;
             this.Shared_label.Location = new System.Drawing.Point(32, 163);
             this.Shared_label.Name = "Shared_label";
-            this.Shared_label.Size = new System.Drawing.Size(65, 13);
+            this.Shared_label.Size = new System.Drawing.Size(38, 13);
             this.Shared_label.TabIndex = 6;
-            this.Shared_label.Text = "Start Value :";
+            this.Shared_label.Text = "Start  :";
+            this.Shared_label.Visible = false;
             // 
             // Start_Caption_Label
             // 
@@ -194,7 +195,6 @@
             this.SaveButton.TabIndex = 14;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // CancelButton
             // 

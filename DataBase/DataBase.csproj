@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Questions">
-      <HintPath>..\Questions\bin\Debug\Questions.dll</HintPath>
+      <HintPath>..\..\Questions\bin\Debug\Questions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

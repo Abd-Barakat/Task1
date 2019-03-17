@@ -37,13 +37,13 @@ namespace DataBase
         /// </summary>
         /// <param name="question_type_index">Index of the question type.</param>
         /// <param name="q">Question.</param>
-        public void Insert(int question_type_index, Question q)//this method to insert data to database 
+        public void Insert(Question q)//this method to insert data to database 
         {
             Open_connection();//open connection to server via Open_connection() method
            
-            switch (question_type_index)//index of groupbox that determine type of question : 0 => slider , 1 => smiley, 2 => stars
+            switch (q.Question_type)//index of groupbox that determine type of question : 0 => slider , 1 => smiley, 2 => stars
             {
-                case 0:
+                case "Slider":
                     Slider slider = (Slider)q;
                     command.CommandText = string.Format("insert into questions values ('{0}',{1},'{2}',{3})", q.Question_text, q.Question_order,"Slider", q.ID);
                     command.ExecuteNonQuery();//execute command
@@ -51,14 +51,14 @@ namespace DataBase
                     command.CommandText = string.Format("insert into Slider values ({0},{1},{2},'{3}','{4}',{5})", q.Question_order, slider.Start,slider.End,slider.Start_Caption,slider.End_Caption, q.ID);
                     command.ExecuteNonQuery();//execute command
                     break;
-                case 1:
+                case "Smiley":
                     Smiley smiley = (Smiley)q;
                     command.CommandText = string.Format("insert into questions values ('{0}',{1},'{2}',{3})", q.Question_text, q.Question_order, "Smiley", q.ID);
                     command.ExecuteNonQuery();//execute command
                     command.CommandText = string.Format("insert into Smiley values ({0},{1},{2})", q.Question_order,smiley.Faces, q.ID);
                     command.ExecuteNonQuery();//execute command
                     break;
-                case 2:
+                case "Stars":
                     Stars stars = (Stars)q;
                     command.CommandText = string.Format("insert into questions values ('{0}',{1},'{2}',{3})", q.Question_text, q.Question_order, "Stars", q.ID);
                     command.ExecuteNonQuery();//execute command

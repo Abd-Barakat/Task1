@@ -364,3 +364,409 @@ No questions to delete
 Date :3/13/2019 1:36:32 PM
 Message :
 No questions to delete
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:29:20 AM
+Message     : Unable to cast object of type 'Questions.Slider' to type 'Questions.Smiley'.
+Stack trace :    at DataBase.DBclass.Insert(Int32 question_type_index, Question q) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 55
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:29:38 AM
+Message     : Unable to cast object of type 'Questions.Smiley' to type 'Questions.Stars'.
+Stack trace :    at DataBase.DBclass.Insert(Int32 question_type_index, Question q) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 62
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:34:03 AM
+Message     : Unable to cast object of type 'Questions.Slider' to type 'Questions.Smiley'.
+Stack trace :    at DataBase.DBclass.Insert(Int32 question_type_index, Question q) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 55
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:35:15 AM
+Message     : Unable to cast object of type 'Questions.Smiley' to type 'Questions.Stars'.
+Stack trace :    at DataBase.DBclass.Insert(Int32 question_type_index, Question q) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 62
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:36:54 AM
+Message     : Unable to cast object of type 'Questions.Slider' to type 'Questions.Smiley'.
+Stack trace :    at DataBase.DBclass.Insert(Int32 question_type_index, Question q) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 55
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:37:03 AM
+Message     : Object reference not set to an instance of an object.
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 284
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 99
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:38:27 AM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:38:56 AM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:40:58 AM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:41:09 AM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:48:30 AM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:49:08 AM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Slider__id__2C3393D0". The conflict occurred in database "Questions", table "dbo.Slider", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:49:18 AM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Slider__id__2C3393D0". The conflict occurred in database "Questions", table "dbo.Slider", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:50:58 AM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:51:38 AM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:52:47 AM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:54:43 AM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:55:29 AM
+Message :
+No questions to edit
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:55:30 AM
+Message :
+No questions to delete
+-------------------------------------------------------------------
+
+Date :3/17/2019 10:56:08 AM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 292
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 407
+-------------------------------------------------------------------
+
+Date :3/17/2019 11:35:18 AM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:14:53 PM
+Message :
+Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+Stack trace :
+   at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at Task1.QuestionAttributes.QuestionType_ComboBox_SelectedIndexChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 164
+   at System.Windows.Forms.ComboBox.OnSelectedIndexChanged(EventArgs e)
+   at System.Windows.Forms.ComboBox.set_SelectedIndex(Int32 value)
+   at Task1.QuestionAttributes..ctor(DataRow[] rows) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 66
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 73
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:16:45 PM
+Message     : End value should be between 0-100
+Stack trace :    at Questions.Slider.set_End(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 192
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 352
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:17:10 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:17:12 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:17:19 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:17:25 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:17:52 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:18:46 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:21:57 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:22:05 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:22:13 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:22:33 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Smiley__id__267ABA7A". The conflict occurred in database "Questions", table "dbo.Smiley", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:26:54 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Slider__id__2C3393D0". The conflict occurred in database "Questions", table "dbo.Slider", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:27:24 PM
+Message :
+The DELETE statement conflicted with the REFERENCE constraint "FK__Slider__id__2C3393D0". The conflict occurred in database "Questions", table "dbo.Slider", column 'id'.
+The statement has been terminated.
+Stack trace :
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Delete(String type, Int32 id) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 111
+   at Task1.Main.Delete_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 139
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:37:51 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 345
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 454
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:38:22 PM
+Message     : Number of Stars should be integer
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 458
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:38:27 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 345
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 454
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:38:46 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 292
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 422
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:38:51 PM
+Message     : Number of Smiles should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 426
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:39:04 PM
+Message     : Question should not contain a number
+Stack trace :    at Questions.Question.set_Question_text(String value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 54
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 302
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:39:19 PM
+Message     : Start value should be lower than End value
+Stack trace :    at Questions.Slider.Validate() in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 262
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 403
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:39:21 PM
+Message     : Start value should be lower than End value
+Stack trace :    at Questions.Slider.Validate() in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 262
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 403
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:39:41 PM
+Message :
+Please select one question to edit
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:39:46 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 184
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 70
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:49:35 PM
+Message :
+Please select one question to edit
+-------------------------------------------------------------------
+
+Date :3/17/2019 12:50:10 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 292
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 422

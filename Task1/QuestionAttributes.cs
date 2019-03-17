@@ -1,26 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
+﻿using DataBase;
 using Questions;
-using DataBase;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 namespace Task1
 {
     public partial class QuestionAttributes : Form
     {
         private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };//hold tables names
-        private List<string> Default_values = new List<string>();
+        private List<string> Slider_Defaults = new List<string>();
+        private int Smiley_Default;
+        private int Stars_Default;
         private int Next_ID;
         private string path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
         private Question q;
+        private bool IsEdit = false;
         private int oldValue = 0;
-        private DataTable question_order;
+        private DataTable Orders;
+        private int Q_order ;
+        private DataRow Type_row;//table will hold the selected question (text ,order ,type)
+        private DataRow question_row;//table will hold values related to the selected question
         private List<int> Reserved_orders = new List<int>();
         private DBclass DB = new DBclass();
 
@@ -28,28 +30,87 @@ namespace Task1
         {
             InitializeComponent();
             Next_ID = id;
-            Default_values.Add("0");
-            Default_values.Add("100");
-            Default_values.Add("Not satisfied");
-            Default_values.Add("Extremely statisfied");
-            Default_values.Add("3");
-            Default_values.Add("5");
+            SaveButton.Click += Save_new_question_Click;
+            Slider_Defaults.Add("0");
+            Slider_Defaults.Add("100");
+            Slider_Defaults.Add("Not satisfied");
+            Slider_Defaults.Add("Extremely statisfied");
+            Smiley_Default = 3;
+            Stars_Default = 5;
+            Next_Order(QuestionOrder_UpDown);
         }
+
         public QuestionAttributes(DataRow[] rows)
         {
             InitializeComponent();
-        }
+            SaveButton.Click += Save_Updates_Click;
+            question_row = rows[0];
+            IsEdit = true;
+            Type_row = rows[1];
+            Q_order = Int32.Parse(question_row.ItemArray[1].ToString());
+            string question_type = question_row.ItemArray[2].ToString();
+            Next_ID = Int32.Parse(question_row.ItemArray[3].ToString());
+            switch (question_type)
+            {
+                case "Slider":
+                    Slider_Defaults.Add(Type_row.ItemArray[1].ToString());
+                    Slider_Defaults.Add(Type_row.ItemArray[2].ToString());
+                    Slider_Defaults.Add(Type_row.ItemArray[3].ToString());
+                    Slider_Defaults.Add(Type_row.ItemArray[4].ToString());
 
-        private void SaveButton_Click(object sender, EventArgs e)
+                    QuestionType_ComboBox.SelectedIndex = 0;
+                    QuestionType_ComboBox.Enabled = false;
+                    break;
+                case "Smiley":
+                    Smiley_Default = Int32.Parse(Type_row.ItemArray[1].ToString());
+                    QuestionType_ComboBox.SelectedIndex = 1;
+                    QuestionType_ComboBox.Enabled = false;
+                    break;
+                case "Stars":
+                    Stars_Default = Int32.Parse(Type_row.ItemArray[1].ToString());
+
+                    QuestionType_ComboBox.SelectedIndex =2;
+                    QuestionType_ComboBox.Enabled = false;
+                    break;
+            }
+        }
+        /// <summary>
+        /// Handles the Click event of the Save control that save updates to database.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void Save_Updates_Click(object sender, EventArgs e)//event handler for save button that save entered values if they are not confilect database KEYS
+        {
+            try
+            {
+                if (Change_Values())//call check method to check inserted values before update database 
+                {
+                    DB.Update(q);//upate database with new edited question
+                    this.Close();
+                }
+            }
+            catch (Exception ex)//to catch eny problem that may occure
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);//show any error could occure
+                Print_Errors(ex.Message, ex);
+                this.Close();
+            }
+        }
+        /// <summary>
+        /// Handles the Click event of the Save control that save new question to database.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void Save_new_question_Click(object sender, EventArgs e)
         {
             try
             {
                 int Table_Index = QuestionType_ComboBox.SelectedIndex;
-                if (Table_Index != 0)//if no control selected in GroupBox
+                if (Table_Index >= 0)//if no control selected in GroupBox
                 {
                     if (Change_Values())//change question's properties if they are correct
                     {
-                        DB.Insert(Table_Index, q);//call Insert method in DBclass to insert the new question into database
+                        DB.Insert(q);//call Insert method in DBclass to insert the new question into database
                         this.Close();//hide Add dialog
                     }
                 }
@@ -66,7 +127,11 @@ namespace Task1
                 this.Close();//hide dialog
             }
         }
-
+        /// <summary>
+        /// Close Question attributes dialog.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -80,38 +145,29 @@ namespace Task1
         {
             if (QuestionOrder_UpDown.Value > oldValue)
             {
-                Next_Number_UpDown(QuestionOrder_UpDown);
+                Next_Order(QuestionOrder_UpDown);
                 oldValue = (int)QuestionOrder_UpDown.Value;
             }
             else
             {
-                Prev_Number_UpDown(QuestionOrder_UpDown);
+                Prev_Order(QuestionOrder_UpDown);
                 oldValue = (int)QuestionOrder_UpDown.Value;
             }
         }
         private void QuestionType_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Relese(q);//call method release that release  q object if refere to another object 
-            Next_Number_UpDown(QuestionOrder_UpDown);
+            Next_Order(QuestionOrder_UpDown);
             switch (QuestionType_ComboBox.SelectedIndex)
             {
+                case 0:
+                    q = new Slider("", Q_order, Next_ID, Int32.Parse(Slider_Defaults[0]), Int32.Parse(Slider_Defaults[1]), Slider_Defaults[2], Slider_Defaults[3]);//create slider object
+                    break;
                 case 1:
-                    q = new Slider(Next_ID)//create slider object
-                    {
-                        ID = Next_ID,
-                    };
+                    q = new Smiley("", Q_order, Next_ID, Smiley_Default);//create smiley object
                     break;
                 case 2:
-                    q = new Smiley(Next_ID)//create smiley object
-                    {
-                        ID = Next_ID//sign qustion_order property to next_order field
-                    };
-                    break;
-                case 3:
-                    q = new Stars(Next_ID)//create star object               
-                    {
-                        ID = Next_ID//sign qustion_order property to next_order field
-                    };
+                    q = new Stars("", Q_order, Next_ID,Stars_Default);//create star object               
                     break;
             }
             Show_controls();
@@ -134,44 +190,45 @@ namespace Task1
             }
             else if (ReferenceEquals(box, Shared_textbox))
             {
-                switch (QuestionType_ComboBox.SelectedIndex)
+                switch(q.Question_type)
                 {
-                    case 1:
-                        if (Shared_textbox.Text == string.Format("{0}", Default_values[0]) || Shared_textbox.Text == "")
+                    case "Slider":
+                        if (Shared_textbox.Text == string.Format("{0}", Slider_Defaults[0]) || Shared_textbox.Text == "")
                             return true;
                         else
                             return false;
-                    case 2:
-                        if (Shared_textbox.Text == string.Format("{0}", Default_values[4]) || Shared_textbox.Text == "")
+                    case "Smiley":
+                        if (Shared_textbox.Text == string.Format("{0}", Smiley_Default )|| Shared_textbox.Text == "")
                             return true;
                         else
                             return false;
-                    case 3:
-                        if (Shared_textbox.Text == string.Format("{0}", Default_values[5]) || Shared_textbox.Text == "")
+                    case "Stars":
+                        if (Shared_textbox.Text == string.Format("{0}", Stars_Default) || Shared_textbox.Text == "")
                             return true;
                         else
                             return false;
                     default:
                         return false;
                 }
+               
             }
             else if (ReferenceEquals(box, End_textBox) || End_textBox.Text == "")
             {
-                if (End_textBox.Text == string.Format("{0}", Default_values[1]))
+                if (End_textBox.Text == string.Format("{0}", Slider_Defaults[1]))
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, Start_caption_textBox) || Start_caption_textBox.Text == "")
             {
-                if (Start_caption_textBox.Text == string.Format("{0}", Default_values[2]))
+                if (Start_caption_textBox.Text == string.Format("{0}", Slider_Defaults[2]))
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, End_caption_textBox) || End_caption_textBox.Text == "")
             {
-                if (End_caption_textBox.Text == string.Format("{0}", Default_values[3]))
+                if (End_caption_textBox.Text == string.Format("{0}", Slider_Defaults[3]))
                     return true;
                 else
                     return false;
@@ -184,12 +241,12 @@ namespace Task1
         /// increment question order with exclude reserved orders that already exist in the database.
         /// </summary>
         /// <param name="QuestionOrderUpDown">The question order up down.</param>
-        protected void Next_Number_UpDown(NumericUpDown QuestionOrderUpDown)
+        protected void Next_Order(NumericUpDown QuestionOrderUpDown)
         {
-            if (question_order == null)
+            if (Orders == null)
             {
-                question_order = DB.Orders();
-                foreach (DataRow row in question_order.Rows)
+                Orders = DB.Orders();
+                foreach (DataRow row in Orders.Rows)
                 {
                     Reserved_orders.Add((int)row.ItemArray[0]);
                 }
@@ -198,20 +255,20 @@ namespace Task1
             {
                 QuestionOrderUpDown.Value++;
             }
-            q.Question_order = (int)QuestionOrderUpDown.Value;
+            Q_order = (int)QuestionOrderUpDown.Value;
         }
 
         /// <summary>
         /// decrement question order with exclude reserved orders that already exist in the database.
         /// </summary>
         /// <param name="QuestionOrderUpDown">The question order up down.</param>
-        private void Prev_Number_UpDown(NumericUpDown QuestionOrderUpDown)
+        private void Prev_Order(NumericUpDown QuestionOrderUpDown)
         {
             int Order = (int)QuestionOrderUpDown.Value;
-            if (question_order == null)
+            if (Orders == null)
             {
-                question_order = DB.Orders();
-                foreach (DataRow row in question_order.Rows)
+                Orders = DB.Orders();
+                foreach (DataRow row in Orders.Rows)
                 {
                     Reserved_orders.Add((int)row.ItemArray[0]);
                 }
@@ -221,12 +278,12 @@ namespace Task1
                 Order--;
                 if (Order == -1)
                 {
-                    Next_Number_UpDown(QuestionOrderUpDown);
+                    Next_Order(QuestionOrderUpDown);
                     return;
                 }
             }
             QuestionOrderUpDown.Value = Order;
-            q.Question_order = (int)QuestionOrderUpDown.Value;
+            Q_order = (int)QuestionOrderUpDown.Value;
         }
         /// <summary>
         /// change question values if they are correct.
@@ -237,10 +294,9 @@ namespace Task1
         /// </exception>
         private bool Change_Values()//check if values are changed or not 
         {
-
             try
             {
-                q.Question_order = (int)QuestionOrder_UpDown.Value;
+                q.Question_order = Q_order;
                 if (!IsEmpty(question_box))
                 {
                     q.Question_text = question_box.Text;//validate user input 
@@ -427,24 +483,33 @@ namespace Task1
             int index = QuestionType_ComboBox.SelectedIndex;
             switch (index)
             {
-                case 1:
+                case 0:
 
                     Shared_label.Text = "Start :";
-                    Shared_textbox.Text =Default_values[0];//fill textbox with default value of start 
-                    End_textBox.Text = Default_values[1];//fill textbox with default value of end 
-                    Start_caption_textBox.Text =Default_values[2];//fill textbox with default value of start caption 
-                    End_caption_textBox.Text = Default_values[3];//fill textbox with default value of end caption
+                    Shared_label.Visible = true;
+
+                    Slider_Defaults[0] = IsEdit==true? Slider_Defaults[0]:"0";
+                    Shared_textbox.Text = Slider_Defaults[0];//fill textbox with default value of start 
+                    End_textBox.Text = Slider_Defaults[1];//fill textbox with default value of end 
+                    Start_caption_textBox.Text = Slider_Defaults[2];//fill textbox with default value of start caption 
+                    End_caption_textBox.Text = Slider_Defaults[3];//fill textbox with default value of end caption
 
                     Slider_panel.Visible = true;
                     break;
-                case 2:
+                case 1:
                     Shared_label.Text = "Smiles :";
-                    Shared_textbox.Text = Default_values[4];//fill textbox with default value of faces 
+                    Shared_label.Visible = true;
+
+                    Smiley_Default = IsEdit == true ? Smiley_Default : 3;
+                    Shared_textbox.Text = Smiley_Default.ToString();//fill textbox with default value of faces 
                     Slider_panel.Visible = false;
                     break;
-                case 3:
+                case 2:
                     Shared_label.Text = "Stars :";
-                    Shared_textbox.Text = Default_values[5];//fill textbox with default value of stars 
+                    Shared_label.Visible = true;
+
+                    Stars_Default = IsEdit == true ? Stars_Default : 5;
+                    Shared_textbox.Text = Stars_Default.ToString();//fill textbox with default value of stars 
                     Slider_panel.Visible = false;
                     break;
             }
@@ -507,6 +572,6 @@ namespace Task1
                 }
             }
         }
-
+      
     }
 }
