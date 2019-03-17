@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.question_label = new System.Windows.Forms.Label();
             this.question_box = new System.Windows.Forms.TextBox();
             this.Order_label = new System.Windows.Forms.Label();
@@ -45,6 +46,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.Slider_panel = new System.Windows.Forms.Panel();
+            this.QuestionTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.QuestionOrder_UpDown)).BeginInit();
             this.Slider_panel.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +68,8 @@
             this.question_box.Multiline = true;
             this.question_box.Name = "question_box";
             this.question_box.Size = new System.Drawing.Size(248, 47);
-            this.question_box.TabIndex = 1;
+            this.question_box.TabIndex = 0;
+            this.QuestionTip.SetToolTip(this.question_box, "Write question here ...");
             // 
             // Order_label
             // 
@@ -90,7 +93,8 @@
             this.QuestionType_ComboBox.Location = new System.Drawing.Point(115, 128);
             this.QuestionType_ComboBox.Name = "QuestionType_ComboBox";
             this.QuestionType_ComboBox.Size = new System.Drawing.Size(248, 21);
-            this.QuestionType_ComboBox.TabIndex = 3;
+            this.QuestionType_ComboBox.TabIndex = 2;
+            this.QuestionTip.SetToolTip(this.QuestionType_ComboBox, "Select question type");
             this.QuestionType_ComboBox.SelectedIndexChanged += new System.EventHandler(this.QuestionType_ComboBox_SelectedIndexChanged);
             // 
             // QuestionType_label
@@ -108,7 +112,7 @@
             this.End_label.Location = new System.Drawing.Point(7, 13);
             this.End_label.Name = "End_label";
             this.End_label.Size = new System.Drawing.Size(32, 13);
-            this.End_label.TabIndex = 5;
+            this.End_label.TabIndex = 3;
             this.End_label.Text = "End :";
             // 
             // Shared_label
@@ -146,7 +150,8 @@
             this.QuestionOrder_UpDown.Location = new System.Drawing.Point(115, 94);
             this.QuestionOrder_UpDown.Name = "QuestionOrder_UpDown";
             this.QuestionOrder_UpDown.Size = new System.Drawing.Size(248, 20);
-            this.QuestionOrder_UpDown.TabIndex = 9;
+            this.QuestionOrder_UpDown.TabIndex = 1;
+            this.QuestionTip.SetToolTip(this.QuestionOrder_UpDown, "Select question order ");
             this.QuestionOrder_UpDown.ValueChanged += new System.EventHandler(this.QuestionOrderUpDown_ValueChanged);
             // 
             // Shared_textbox
@@ -156,7 +161,7 @@
             this.Shared_textbox.Location = new System.Drawing.Point(115, 163);
             this.Shared_textbox.Name = "Shared_textbox";
             this.Shared_textbox.Size = new System.Drawing.Size(248, 20);
-            this.Shared_textbox.TabIndex = 10;
+            this.Shared_textbox.TabIndex = 3;
             this.Shared_textbox.Visible = false;
             // 
             // End_textBox
@@ -166,7 +171,8 @@
             this.End_textBox.Location = new System.Drawing.Point(90, 12);
             this.End_textBox.Name = "End_textBox";
             this.End_textBox.Size = new System.Drawing.Size(248, 20);
-            this.End_textBox.TabIndex = 11;
+            this.End_textBox.TabIndex = 0;
+            this.QuestionTip.SetToolTip(this.End_textBox, "Enter End value");
             // 
             // Start_caption_textBox
             // 
@@ -175,7 +181,8 @@
             this.Start_caption_textBox.Location = new System.Drawing.Point(90, 46);
             this.Start_caption_textBox.Name = "Start_caption_textBox";
             this.Start_caption_textBox.Size = new System.Drawing.Size(248, 20);
-            this.Start_caption_textBox.TabIndex = 12;
+            this.Start_caption_textBox.TabIndex = 1;
+            this.QuestionTip.SetToolTip(this.Start_caption_textBox, "Write start caption");
             // 
             // End_caption_textBox
             // 
@@ -184,7 +191,8 @@
             this.End_caption_textBox.Location = new System.Drawing.Point(90, 80);
             this.End_caption_textBox.Name = "End_caption_textBox";
             this.End_caption_textBox.Size = new System.Drawing.Size(248, 20);
-            this.End_caption_textBox.TabIndex = 13;
+            this.End_caption_textBox.TabIndex = 2;
+            this.QuestionTip.SetToolTip(this.End_caption_textBox, "Write end caption");
             // 
             // SaveButton
             // 
@@ -192,8 +200,9 @@
             this.SaveButton.Location = new System.Drawing.Point(238, 311);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 14;
+            this.SaveButton.TabIndex = 5;
             this.SaveButton.Text = "Save";
+            this.QuestionTip.SetToolTip(this.SaveButton, "Save question");
             this.SaveButton.UseVisualStyleBackColor = true;
             // 
             // CancelButton
@@ -202,8 +211,9 @@
             this.CancelButton.Location = new System.Drawing.Point(319, 311);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 15;
+            this.CancelButton.TabIndex = 6;
             this.CancelButton.Text = "Cancel";
+            this.QuestionTip.SetToolTip(this.CancelButton, "Cancel ");
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
@@ -218,7 +228,7 @@
             this.Slider_panel.Location = new System.Drawing.Point(25, 185);
             this.Slider_panel.Name = "Slider_panel";
             this.Slider_panel.Size = new System.Drawing.Size(359, 113);
-            this.Slider_panel.TabIndex = 16;
+            this.Slider_panel.TabIndex = 4;
             this.Slider_panel.Visible = false;
             // 
             // QuestionAttributes
@@ -267,5 +277,6 @@
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Panel Slider_panel;
+        private System.Windows.Forms.ToolTip QuestionTip;
     }
 }

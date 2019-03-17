@@ -487,6 +487,7 @@ namespace Task1
 
                     Shared_label.Text = "Start :";
                     Shared_label.Visible = true;
+                    QuestionTip.SetToolTip(Shared_textbox, "Enter start value");
 
                     Slider_Defaults[0] = IsEdit==true? Slider_Defaults[0]:"0";
                     Shared_textbox.Text = Slider_Defaults[0];//fill textbox with default value of start 
@@ -499,6 +500,7 @@ namespace Task1
                 case 1:
                     Shared_label.Text = "Smiles :";
                     Shared_label.Visible = true;
+                    QuestionTip.SetToolTip(Shared_textbox, "Enter number of smiles");
 
                     Smiley_Default = IsEdit == true ? Smiley_Default : 3;
                     Shared_textbox.Text = Smiley_Default.ToString();//fill textbox with default value of faces 
@@ -507,6 +509,7 @@ namespace Task1
                 case 2:
                     Shared_label.Text = "Stars :";
                     Shared_label.Visible = true;
+                    QuestionTip.SetToolTip(Shared_textbox, "Enter number of stars");
 
                     Stars_Default = IsEdit == true ? Stars_Default : 5;
                     Shared_textbox.Text = Stars_Default.ToString();//fill textbox with default value of stars 

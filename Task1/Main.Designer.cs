@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Add_Button = new System.Windows.Forms.Button();
             this.Delete_Button = new System.Windows.Forms.Button();
             this.Edit_Button = new System.Windows.Forms.Button();
             this.DatabaseListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.MainTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +59,7 @@
             this.Add_Button.Size = new System.Drawing.Size(91, 23);
             this.Add_Button.TabIndex = 0;
             this.Add_Button.Text = "Add";
+            this.MainTip.SetToolTip(this.Add_Button, "Add a question");
             this.Add_Button.UseVisualStyleBackColor = true;
             this.Add_Button.Click += new System.EventHandler(this.Add_Button_Click);
             // 
@@ -67,6 +70,7 @@
             this.Delete_Button.Size = new System.Drawing.Size(91, 23);
             this.Delete_Button.TabIndex = 2;
             this.Delete_Button.Text = "Delete";
+            this.MainTip.SetToolTip(this.Delete_Button, "Delete selected question");
             this.Delete_Button.UseVisualStyleBackColor = true;
             this.Delete_Button.Click += new System.EventHandler(this.Delete_Button_Click);
             // 
@@ -77,6 +81,7 @@
             this.Edit_Button.Size = new System.Drawing.Size(91, 23);
             this.Edit_Button.TabIndex = 1;
             this.Edit_Button.Text = "Edit";
+            this.MainTip.SetToolTip(this.Edit_Button, "Edit selected question");
             this.Edit_Button.UseVisualStyleBackColor = true;
             this.Edit_Button.Click += new System.EventHandler(this.Edit_Button_Click);
             // 
@@ -96,6 +101,7 @@
             this.DatabaseListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.DatabaseListBox.Size = new System.Drawing.Size(565, 402);
             this.DatabaseListBox.TabIndex = 2;
+            this.MainTip.SetToolTip(this.DatabaseListBox, "Select a question here");
             // 
             // label1
             // 
@@ -133,6 +139,7 @@
         private System.Windows.Forms.Button Edit_Button;
         private System.Windows.Forms.ListBox DatabaseListBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolTip MainTip;
     }
 }
 
