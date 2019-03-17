@@ -25,7 +25,10 @@ namespace Task1
         private DataRow question_row;//table will hold values related to the selected question
         private List<int> Reserved_orders = new List<int>();
         private DBclass DB = new DBclass();
-
+        /// <summary>
+        /// initialize Add dialog's variables.
+        /// </summary>
+        /// <param name="id"></param>
         public QuestionAttributes(int id)
         {
             InitializeComponent();
@@ -39,7 +42,10 @@ namespace Task1
             Stars_Default = 5;
             Next_Order(QuestionOrder_UpDown);
         }
-
+        /// <summary>
+        /// initialize Edit dialog's variables.
+        /// </summary>
+        /// <param name="rows"></param>
         public QuestionAttributes(DataRow[] rows)
         {
             InitializeComponent();
@@ -154,10 +160,16 @@ namespace Task1
                 oldValue = (int)QuestionOrder_UpDown.Value;
             }
         }
+        /// <summary>
+        /// Event hander for question type selection
+        /// Create question object depends on selection of question type.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void QuestionType_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Relese(q);//call method release that release  q object if refere to another object 
-            Next_Order(QuestionOrder_UpDown);
+            Next_Order(QuestionOrder_UpDown);//initialze QuestionOrder compobox  to next question order
             switch (QuestionType_ComboBox.SelectedIndex)
             {
                 case 0:
