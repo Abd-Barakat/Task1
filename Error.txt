@@ -1522,3 +1522,88 @@ Stack trace :
    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
    at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
    at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:52:22 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Smiles(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Smiley.cs:line 36
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 384
+-------------------------------------------------------------------
+
+Date :3/19/2019 2:04:22 PM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/19/2019 2:28:04 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Smiles(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Smiley.cs:line 36
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 384
+-------------------------------------------------------------------
+
+Date :3/19/2019 5:35:14 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/19/2019 5:43:14 PM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/19/2019 5:47:52 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/19/2019 6:36:21 PM
+Message :
+Object reference not set to an instance of an object.
+Stack trace :
+   at Task1.QuestionAttributes.Next_Order(NumericUpDown QuestionOrderUpDown) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 245
+   at Task1.QuestionAttributes.QuestionOrderUpDown_ValueChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 129
+   at System.Windows.Forms.NumericUpDown.OnValueChanged(EventArgs e)
+   at System.Windows.Forms.NumericUpDown.set_Value(Decimal value)
+   at Task1.QuestionAttributes..ctor(Question question, DBclass database) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 40
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 84
+-------------------------------------------------------------------
+
+Date :3/19/2019 6:36:23 PM
+Message :
+Object reference not set to an instance of an object.
+Stack trace :
+   at Task1.QuestionAttributes.Next_Order(NumericUpDown QuestionOrderUpDown) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 245
+   at Task1.QuestionAttributes.QuestionOrderUpDown_ValueChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 129
+   at System.Windows.Forms.NumericUpDown.OnValueChanged(EventArgs e)
+   at System.Windows.Forms.NumericUpDown.set_Value(Decimal value)
+   at Task1.QuestionAttributes..ctor(Question question, DBclass database) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 40
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 84
+-------------------------------------------------------------------
+
+Date :3/19/2019 6:37:56 PM
+Message :
+Object reference not set to an instance of an object.
+Stack trace :
+   at Task1.QuestionAttributes.Next_Order(NumericUpDown QuestionOrderUpDown) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 245
+   at Task1.QuestionAttributes.QuestionOrderUpDown_ValueChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 129
+   at System.Windows.Forms.NumericUpDown.OnValueChanged(EventArgs e)
+   at System.Windows.Forms.NumericUpDown.set_Value(Decimal value)
+   at Task1.QuestionAttributes..ctor(Question question, DBclass database) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 40
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 84
+-------------------------------------------------------------------
+
+Date :3/19/2019 6:38:50 PM
+Message :
+Object reference not set to an instance of an object.
+Stack trace :
+   at Task1.QuestionAttributes.Next_Order(NumericUpDown QuestionOrderUpDown) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 245
+   at Task1.QuestionAttributes.QuestionOrderUpDown_ValueChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 129
+   at System.Windows.Forms.NumericUpDown.OnValueChanged(EventArgs e)
+   at System.Windows.Forms.NumericUpDown.set_Value(Decimal value)
+   at Task1.QuestionAttributes..ctor(Question question, DBclass database) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 40
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 84
+-------------------------------------------------------------------
+
+Date :3/19/2019 6:43:52 PM
+Message :
+No question selected

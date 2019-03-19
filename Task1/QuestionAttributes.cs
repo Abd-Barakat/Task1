@@ -2,7 +2,6 @@
 using Questions;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,13 +11,10 @@ namespace Task1
     {
         private string path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
         private Question question;
-        private bool IsEdit = false;
+        private bool IsEdit;
         private int oldValue = 0;
-        private DataTable Orders;
         private int Q_order;
-        private DataRow Type_row;//table will hold the selected question (text ,order ,type)
-        private DataRow question_row;//table will hold values related to the selected question
-        private List<int> Reserved_orders = new List<int>();
+        private List<int> Reserved_orders;
         private DBclass DataBase;
         /// <summary>
         /// initialize Add dialog's variables.
@@ -28,25 +24,24 @@ namespace Task1
         {
             InitializeComponent();
             DataBase = database;
-            SaveButton.Click += Save_new_question_Click;
+            IsEdit = false;
             Next_Order(QuestionOrder_UpDown);
+            SaveButton.Click += Save_new_question_Click;
         }
         /// <summary>
         /// initialize Edit dialog's variables.
         /// </summary>
         /// <param name="rows"></param>
-        public QuestionAttributes(DataRow[] rows, DBclass database)
+        public QuestionAttributes(Question question, DBclass database)
         {
+
             InitializeComponent();
             DataBase = database;
-            SaveButton.Click += Save_Updates_Click;
-            question_row = rows[0];
+            this.question = question;
             IsEdit = true;
-            Type_row = rows[1];
-            Q_order = Int32.Parse(question_row.ItemArray[1].ToString());
-            QuestionOrder_UpDown.Value = Q_order;
-            string question_type = question_row.ItemArray[2].ToString();
-            switch (question_type)
+            QuestionOrder_UpDown.Value = question.Question_order;
+            SaveButton.Click += Save_Updates_Click;
+            switch (question.Question_type)
             {
                 case "Slider":
                     QuestionType_ComboBox.SelectedIndex = 0;
@@ -155,13 +150,13 @@ namespace Task1
             switch (QuestionType_ComboBox.SelectedIndex)
             {
                 case 0:
-                    question = IsEdit? new Slider(question_row[0].ToString(),(int)question_row[1],(int)question_row[3],(int)Type_row[1],(int)Type_row[2],Type_row[3].ToString(),Type_row[4].ToString()) : new Slider("", Q_order);//create slider object
+                    question = IsEdit? question : new Slider("", Q_order);//create slider object
                     break;
                 case 1:
-                    question = IsEdit? new Smiley(question_row[0].ToString(), (int)question_row[1], (int)question_row[3],(int)Type_row[1]) : new Smiley("", Q_order);//create smiley object
+                    question = IsEdit? question : new Smiley("", Q_order);//create smiley object
                     break;
                 case 2:
-                    question = IsEdit?new Stars(question_row[0].ToString(), (int)question_row[1], (int)question_row[3], (int)Type_row[1]) :new Stars("", Q_order);//create star object               
+                    question = IsEdit? question : new Stars("", Q_order);//create star object               
                     break;
             }
             Show_controls();
@@ -243,17 +238,13 @@ namespace Task1
         /// <param name="QuestionOrderUpDown">The question order up down.</param>
         protected void Next_Order(NumericUpDown QuestionOrderUpDown)
         {
-            if (Orders == null)
+            if (Reserved_orders == null)
             {
-                Orders = DataBase.Orders();
-                foreach (DataRow row in Orders.Rows)
-                {
-                    Reserved_orders.Add((int)row.ItemArray[0]);
-                }
+                Reserved_orders = DataBase.Orders();
             }
             if (IsEdit)
             {
-                Reserved_orders.Remove(Q_order);
+                Reserved_orders.Remove(question.Question_order);
             }
             while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
             {
@@ -269,17 +260,13 @@ namespace Task1
         private void Prev_Order(NumericUpDown QuestionOrderUpDown)
         {
             int Order = (int)QuestionOrderUpDown.Value;
-            if (Orders == null)
+            if (Reserved_orders == null)
             {
-                Orders = DataBase.Orders();
-                foreach (DataRow row in Orders.Rows)
-                {
-                    Reserved_orders.Add((int)row.ItemArray[0]);
-                }
+                Reserved_orders = DataBase.Orders();
             }
             if (IsEdit)
             {
-                Reserved_orders.Remove(Q_order);
+                Reserved_orders.Remove(question.Question_order);
             }
             while (Reserved_orders.Contains(Order) && Order >= 0)
             {
@@ -414,7 +401,7 @@ namespace Task1
         /// </summary>
         private void Show_controls()
         {
-            question_box.Text = IsEdit == true ? question_row.ItemArray[0].ToString() : question_box.Text;
+            question_box.Text = IsEdit == true ? question.Question_text : question_box.Text;
             Shared_numeric.Visible = true;
             int index = QuestionType_ComboBox.SelectedIndex;
             switch (index)
@@ -509,6 +496,11 @@ namespace Task1
                     MessageBox.Show("File not found !!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

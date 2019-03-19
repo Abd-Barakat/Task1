@@ -150,6 +150,11 @@
             this.QuestionOrder_UpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionOrder_UpDown.Location = new System.Drawing.Point(115, 93);
+            this.QuestionOrder_UpDown.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.QuestionOrder_UpDown.Name = "QuestionOrder_UpDown";
             this.QuestionOrder_UpDown.ReadOnly = true;
             this.QuestionOrder_UpDown.Size = new System.Drawing.Size(248, 20);
@@ -187,6 +192,7 @@
             this.SaveButton.Text = "Save";
             this.QuestionTip.SetToolTip(this.SaveButton, "Save question");
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // CancelButton
             // 
@@ -202,6 +208,8 @@
             // 
             // Slider_panel
             // 
+            this.Slider_panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Slider_panel.Controls.Add(this.End_numeric);
             this.Slider_panel.Controls.Add(this.End_caption_textBox);
             this.Slider_panel.Controls.Add(this.Start_caption_textBox);
@@ -216,6 +224,8 @@
             // 
             // End_numeric
             // 
+            this.End_numeric.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.End_numeric.Location = new System.Drawing.Point(90, 13);
             this.End_numeric.Maximum = new decimal(new int[] {
             10000,
@@ -240,17 +250,14 @@
             // 
             // Shared_numeric
             // 
+            this.Shared_numeric.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Shared_numeric.Location = new System.Drawing.Point(115, 163);
             this.Shared_numeric.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.Shared_numeric.Minimum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            -2147483648});
             this.Shared_numeric.Name = "Shared_numeric";
             this.Shared_numeric.ReadOnly = true;
             this.Shared_numeric.Size = new System.Drawing.Size(248, 20);

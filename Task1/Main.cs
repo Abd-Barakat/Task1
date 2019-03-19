@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
 using DataBase;
+using Questions;
 namespace Task1
 {
     public partial class Main : Form
@@ -19,6 +20,7 @@ namespace Task1
 
         private string Path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
         private DBclass DataBase = new DBclass();
+        private Question question;
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
@@ -33,7 +35,7 @@ namespace Task1
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            Upload();
+            Update();
         }
         /// <summary>
         /// Handles the Click event of the Add_Button control, create Add dialog object.
@@ -44,7 +46,25 @@ namespace Task1
         {
             QuestionAttributes Add = new QuestionAttributes(DataBase);
             Add.ShowDialog();
-            Upload();//update data grid view with new data when add dialog close
+            Update();//update data grid view with new data when add dialog close
+        }
+        private void  Create_Question()
+        {
+            int Question_id = Selected_question_id();//return selected question's id
+            DataRow[] Rows = DataBase.Extract_row(Question_id);//extract rows related to that question
+            string Type = Rows[0].ItemArray[2].ToString();
+            switch (Type)
+            {
+                case "Slider":
+                    question = new Slider(Rows[0].ItemArray[0].ToString(), (int)Rows[0].ItemArray[1], (int)Rows[0].ItemArray[3], (int)Rows[1].ItemArray[2], (int)Rows[1].ItemArray[3], Rows[1].ItemArray[4].ToString(), Rows[1].ItemArray[5].ToString());
+                    break;
+                case "Smiley":
+                    question = new Smiley(Rows[0].ItemArray[0].ToString(), (int)Rows[0].ItemArray[1], (int)Rows[0].ItemArray[3], (int)Rows[1].ItemArray[2]);
+                    break;
+                case "Stars":
+                    question = new Stars(Rows[0].ItemArray[0].ToString(), (int)Rows[0].ItemArray[1], (int)Rows[0].ItemArray[3], (int)Rows[1].ItemArray[2]);
+                    break;
+            }
         }
         /// <summary>
         /// Handles the Click event of the Edit_Button control, create Edit dialog object.
@@ -59,11 +79,11 @@ namespace Task1
                 {
                     if (DatabaseListBox.SelectedIndices.Count == 1)
                     {
-                        int Question_id = Selected_question_id();//return selected question's id
-                        DataRow[] rows = DataBase.Extract_row(Question_id, DataTable_index());//extract rows related to that question
-                        QuestionAttributes Edit = new QuestionAttributes(rows, DataBase);
+
+                        Create_Question();
+                        QuestionAttributes Edit = new QuestionAttributes(question, DataBase);
                         Edit.ShowDialog();
-                        Upload();//update data grid view with new data when add dialog close
+                        Update();//update data grid view with new data when add dialog close
                     }
                     else if (DatabaseListBox.SelectedIndices.Count == 0)
                     {
@@ -136,7 +156,7 @@ namespace Task1
                                 DataBase.Delete(id);//call method in class DBclass
                                 Counter++;
                             }
-                            Upload();//update data grid view with new data from database 
+                            Update();//update data grid view with new data from database 
                             if (IsListEmpty())
                             {
                                 DataBase.Reset_IDs();
@@ -217,7 +237,7 @@ namespace Task1
         /// <summary>
         /// Uploads list box with new questions from database.
         /// </summary>
-        private void Upload()//this method for update List box with data from database 
+        private void Update()//this method for update List box with data from database 
         {
             try
             {
