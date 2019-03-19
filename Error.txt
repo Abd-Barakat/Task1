@@ -770,3 +770,755 @@ Date :3/17/2019 12:50:10 PM
 Message     : Number of faces should be between 2-5
 Stack trace :    at Questions.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Question.cs:line 292
    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 422
+-------------------------------------------------------------------
+
+Date :3/18/2019 11:08:39 AM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/18/2019 11:14:52 AM
+Message :
+Please select one question to edit
+-------------------------------------------------------------------
+
+Date :3/18/2019 11:16:27 AM
+Message     : Number of Smiles should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 437
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:31:09 PM
+Message :
+Please select question type 
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:33:39 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:37:15 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:37:43 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:41:15 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:43:36 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:43:39 PM
+Message     : Start values should be between 0-100
+Stack trace :    at Questions.Slider.set_Start(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Slider.cs:line 37
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 346
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:43:43 PM
+Message     : Start value should be lower than End value
+Stack trace :    at Questions.Slider.Validate() in C:\Users\a.barakat\source\repos\Questions\Slider.cs:line 134
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 403
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:48:27 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:48:29 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:48:32 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:48:33 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:51:39 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:51:49 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:52:21 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:52:25 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:52:39 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:53:17 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:53:20 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:54:41 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:54:52 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:55:43 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:56:43 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:57:39 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:58:17 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:58:37 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 12:59:15 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:01:00 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:01:35 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:01:50 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:01:54 PM
+Message     : End value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 377
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:02:22 PM
+Message     : End value should be between 0-100
+Stack trace :    at Questions.Slider.set_End(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Slider.cs:line 76
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 373
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:02:31 PM
+Message     : End value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 377
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:02:52 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:02:54 PM
+Message     : End value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 377
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:04:04 PM
+Message     : Start value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 350
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:04:09 PM
+Message     : End value should be integer number
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 377
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:05:38 PM
+Message :
+Please write a question
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:05:41 PM
+Message     : Start values should be between 0-100
+Stack trace :    at Questions.Slider.set_Start(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Slider.cs:line 37
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 346
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:05:46 PM
+Message     : End value should be between 0-100
+Stack trace :    at Questions.Slider.set_End(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Slider.cs:line 76
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 373
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:07:26 PM
+Message     : End value should be between 0-100
+Stack trace :    at Questions.Slider.set_End(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Slider.cs:line 76
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 358
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:08:05 PM
+Message     : Number of Stars should be integer
+Stack trace :    at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 434
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:08:19 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Smiley.cs:line 34
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 398
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:08:36 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 33
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 430
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:10:45 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Smiley.cs:line 34
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 395
+-------------------------------------------------------------------
+
+Date :3/18/2019 1:10:47 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Faces(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Smiley.cs:line 34
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 395
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:33:01 PM
+Message     : Unable to cast object of type 'Questions.Slider' to type 'Questions.Smiley'.
+Stack trace :    at Task1.QuestionAttributes.IsEmpty(Object box) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 180
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 306
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 100
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:35:48 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 401
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:52:03 PM
+Message :
+Specified argument was out of the range of valid values.
+Stack trace :
+   at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Questions.Stars..ctor(String text, Int32 order, Int32 id, Int32 star) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 56
+   at Task1.QuestionAttributes.QuestionType_ComboBox_SelectedIndexChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 165
+   at System.Windows.Forms.ComboBox.OnSelectedIndexChanged(EventArgs e)
+   at System.Windows.Forms.ComboBox.set_SelectedIndex(Int32 value)
+   at Task1.QuestionAttributes..ctor(DataRow[] rows) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 61
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 68
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:52:06 PM
+Message :
+Specified argument was out of the range of valid values.
+Stack trace :
+   at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Questions.Stars..ctor(String text, Int32 order, Int32 id, Int32 star) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 56
+   at Task1.QuestionAttributes.QuestionType_ComboBox_SelectedIndexChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 165
+   at System.Windows.Forms.ComboBox.OnSelectedIndexChanged(EventArgs e)
+   at System.Windows.Forms.ComboBox.set_SelectedIndex(Int32 value)
+   at Task1.QuestionAttributes..ctor(DataRow[] rows) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 61
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 68
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:55:07 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 401
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:55:19 PM
+Message :
+Specified argument was out of the range of valid values.
+Stack trace :
+   at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Questions.Stars..ctor(String text, Int32 order, Int32 id, Int32 star) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 56
+   at Task1.QuestionAttributes.QuestionType_ComboBox_SelectedIndexChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 165
+   at System.Windows.Forms.ComboBox.OnSelectedIndexChanged(EventArgs e)
+   at System.Windows.Forms.ComboBox.set_SelectedIndex(Int32 value)
+   at Task1.QuestionAttributes..ctor(DataRow[] rows) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 61
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 68
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:56:47 PM
+Message :
+Specified argument was out of the range of valid values.
+Stack trace :
+   at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Questions.Stars..ctor(String text, Int32 order, Int32 id, Int32 star) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 56
+   at Task1.QuestionAttributes.QuestionType_ComboBox_SelectedIndexChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 165
+   at System.Windows.Forms.ComboBox.OnSelectedIndexChanged(EventArgs e)
+   at System.Windows.Forms.ComboBox.set_SelectedIndex(Int32 value)
+   at Task1.QuestionAttributes..ctor(DataRow[] rows) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 61
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 68
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:57:21 PM
+Message :
+Specified argument was out of the range of valid values.
+Stack trace :
+   at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Questions.Stars..ctor(String text, Int32 order, Int32 id, Int32 star) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 56
+   at Task1.QuestionAttributes.QuestionType_ComboBox_SelectedIndexChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 165
+   at System.Windows.Forms.ComboBox.OnSelectedIndexChanged(EventArgs e)
+   at System.Windows.Forms.ComboBox.set_SelectedIndex(Int32 value)
+   at Task1.QuestionAttributes..ctor(DataRow[] rows) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 61
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 68
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:57:38 PM
+Message :
+Specified argument was out of the range of valid values.
+Stack trace :
+   at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Questions.Stars..ctor(String text, Int32 order, Int32 id, Int32 star) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 56
+   at Task1.QuestionAttributes.QuestionType_ComboBox_SelectedIndexChanged(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 165
+   at System.Windows.Forms.ComboBox.OnSelectedIndexChanged(EventArgs e)
+   at System.Windows.Forms.ComboBox.set_SelectedIndex(Int32 value)
+   at Task1.QuestionAttributes..ctor(DataRow[] rows) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 61
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 68
+-------------------------------------------------------------------
+
+Date :3/18/2019 2:59:57 PM
+Message     : Number of stars  should be between 0-10
+Stack trace :    at Questions.Stars.set_Star(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Stars.cs:line 34
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 401
+-------------------------------------------------------------------
+
+Date :3/18/2019 3:01:56 PM
+Message :
+No question selected
+-------------------------------------------------------------------
+
+Date :3/18/2019 3:02:26 PM
+Message     : Number of faces should be between 2-5
+Stack trace :    at Questions.Smiley.set_Smiles(Int32 value) in C:\Users\a.barakat\source\repos\Questions\Smiley.cs:line 36
+   at Task1.QuestionAttributes.Change_Values() in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 384
+-------------------------------------------------------------------
+
+Date :3/18/2019 3:03:40 PM
+Message     : Unclosed quotation mark after the character string 'Extremely ',question_order =19 where id=28'.
+Incorrect syntax near 'Extremely ',question_order =19 where id=28'.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Update(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 84
+   at Task1.QuestionAttributes.Save_Updates_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 77
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:03:31 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 186
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:03:37 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 186
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:03:40 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 186
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:28:13 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC079DA63011'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 53
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:29:00 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__Slider__3214EC07966DC64D'. Cannot insert duplicate key in object 'dbo.Slider'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 63
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:35:57 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC079DA63011'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:36:51 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__Slider__3214EC07966DC64D'. Cannot insert duplicate key in object 'dbo.Slider'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 60
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:38:36 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC079DA63011'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:46:55 PM
+Message     : Column name or number of supplied values does not match table definition.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:49:49 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC07F0385FDD'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:50:15 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC07F0385FDD'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:52:37 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC07F0385FDD'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:53:59 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC07F0385FDD'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:55:18 PM
+Message     : An explicit value for the identity column in table 'questions' can only be specified when a column list is used and IDENTITY_INSERT is ON.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 72
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:55:47 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC07F0385FDD'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 12:56:04 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC07F0385FDD'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (0).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:04:56 PM
+Message     : Violation of PRIMARY KEY constraint 'PK__question__3214EC07F0385FDD'. Cannot insert duplicate key in object 'dbo.questions'. The duplicate key value is (6).
+The statement has been terminated.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 50
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:05:19 PM
+Message     : An explicit value for the identity column in table 'questions' can only be specified when a column list is used and IDENTITY_INSERT is ON.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 72
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:06:41 PM
+Message     : An explicit value for the identity column in table 'questions' can only be specified when a column list is used and IDENTITY_INSERT is ON.
+Stack trace :    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at DataBase.DBclass.Insert(Question q) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 65
+   at Task1.QuestionAttributes.Save_new_question_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\QuestionAttributes.cs:line 101
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:11:03 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:17:17 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:19:00 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:21:56 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:22:42 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:23:24 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:23:32 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:23:40 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:23:54 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:23:57 PM
+Message :
+Please select one question to edit
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:24:28 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:24:31 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:24:35 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63
+-------------------------------------------------------------------
+
+Date :3/19/2019 1:26:46 PM
+Message :
+Sequence contains no elements
+Stack trace :
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at DataBase.DBclass.Extract_row(Int32 id, Int32 index) in C:\Users\a.barakat\source\repos\Task1\DataBase\DBclass.cs:line 171
+   at Task1.Main.Edit_Button_Click(Object sender, EventArgs e) in C:\Users\a.barakat\source\repos\Task1\Task1\Main.cs:line 63

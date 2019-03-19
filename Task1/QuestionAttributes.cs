@@ -10,72 +10,54 @@ namespace Task1
 {
     public partial class QuestionAttributes : Form
     {
-        private readonly string[] Tables = new string[] { "questions", "Slider", "Smiley", "Stars" };//hold tables names
-        private List<string> Slider_Defaults = new List<string>();
-        private int Smiley_Default;
-        private int Stars_Default;
-        private int Next_ID;
         private string path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
-        private Question q;
+        private Question question;
         private bool IsEdit = false;
         private int oldValue = 0;
         private DataTable Orders;
-        private int Q_order ;
+        private int Q_order;
         private DataRow Type_row;//table will hold the selected question (text ,order ,type)
         private DataRow question_row;//table will hold values related to the selected question
         private List<int> Reserved_orders = new List<int>();
-        private DBclass DB = new DBclass();
+        private DBclass DataBase;
         /// <summary>
         /// initialize Add dialog's variables.
         /// </summary>
         /// <param name="id"></param>
-        public QuestionAttributes(int id)
+        public QuestionAttributes(DBclass database)
         {
             InitializeComponent();
-            Next_ID = id;
+            DataBase = database;
             SaveButton.Click += Save_new_question_Click;
-            Slider_Defaults.Add("0");
-            Slider_Defaults.Add("100");
-            Slider_Defaults.Add("Not satisfied");
-            Slider_Defaults.Add("Extremely statisfied");
-            Smiley_Default = 3;
-            Stars_Default = 5;
             Next_Order(QuestionOrder_UpDown);
         }
         /// <summary>
         /// initialize Edit dialog's variables.
         /// </summary>
         /// <param name="rows"></param>
-        public QuestionAttributes(DataRow[] rows)
+        public QuestionAttributes(DataRow[] rows, DBclass database)
         {
             InitializeComponent();
+            DataBase = database;
             SaveButton.Click += Save_Updates_Click;
             question_row = rows[0];
             IsEdit = true;
             Type_row = rows[1];
             Q_order = Int32.Parse(question_row.ItemArray[1].ToString());
+            QuestionOrder_UpDown.Value = Q_order;
             string question_type = question_row.ItemArray[2].ToString();
-            Next_ID = Int32.Parse(question_row.ItemArray[3].ToString());
             switch (question_type)
             {
                 case "Slider":
-                    Slider_Defaults.Add(Type_row.ItemArray[1].ToString());
-                    Slider_Defaults.Add(Type_row.ItemArray[2].ToString());
-                    Slider_Defaults.Add(Type_row.ItemArray[3].ToString());
-                    Slider_Defaults.Add(Type_row.ItemArray[4].ToString());
-
                     QuestionType_ComboBox.SelectedIndex = 0;
                     QuestionType_ComboBox.Enabled = false;
                     break;
                 case "Smiley":
-                    Smiley_Default = Int32.Parse(Type_row.ItemArray[1].ToString());
                     QuestionType_ComboBox.SelectedIndex = 1;
                     QuestionType_ComboBox.Enabled = false;
                     break;
                 case "Stars":
-                    Stars_Default = Int32.Parse(Type_row.ItemArray[1].ToString());
-
-                    QuestionType_ComboBox.SelectedIndex =2;
+                    QuestionType_ComboBox.SelectedIndex = 2;
                     QuestionType_ComboBox.Enabled = false;
                     break;
             }
@@ -91,7 +73,7 @@ namespace Task1
             {
                 if (Change_Values())//call check method to check inserted values before update database 
                 {
-                    DB.Update(q);//upate database with new edited question
+                    DataBase.Update(question);//upate database with new edited question
                     this.Close();
                 }
             }
@@ -116,7 +98,7 @@ namespace Task1
                 {
                     if (Change_Values())//change question's properties if they are correct
                     {
-                        DB.Insert(q);//call Insert method in DBclass to insert the new question into database
+                        DataBase.Insert(question);//call Insert method in DBclass to insert the new question into database
                         this.Close();//hide Add dialog
                     }
                 }
@@ -168,18 +150,18 @@ namespace Task1
         /// <param name="e"></param>
         private void QuestionType_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Relese(q);//call method release that release  q object if refere to another object 
+            Relese(question);//call method release that release  q object if refere to another object 
             Next_Order(QuestionOrder_UpDown);//initialze QuestionOrder compobox  to next question order
             switch (QuestionType_ComboBox.SelectedIndex)
             {
                 case 0:
-                    q = new Slider("", Q_order, Next_ID, Int32.Parse(Slider_Defaults[0]), Int32.Parse(Slider_Defaults[1]), Slider_Defaults[2], Slider_Defaults[3]);//create slider object
+                    question = IsEdit? new Slider(question_row[0].ToString(),(int)question_row[1],(int)question_row[3],(int)Type_row[1],(int)Type_row[2],Type_row[3].ToString(),Type_row[4].ToString()) : new Slider("", Q_order);//create slider object
                     break;
                 case 1:
-                    q = new Smiley("", Q_order, Next_ID, Smiley_Default);//create smiley object
+                    question = IsEdit? new Smiley(question_row[0].ToString(), (int)question_row[1], (int)question_row[3],(int)Type_row[1]) : new Smiley("", Q_order);//create smiley object
                     break;
                 case 2:
-                    q = new Stars("", Q_order, Next_ID,Stars_Default);//create star object               
+                    question = IsEdit?new Stars(question_row[0].ToString(), (int)question_row[1], (int)question_row[3], (int)Type_row[1]) :new Stars("", Q_order);//create star object               
                     break;
             }
             Show_controls();
@@ -191,7 +173,7 @@ namespace Task1
         /// <returns>
         ///   <c>true</c> if the specified box is empty; otherwise, <c>false</c>.
         /// </returns>
-        private bool IsEmpty(TextBox box)
+        private bool IsEmpty(object box)
         {
             if (ReferenceEquals(box, question_box))
             {
@@ -200,47 +182,53 @@ namespace Task1
                 else
                     return false;
             }
-            else if (ReferenceEquals(box, Shared_textbox))
+            else if (ReferenceEquals(box, Shared_numeric))
             {
-                switch(q.Question_type)
+                switch (question.Question_type)
                 {
                     case "Slider":
-                        if (Shared_textbox.Text == string.Format("{0}", Slider_Defaults[0]) || Shared_textbox.Text == "")
+                        Slider slider = (Slider)question;
+                        if (Shared_numeric.Value == Int32.Parse(slider.Slider_default[0]))
                             return true;
                         else
                             return false;
                     case "Smiley":
-                        if (Shared_textbox.Text == string.Format("{0}", Smiley_Default )|| Shared_textbox.Text == "")
+                        Smiley smiley = (Smiley)question;
+                        if (Shared_numeric.Value ==smiley.Smiles_default)
                             return true;
                         else
                             return false;
                     case "Stars":
-                        if (Shared_textbox.Text == string.Format("{0}", Stars_Default) || Shared_textbox.Text == "")
+                        Stars stars = (Stars)question;
+                        if (Shared_numeric.Value == stars.Stars_default)
                             return true;
                         else
                             return false;
                     default:
                         return false;
                 }
-               
+
             }
-            else if (ReferenceEquals(box, End_textBox) || End_textBox.Text == "")
+            else if (ReferenceEquals(box, End_numeric))
             {
-                if (End_textBox.Text == string.Format("{0}", Slider_Defaults[1]))
+                Slider slider = (Slider)question;
+                if (End_numeric.Value == Int32.Parse(slider.Slider_default[1]))
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, Start_caption_textBox) || Start_caption_textBox.Text == "")
             {
-                if (Start_caption_textBox.Text == string.Format("{0}", Slider_Defaults[2]))
+                Slider slider = (Slider)question;
+                if (Start_caption_textBox.Text ==  slider.Slider_default[2])
                     return true;
                 else
                     return false;
             }
             else if (ReferenceEquals(box, End_caption_textBox) || End_caption_textBox.Text == "")
             {
-                if (End_caption_textBox.Text == string.Format("{0}", Slider_Defaults[3]))
+                Slider slider = (Slider)question;
+                if (End_caption_textBox.Text == slider.Slider_default[3])
                     return true;
                 else
                     return false;
@@ -257,11 +245,15 @@ namespace Task1
         {
             if (Orders == null)
             {
-                Orders = DB.Orders();
+                Orders = DataBase.Orders();
                 foreach (DataRow row in Orders.Rows)
                 {
                     Reserved_orders.Add((int)row.ItemArray[0]);
                 }
+            }
+            if (IsEdit)
+            {
+                Reserved_orders.Remove(Q_order);
             }
             while (Reserved_orders.Contains((int)QuestionOrderUpDown.Value))
             {
@@ -279,11 +271,15 @@ namespace Task1
             int Order = (int)QuestionOrderUpDown.Value;
             if (Orders == null)
             {
-                Orders = DB.Orders();
+                Orders = DataBase.Orders();
                 foreach (DataRow row in Orders.Rows)
                 {
                     Reserved_orders.Add((int)row.ItemArray[0]);
                 }
+            }
+            if (IsEdit)
+            {
+                Reserved_orders.Remove(Q_order);
             }
             while (Reserved_orders.Contains(Order) && Order >= 0)
             {
@@ -308,10 +304,10 @@ namespace Task1
         {
             try
             {
-                q.Question_order = Q_order;
+                question.Question_order = Q_order;
                 if (!IsEmpty(question_box))
                 {
-                    q.Question_text = question_box.Text;//validate user input 
+                    question.Question_text = question_box.Text;//validate user input 
                 }
                 else
                 {
@@ -326,28 +322,15 @@ namespace Task1
                 Print_Errors("Question should not contain a number", ex);
                 return false;
             }
-            if (q.Question_type == "Slider")
+            if (question.Question_type == "Slider")
             {
-                Slider slider = (Slider)q;
+                Slider slider = (Slider)question;
                 try
                 {
-                    if (!IsEmpty(Shared_textbox))
+                    if (!IsEmpty(Shared_numeric))
                     {
-                        if (Shared_textbox.Text.All(char.IsDigit))
-                        {
-                            slider.Start = Int32.Parse(Shared_textbox.Text);
-                        }
-                        else
-                        {
-                            throw new FormatException();
-                        }
+                        slider.Start = Int32.Parse(Shared_numeric.Text);
                     }
-                }
-                catch (FormatException ex)
-                {
-                    MessageBox.Show("Start value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("Start value should be integer number", ex);
-                    return false;
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {
@@ -357,57 +340,26 @@ namespace Task1
                 }
                 try
                 {
-                    if (!IsEmpty(End_textBox))
+                    if (!IsEmpty(End_numeric))
                     {
-                        if (End_textBox.Text.All(char.IsDigit))
-                        {
-                            slider.End = Int32.Parse(End_textBox.Text);
 
-                        }
-                        else
-                        {
-                            throw new FormatException();
-                        }
+                        slider.End = Int32.Parse(End_numeric.Text);
+
+
                     }
-                }
-                catch (FormatException ex)
-                {
-                    MessageBox.Show("End value should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("End value should be integer number", ex);
-                    return false;
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    MessageBox.Show("End value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("End value should be between 0-100", ex);
-                    return false;
-                }
-                try
-                {
-
+                    if (!IsEmpty(End_caption_textBox))
+                    {
+                        slider.End_Caption = End_caption_textBox.Text;
+                    }
                     if (!IsEmpty(Start_caption_textBox))
                     {
                         slider.Start_Caption = Start_caption_textBox.Text;
                     }
                 }
-                catch (FormatException ex)
+                catch (ArgumentOutOfRangeException ex)
                 {
-                    MessageBox.Show("Start Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("Start Caption should be text only", ex);
-                    return false;
-                }
-                try
-                {
-
-                    if (!IsEmpty(End_caption_textBox))
-                    {
-                        slider.End_Caption = End_caption_textBox.Text;
-                    }
-                }
-                catch (FormatException ex)
-                {
-                    MessageBox.Show("End Caption should be text only", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("End Caption should be text only", ex);
+                    MessageBox.Show("End value should be between 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Print_Errors("End value should be between 0-100", ex);
                     return false;
                 }
                 try
@@ -421,22 +373,14 @@ namespace Task1
                     return false;
                 }
             }
-            else if (q.Question_type == "Smiley")
+            else if (question.Question_type == "Smiley")
             {
-                Smiley smiley = (Smiley)q;
+                Smiley smiley = (Smiley)question;
                 try
                 {
-
-                    if (!IsEmpty(Shared_textbox))
+                    if (!IsEmpty(Shared_numeric))
                     {
-                        if (Shared_textbox.Text.All(char.IsDigit))
-                        {
-                            smiley.Faces = Int32.Parse(Shared_textbox.Text);
-                        }
-                        else
-                        {
-                            throw new FormatException();
-                        }
+                        smiley.Smiles = Int32.Parse(Shared_numeric.Text);
                     }
                 }
                 catch (ArgumentOutOfRangeException ex)
@@ -445,42 +389,21 @@ namespace Task1
                     Print_Errors("Number of faces should be between 2-5", ex);
                     return false;
                 }
-                catch (FormatException ex)
-                {
-                    MessageBox.Show("Number of Smiles should be integer number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("Number of Smiles should be integer number", ex);
-                    return false;
-                }
             }
-            else if (q.Question_type == "Stars")
+            else if (question.Question_type == "Stars")
             {
-                Stars stars = (Stars)q;
+                Stars stars = (Stars)question;
                 try
                 {
-
-
-                    if (!IsEmpty(Shared_textbox))
+                    if (!IsEmpty(Shared_numeric))
                     {
-                        if (Shared_textbox.Text.All(char.IsDigit))
-                        {
-                            stars.Star = Int32.Parse(Shared_textbox.Text);
-                        }
-                        else
-                        {
-                            throw new FormatException();
-                        }
+                        stars.Star = Int32.Parse(Shared_numeric.Text);
                     }
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {
                     MessageBox.Show("Number of stars  should be between 0-10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Print_Errors("Number of stars  should be between 0-10", ex);
-                    return false;
-                }
-                catch (FormatException ex)
-                {
-                    MessageBox.Show("Number of Stars should be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Print_Errors("Number of Stars should be integer", ex);
                     return false;
                 }
             }
@@ -491,40 +414,40 @@ namespace Task1
         /// </summary>
         private void Show_controls()
         {
-            Shared_textbox.Visible = true;
+            question_box.Text = IsEdit == true ? question_row.ItemArray[0].ToString() : question_box.Text;
+            Shared_numeric.Visible = true;
             int index = QuestionType_ComboBox.SelectedIndex;
             switch (index)
             {
                 case 0:
-
+                    Slider slider = (Slider)question;
                     Shared_label.Text = "Start :";
                     Shared_label.Visible = true;
-                    QuestionTip.SetToolTip(Shared_textbox, "Enter start value");
+                    QuestionTip.SetToolTip(Shared_numeric, "Enter start value");
 
-                    Slider_Defaults[0] = IsEdit==true? Slider_Defaults[0]:"0";
-                    Shared_textbox.Text = Slider_Defaults[0];//fill textbox with default value of start 
-                    End_textBox.Text = Slider_Defaults[1];//fill textbox with default value of end 
-                    Start_caption_textBox.Text = Slider_Defaults[2];//fill textbox with default value of start caption 
-                    End_caption_textBox.Text = Slider_Defaults[3];//fill textbox with default value of end caption
+                    Shared_numeric.Value = Int32.Parse(slider.Slider_default[0]);//fill textbox with default value of start 
+                    End_numeric.Value = Int32.Parse(slider.Slider_default[1]);//fill textbox with default value of end 
+                    Start_caption_textBox.Text = slider.Slider_default[2];//fill textbox with default value of start caption 
+                    End_caption_textBox.Text =slider.Slider_default[3];//fill textbox with default value of end caption
 
                     Slider_panel.Visible = true;
                     break;
                 case 1:
+                    Smiley smiley = (Smiley)question;
                     Shared_label.Text = "Smiles :";
                     Shared_label.Visible = true;
-                    QuestionTip.SetToolTip(Shared_textbox, "Enter number of smiles");
+                    QuestionTip.SetToolTip(Shared_numeric, "Enter number of smiles");
 
-                    Smiley_Default = IsEdit == true ? Smiley_Default : 3;
-                    Shared_textbox.Text = Smiley_Default.ToString();//fill textbox with default value of faces 
+                    Shared_numeric.Value = smiley.Smiles_default;//fill textbox with default value of faces 
                     Slider_panel.Visible = false;
                     break;
                 case 2:
+                    Stars stars = (Stars)question;
                     Shared_label.Text = "Stars :";
                     Shared_label.Visible = true;
-                    QuestionTip.SetToolTip(Shared_textbox, "Enter number of stars");
+                    QuestionTip.SetToolTip(Shared_numeric, "Enter number of stars");
 
-                    Stars_Default = IsEdit == true ? Stars_Default : 5;
-                    Shared_textbox.Text = Stars_Default.ToString();//fill textbox with default value of stars 
+                    Shared_numeric.Value = stars.Stars_default;//fill textbox with default value of stars 
                     Slider_panel.Visible = false;
                     break;
             }
@@ -535,10 +458,10 @@ namespace Task1
         /// <param name="q">The q.</param>
         private void Relese(Question q)
         {
-            if (q != null)//to avoid null refrence exception
-            {
-                q = null;
-            }
+            // if (q != null)//to avoid null refrence exception
+            //  {
+            q = null;
+            // }
         }
         /// <summary>
         /// Prints the errors in Error.txt file.
@@ -587,6 +510,5 @@ namespace Task1
                 }
             }
         }
-      
     }
 }

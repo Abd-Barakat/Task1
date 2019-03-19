@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
-using   DataBase;
+using DataBase;
 namespace Task1
 {
     public partial class Main : Form
@@ -18,14 +18,13 @@ namespace Task1
 
 
         private string Path = System.IO.Directory.GetParent(@"..\..\..\").FullName;
-        private DBclass DB = new DBclass();
+        private DBclass DataBase = new DBclass();
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
         {
             InitializeComponent();
-
         }
         /// <summary>
         /// Handles the Load event of the Form1 control, call Upload method.
@@ -43,13 +42,9 @@ namespace Task1
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Add_Button_Click(object sender, EventArgs e)
         {
-            int next_id = Next_question_id();
-            if (next_id != -1)
-            {
-                QuestionAttributes Add = new QuestionAttributes(next_id);
-                Add.ShowDialog();
-                Upload();//update data grid view with new data when add dialog close
-            }
+            QuestionAttributes Add = new QuestionAttributes(DataBase);
+            Add.ShowDialog();
+            Upload();//update data grid view with new data when add dialog close
         }
         /// <summary>
         /// Handles the Click event of the Edit_Button control, create Edit dialog object.
@@ -60,13 +55,13 @@ namespace Task1
         {
             try
             {
-                if (!IsEmpty())//check if list box is empty to return index of selected row 
+                if (!IsListEmpty())//check if list box is empty to return index of selected row 
                 {
-                    if (DatabaseListBox.SelectedIndices.Count ==1)
+                    if (DatabaseListBox.SelectedIndices.Count == 1)
                     {
                         int Question_id = Selected_question_id();//return selected question's id
-                        DataRow[] rows = DB.extract_row(Question_id, DataTable_index());//extract rows related to that question
-                        QuestionAttributes Edit = new QuestionAttributes(rows);
+                        DataRow[] rows = DataBase.Extract_row(Question_id, DataTable_index());//extract rows related to that question
+                        QuestionAttributes Edit = new QuestionAttributes(rows, DataBase);
                         Edit.ShowDialog();
                         Upload();//update data grid view with new data when add dialog close
                     }
@@ -99,7 +94,7 @@ namespace Task1
         /// <returns></returns>
         private string Qustion_type(int Index)//method return question type as string 
         {
-            return DB.question_table().Rows[Index].ItemArray[2].ToString();
+            return DataBase.Question_table().Rows[Index].ItemArray[2].ToString();
         }
         /// <summary>
         /// pair question types with indexes.
@@ -127,21 +122,25 @@ namespace Task1
         {
             try
             {
-                if (!IsEmpty())//check if list box contain any row or not 
+                if (!IsListEmpty())//check if list box contain any row or not 
                 {
                     if (DatabaseListBox.SelectedIndices.Count > 0)//check if there a selected question
                     {
                         DialogResult result = MessageBox.Show("Are you sure you want to delete question ?", "Delete question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);//to make sure user want to delete 
                         if (result == DialogResult.Yes)//if user is sure to delete the selected  row 
                         {
-                            for (int Counter = 0; Counter < DatabaseListBox.SelectedIndices.Count; )
+                            for (int Counter = 0; Counter < DatabaseListBox.SelectedIndices.Count;)
                             {
                                 int Index = DatabaseListBox.SelectedIndices[Counter];
                                 int id = Selected_question_id(Index);//return selected question order from database 
-                                DB.Delete(Qustion_type(Index), id);//call method in class DBclass
+                                DataBase.Delete(id);//call method in class DBclass
                                 Counter++;
                             }
                             Upload();//update data grid view with new data from database 
+                            if (IsListEmpty())
+                            {
+                                DataBase.Reset_IDs();
+                            }
                         }
                     }
                     else
@@ -173,8 +172,8 @@ namespace Task1
         {
             try
             {
-                    int current_row_index = DatabaseListBox.SelectedIndex;//return current row index from data grid view
-                    return (int)DB.question_table().Rows[current_row_index].ItemArray[3];//return question order from selected question
+                int current_row_index = DatabaseListBox.SelectedIndex;//return current row index from data grid view
+                return (int)DataBase.Question_table().Rows[current_row_index].ItemArray[3];//return question order from selected question
             }
             catch (Exception ex)
             {
@@ -193,8 +192,7 @@ namespace Task1
         {
             try
             {
-                
-                return (int)DB.question_table().Rows[index].ItemArray[3];//return question order from selected question
+                return (int)DataBase.Question_table().Rows[index].ItemArray[3];//return question order from selected question
             }
             catch (Exception ex)
             {
@@ -203,40 +201,13 @@ namespace Task1
                 return -1;
             }
         }
-        /// <summary>
-        /// increment question id.
-        /// </summary>
-        /// <returns>
-        /// next id
-        /// </returns>
-        private int Next_question_id()
-        {
-            try
-            {
-                if (DatabaseListBox.Items.Count > 0)//if theres rows in data grid view 
-                {
-                    int number_of_rows = DatabaseListBox.Items.Count;
-                    return (int)DB.question_table().Rows[number_of_rows - 1].ItemArray[3] + 1;//return question order from last question in data grid view and add 1 to it 
-                }
-                else//no rows found 
-                    return 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Print_Errors(ex.Message, ex);
-                return -1;
-            }
-        }
-
-
         /// <summary>
         /// Determines whether the database is empty.
         /// </summary>
         /// <returns>
         ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
         /// </returns>
-        private bool IsEmpty()//this method for check if there data in database
+        private bool IsListEmpty()//this method for check if there data in database
         {
             if (DatabaseListBox.Items.Count == 0)//if count of rows =0
                 return true;
@@ -251,7 +222,7 @@ namespace Task1
             try
             {
                 DatabaseListBox.Items.Clear();//clear list box from questions
-                DataTable temp = DB.load();
+                DataTable temp = DataBase.Load();
                 foreach (DataRow row in temp.Rows)
                 {
                     DatabaseListBox.Items.Add(row.ItemArray[0].ToString());
